@@ -58,7 +58,8 @@ SOURCES += \
     car.cpp \
     main.cpp \
     mainwindow.cpp \
-    model.cpp
+    model.cpp \
+    welcomescreen.cpp
 
 HEADERS += \
     Box2D/Box2D.h \
@@ -110,11 +111,13 @@ HEADERS += \
     Box2D/Rope/b2Rope.h \
     car.h \
     mainwindow.h \
-    model.h
+    model.h \
+    welcomescreen.h
 
 FORMS += \
     car.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    welcomescreen.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

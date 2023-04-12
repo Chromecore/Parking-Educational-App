@@ -17,10 +17,20 @@
    <widget class="Car" name="carWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>-1</x>
-      <y>-1</y>
+      <x>0</x>
+      <y>0</y>
       <width>800</width>
-      <height>570</height>
+      <height>600</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="WelcomeScreen" name="welcomeWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>800</width>
+      <height>600</height>
      </rect>
     </property>
    </widget>
@@ -31,7 +41,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>
@@ -42,6 +52,12 @@
    <class>Car</class>
    <extends>QWidget</extends>
    <header>car.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WelcomeScreen</class>
+   <extends>QWidget</extends>
+   <header>welcomescreen.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

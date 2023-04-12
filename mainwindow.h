@@ -20,9 +20,14 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void hideAllWidgets();
+
+public slots:
+    void showCarWidget();
 
 private:
     Ui::MainWindow *ui;
+
 protected:
     void keyPressEvent( QKeyEvent * event );
 };
