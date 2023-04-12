@@ -103,8 +103,8 @@ void Car::keyPressed(QKeyEvent* event)
 {
     float angle = -body->GetAngle() + 180;
     b2Vec2 direction(cos(PI * (180 - angle) / 180), sin(PI * (180 - angle) / 180));
-    direction.x *= 1.0f;
-    direction.y *= 1.0f;
+    direction.x *= 3.0f;
+    direction.y *= 3.0f;
 
     // stop from turning when not moving
     float angleEffector = 0;
@@ -129,11 +129,14 @@ void Car::keyPressed(QKeyEvent* event)
             break;
         case Qt::Key_Space:
             // break
-            qDebug() << velocity.x;
             if(velocity.x > 0) velocity.x -= 0.01f;
             if(velocity.x < 0) velocity.x += 0.01f;
             if(velocity.y > 0) velocity.y -= 0.01f;
             if(velocity.y < 0) velocity.y += 0.01f;
+
+            if(velocity.x <= 0.01 && velocity.x >= -0.01) velocity.x = 0;
+            if(velocity.y <= 0.01 && velocity.y >= -0.01) velocity.y = 0;
+
             body->SetLinearVelocity(velocity);
             break;
         default:
@@ -141,11 +144,11 @@ void Car::keyPressed(QKeyEvent* event)
     }
 
     // max car speed
-//    if(carSpeed > 0.6f){
-//        b2Vec2 newClmapedSpeed = body->GetLinearVelocity();
-//        newClmapedSpeed.Normalize();
-//        newClmapedSpeed.x = newClmapedSpeed.x * 0.6f;
-//        newClmapedSpeed.y = newClmapedSpeed.y * 0.6f;
-//        body->SetLinearVelocity(newClmapedSpeed);
-//    }
+    if(carSpeed > 0.6f){
+        b2Vec2 newClmapedSpeed = body->GetLinearVelocity();
+        newClmapedSpeed.Normalize();
+        newClmapedSpeed.x = newClmapedSpeed.x * 0.6f;
+        newClmapedSpeed.y = newClmapedSpeed.y * 0.6f;
+        body->SetLinearVelocity(newClmapedSpeed);
+    }
 }
