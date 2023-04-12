@@ -15,11 +15,9 @@ public:
     explicit WelcomeScreen(QWidget *parent = nullptr);
     ~WelcomeScreen();
 
-signals:
-    void startTutorial();
-
 private slots:
-    void startButtonClicked();
+    void onStartButtonClicked();
+    void onLevelSelectClicked();
 
 private:
     Ui::WelcomeScreen *ui;

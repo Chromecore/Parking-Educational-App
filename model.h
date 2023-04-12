@@ -9,6 +9,8 @@ A8: Educational App
 
 #include <QWidget>
 #include <QObject>
+#include "mainwindow.h"
+#include "welcomescreen.h"
 
 class Model : public QObject
 {
@@ -16,11 +18,23 @@ class Model : public QObject
 public:
     explicit Model(QObject *parent = nullptr);
     Model(const Model& obj) = delete;
+    void setMainWindow(MainWindow* mainWindowPtr);
+    void setWelcomeScreen(WelcomeScreen* welcomeScreenPtr);
+
     //set up instance
     static void init();
     static Model* instance;
+
+public slots:
+    void startTutorial();
+    void runLevelSelect();
+
 signals:
     void keyPressed(QKeyEvent* event);
+    void tutorialStarted();
+    void runningLevelSelect();
+
+private:
 };
 
 #endif // MODEL_H

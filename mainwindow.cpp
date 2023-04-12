@@ -16,10 +16,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     showWelcomeWidget();
 
-    connect(ui->welcomeWidget,
-            &WelcomeScreen::startTutorial,
+    connect(Model::instance,
+            &Model::tutorialStarted,
             this,
             &MainWindow::showLevel1Widget);
+
+    connect(Model::instance,
+            &Model::runningLevelSelect,
+            this,
+            &MainWindow::showLevelSelectWidget);
 }
 
 MainWindow::~MainWindow()
@@ -50,9 +55,18 @@ void MainWindow::showLevel1Widget()
     ui->level1Widget->show();
 }
 
+void MainWindow::showLevelSelectWidget()
+{
+    hideAllWidgets();
+    ui->levelSelectWidget->show();
+}
+
 void MainWindow::hideAllWidgets()
 {
     ui->carWidget->hide();
     ui->welcomeWidget->hide();
     ui->level1Widget->hide();
+    ui->levelSelectWidget->hide();
+    ui->widget_2->hide();
+    ui->widget_3->hide();
 }

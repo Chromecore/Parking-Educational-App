@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>WelcomeScreen</class>
- <widget class="QWidget" name="WelcomeScreen">
+ <class>LevelSelectScreen</class>
+ <widget class="QWidget" name="LevelSelectScreen">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,57 +13,13 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="welcomeLabel">
+  <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>50</y>
-     <width>600</width>
-     <height>50</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>24</pointsize>
-     <kerning>true</kerning>
-    </font>
-   </property>
-   <property name="text">
-    <string>Welcome to the Parking Tutorial App!</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="welcomeLabel_2">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>100</y>
-     <width>600</width>
-     <height>50</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>18</pointsize>
-     <kerning>true</kerning>
-    </font>
-   </property>
-   <property name="text">
-    <string>Learn how to park like a pro.</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="startButton">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>200</y>
-     <width>200</width>
-     <height>50</height>
+     <x>350</x>
+     <y>150</y>
+     <width>100</width>
+     <height>100</height>
     </rect>
    </property>
    <property name="font">
@@ -72,20 +28,64 @@
     </font>
    </property>
    <property name="text">
-    <string>Start Tutorial</string>
+    <string>Level 1</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="levelSelectButton">
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>50</y>
+     <width>400</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Select a Level</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
      <x>350</x>
      <y>270</y>
      <width>100</width>
-     <height>25</height>
+     <height>100</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
    <property name="text">
-    <string>Select Level</string>
+    <string>Level 2</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_3">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>390</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Level 3</string>
    </property>
   </widget>
  </widget>

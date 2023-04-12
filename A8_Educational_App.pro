@@ -57,6 +57,7 @@ SOURCES += \
     Box2D/Rope/b2Rope.cpp \
     car.cpp \
     level1.cpp \
+    levelselectscreen.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
@@ -112,12 +113,14 @@ HEADERS += \
     Box2D/Rope/b2Rope.h \
     car.h \
     level1.h \
+    levelselectscreen.h \
     mainwindow.h \
     model.h \
     welcomescreen.h
 
 FORMS += \
     car.ui \
+    levelselectscreen.ui \
     mainwindow.ui \
     welcomescreen.ui \
     level1.ui
