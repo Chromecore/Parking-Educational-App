@@ -111,6 +111,8 @@ void Car::keyPressed(QKeyEvent* event)
     float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
     angleEffector = abs(carSpeed) / 0.6f;
 
+    b2Vec2 velocity = body->GetLinearVelocity();
+
     switch(event->key())
     {
         case Qt::Key_W:
@@ -127,12 +129,12 @@ void Car::keyPressed(QKeyEvent* event)
             break;
         case Qt::Key_Space:
             // break
-            if(carSpeed > 0){
-                body->ApplyForceToCenter(-direction, true);
-            }
-            else if(carSpeed < 0){
-                body->ApplyForceToCenter(direction, true);
-            }
+            qDebug() << velocity.x;
+            if(velocity.x > 0) velocity.x -= 0.01f;
+            if(velocity.x < 0) velocity.x += 0.01f;
+            if(velocity.y > 0) velocity.y -= 0.01f;
+            if(velocity.y < 0) velocity.y += 0.01f;
+            body->SetLinearVelocity(velocity);
             break;
         default:
             break;
