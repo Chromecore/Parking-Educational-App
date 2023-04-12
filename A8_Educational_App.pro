@@ -56,6 +56,7 @@ SOURCES += \
     Box2D/Dynamics/b2WorldCallbacks.cpp \
     Box2D/Rope/b2Rope.cpp \
     car.cpp \
+    level1.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
@@ -110,6 +111,7 @@ HEADERS += \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
     car.h \
+    level1.h \
     mainwindow.h \
     model.h \
     welcomescreen.h
@@ -117,7 +119,8 @@ HEADERS += \
 FORMS += \
     car.ui \
     mainwindow.ui \
-    welcomescreen.ui
+    welcomescreen.ui \
+    level1.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
