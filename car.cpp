@@ -16,7 +16,7 @@ Car::Car(QWidget *parent) : QWidget(parent),
     ui(new Ui::Car),
     world(b2Vec2(0.0f, 0.0f)),
     timer(this),
-    image(":/sprites/Resources/car.png")
+    image(":/sprites/Resources/car2.png")
 {
     ui->setupUi(this);
 

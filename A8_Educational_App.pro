@@ -56,6 +56,7 @@ SOURCES += \
     Box2D/Dynamics/b2WorldCallbacks.cpp \
     Box2D/Rope/b2Rope.cpp \
     car.cpp \
+    level1.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp
@@ -109,11 +110,13 @@ HEADERS += \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
     car.h \
+    level1.h \
     mainwindow.h \
     model.h
 
 FORMS += \
     car.ui \
+    level1.ui \
     mainwindow.ui
 
 # Default rules for deployment.
