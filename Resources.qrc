@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/sprites">
         <file>Resources/car.png</file>
+        <file>Resources/Map1.png</file>
     </qresource>
 </RCC>
