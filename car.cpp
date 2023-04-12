@@ -16,14 +16,14 @@ Car::Car(QWidget *parent) : QWidget(parent),
     ui(new Ui::Car),
     world(b2Vec2(0.0f, 0.0f)),
     timer(this),
-    image(":/sprites/Resources/car2.png")
+    image(":/sprites/Resources/car.png")
 {
     ui->setupUi(this);
 
     connect(Model::instance,
-                &Model::keyPressed,
-                this,
-                &Car::keyPressed);
+            &Model::keyPressed,
+            this,
+            &Car::keyPressed);
 
     float sqrt2 = sqrt(2);
     float size = width() / sqrt2;

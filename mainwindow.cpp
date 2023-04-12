@@ -14,14 +14,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 {
     ui->setupUi(this);
 
-    ui->carWidget->hide();
-    ui->welcomeWidget->show();
-
+    showWelcomeWidget();
 
     connect(ui->welcomeWidget,
             &WelcomeScreen::startTutorial,
             this,
-            &MainWindow::showCarWidget);
+            &MainWindow::showLevel1Widget);
 }
 
 MainWindow::~MainWindow()
@@ -34,14 +32,27 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     emit Model::instance->keyPressed(event);
 }
 
+void MainWindow::showWelcomeWidget()
+{
+    hideAllWidgets();
+    ui->welcomeWidget->show();
+}
+
 void MainWindow::showCarWidget()
 {
     hideAllWidgets();
     ui->carWidget->show();
 }
 
+void MainWindow::showLevel1Widget()
+{
+    hideAllWidgets();
+    ui->level1Widget->show();
+}
+
 void MainWindow::hideAllWidgets()
 {
     ui->carWidget->hide();
     ui->welcomeWidget->hide();
+    ui->level1Widget->hide();
 }
