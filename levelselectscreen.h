@@ -15,8 +15,11 @@ public:
     explicit LevelSelectScreen(QWidget *parent = nullptr);
     ~LevelSelectScreen();
 
-public slots:
+private slots:
     void homeButtonClicked();
+    void level1ButtonClicked();
+    void level2ButtonClicked();
+    void level3ButtonClicked();
 
 private:
     Ui::LevelSelectScreen *ui;

@@ -17,11 +17,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     showWelcomeWidget();
 
     connect(Model::instance,
-            &Model::tutorialStarted,
-            this,
-            &MainWindow::showLevel1Widget);
-
-    connect(Model::instance,
             &Model::runningLevelSelect,
             this,
             &MainWindow::showLevelSelectWidget);
@@ -35,6 +30,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
             &Model::goingHome,
             this,
             &MainWindow::showWelcomeWidget);
+
+    connect(Model::instance,
+            &Model::level1Started,
+            this,
+            &MainWindow::showLevel1Widget);
+
+    connect(Model::instance,
+            &Model::level2Started,
+            this,
+            &MainWindow::showLevel2Widget);
+
+    connect(Model::instance,
+            &Model::level3Started,
+            this,
+            &MainWindow::showLevel3Widget);
 }
 
 MainWindow::~MainWindow()
@@ -64,6 +74,23 @@ void MainWindow::showLevel1Widget()
     hideAllWidgets();
     ui->level1Widget->show();
     ui->carWidget->show();
+    ui->carWidget->raise();
+}
+
+void MainWindow::showLevel2Widget()
+{
+    hideAllWidgets();
+    ui->level2Widget->show();
+    ui->carWidget->show();
+    ui->carWidget->raise();
+}
+
+void MainWindow::showLevel3Widget()
+{
+    hideAllWidgets();
+    ui->level3Widget->show();
+    ui->carWidget->show();
+    ui->carWidget->raise();
 }
 
 void MainWindow::showLevelSelectWidget()
@@ -76,8 +103,8 @@ void MainWindow::hideAllWidgets()
 {
     ui->carWidget->hide();
     ui->welcomeWidget->hide();
-    ui->level1Widget->hide();
     ui->levelSelectWidget->hide();
-    ui->widget_2->hide();
-    ui->widget_3->hide();
+    ui->level1Widget->hide();
+    ui->level2Widget->hide();
+    ui->level3Widget->hide();
 }

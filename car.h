@@ -37,9 +37,9 @@ private:
     // Fastest speed the car can go
     const float maxSpeed = 0.6f;
     // The speed at which the car will snap to 0 velocity when breaking
-    const float breakStoppingPoint = 0.01f;
+    const float breakStoppingPoint = 0.05f;
     // The speed at which the car breaks
-    const float breakSpeed = 0.01f;
+    const float breakSpeed = 0.05f;
     // The angular impulse used when turning
     const float angularImpulse = 300;
     // The speed that the car accelerates at when driving
