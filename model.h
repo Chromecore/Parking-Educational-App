@@ -25,6 +25,11 @@ public:
     static void init();
     static Model* instance;
 
+    static float PI;
+
+    // converts degrees to radians
+    static float degToRad(float deg);
+
 public slots:
     void startTutorial();
     void runLevelSelect();

@@ -11,7 +11,7 @@ Model* Model::instance;
 Model::Model(QObject *parent)
     : QObject{parent}
 {
-
+    PI = acos(-1.0);
 }
 
 void Model::init(){
@@ -26,4 +26,9 @@ void Model::startTutorial()
 void Model::runLevelSelect()
 {
     emit runningLevelSelect();
+}
+
+float Model::degToRad(float degree)
+{
+    return PI * (180 - degree) / 180;
 }

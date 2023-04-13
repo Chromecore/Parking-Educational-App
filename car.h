@@ -32,7 +32,6 @@ private:
     b2Body* body;
     QTimer timer;
     QImage image;
-    float PI;
 
     // Fastest speed the car can go
     const float maxSpeed = 0.6f;

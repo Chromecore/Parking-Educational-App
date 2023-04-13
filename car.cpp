@@ -30,8 +30,6 @@ Car::Car(QWidget *parent) : QWidget(parent),
     float size = width() / sqrt2;
     image = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
-    PI = acos(-1.0);
-
     // Define the dynamic body. We set its position and call the body factory.
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
@@ -80,7 +78,7 @@ void Car::paintEvent(QPaintEvent *) {
     b2Vec2 position = body->GetPosition();
     // scale the car based on rotation to account for growing and shrinking
     // the sin function gives 1 at all diagonal directions and 0 at all cardinal directions
-    float scaler = abs(sin(degToRad(angle) * 2)) * scalerAt45Deg + 1;
+    float scaler = abs(sin(Model::degToRad(angle) * 2)) * scalerAt45Deg + 1;
     // draw the car at its position and scale
     painter.drawPixmap(QRect((int)(position.x*80), (int)(position.y*80), carScale * scaler, carScale * scaler), pixmap);
     painter.end();
@@ -91,9 +89,9 @@ void Car::updateWorld() {
     body->SetAngularVelocity(0);
 
     // kill side velocity
-    float angleRad = degToRad(-body->GetAngle() + 180);
+    float angleRad = Model::degToRad(-body->GetAngle() + 180);
     QVector2D upVector(cos(angleRad), sin(angleRad));
-    QVector2D rightVector(cos(angleRad + PI / 2), sin(angleRad  + PI / 2));
+    QVector2D rightVector(cos(angleRad + Model::PI / 2), sin(angleRad  + Model::PI / 2));
     QVector2D carVelocity(body->GetLinearVelocity().x, body->GetLinearVelocity().y);
 
     QVector2D forwardVelocity = upVector * carVelocity.dotProduct(carVelocity, upVector);
@@ -122,7 +120,7 @@ void Car::updateWorld() {
 void Car::keyPressed(QKeyEvent* event)
 {
     // find the direction the car is facing
-    float angleRad = degToRad(-body->GetAngle() + 180);
+    float angleRad = Model::degToRad(-body->GetAngle() + 180);
     b2Vec2 direction(cos(angleRad), sin(angleRad));
 
     // stop from turning when not moving
@@ -171,14 +169,4 @@ void Car::keyPressed(QKeyEvent* event)
         default:
             break;
     }
-}
-
-float Car::radToDeg(float radian)
-{
-    return 0;
-}
-
-float Car::degToRad(float degree)
-{
-    return PI * (180 - degree) / 180;
 }
