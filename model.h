@@ -32,6 +32,8 @@ public:
     //Dialogue array to be used for pop up text boxes.
     QVector<QString> dialogue;
 
+    static float PI;
+
 public slots:
     void startTutorial();
     void runLevelSelect();
