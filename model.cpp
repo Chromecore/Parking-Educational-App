@@ -17,3 +17,13 @@ Model::Model(QObject *parent)
 void Model::init(){
     instance = new Model();
 }
+
+void Model::startTutorial()
+{
+    emit tutorialStarted();
+}
+
+void Model::runLevelSelect()
+{
+    emit runningLevelSelect();
+}

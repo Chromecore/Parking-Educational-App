@@ -21,9 +21,9 @@ Car::Car(QWidget *parent) : QWidget(parent),
     ui->setupUi(this);
 
     connect(Model::instance,
-                &Model::keyPressed,
-                this,
-                &Car::keyPressed);
+            &Model::keyPressed,
+            this,
+            &Car::keyPressed);
 
     // setup the image
     float sqrt2 = sqrt(2);

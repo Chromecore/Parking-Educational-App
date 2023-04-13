@@ -2,5 +2,10 @@
     <qresource prefix="/sprites">
         <file>Resources/car.png</file>
         <file>Resources/Map1.png</file>
+        <file>Resources/car2.png</file>
+        <file>Resources/car3.png</file>
+        <file>Resources/car4.png</file>
+        <file>Resources/car5.png</file>
+        <file>Resources/car6.png</file>
     </qresource>
 </RCC>
