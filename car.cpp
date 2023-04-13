@@ -25,6 +25,11 @@ Car::Car(QWidget *parent) : QWidget(parent),
             this,
             &Car::keyPressed);
 
+    connect(ui->homeButton,
+            &QPushButton::clicked,
+            this,
+            &Car::homeButtonClicked);
+
     // setup the image
     float size = width() / sqrt(2);
     image = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -195,6 +200,12 @@ void Car::keyPressed(QKeyEvent* event)
     }
 }
 
-void Car::setCarPosition(b2Vec2 newPosition){
+void Car::setCarPosition(b2Vec2 newPosition)
+{
     body->SetTransform(newPosition, body->GetAngle());
+}
+
+void Car::homeButtonClicked()
+{
+    Model::instance->goHome();
 }

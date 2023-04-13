@@ -26,6 +26,7 @@ public:
 private slots:
     // updates the world the car is in
     void updateWorld();
+    void homeButtonClicked();
 
 private:
     Ui::Car *ui;
