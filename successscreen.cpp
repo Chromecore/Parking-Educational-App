@@ -1,5 +1,6 @@
 #include "successscreen.h"
 #include "ui_successscreen.h"
+#include "model.h"
 
 SuccessScreen::SuccessScreen(QWidget *parent) :
     QWidget(parent),
@@ -11,4 +12,9 @@ SuccessScreen::SuccessScreen(QWidget *parent) :
 SuccessScreen::~SuccessScreen()
 {
     delete ui;
+}
+
+void SuccessScreen::homeButtonClicked()
+{
+    Model::instance->goHome();
 }

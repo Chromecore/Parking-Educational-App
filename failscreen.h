@@ -15,6 +15,9 @@ public:
     explicit FailScreen(QWidget *parent = nullptr);
     ~FailScreen();
 
+private slots:
+    void homeButtonClicked();
+
 private:
     Ui::FailScreen *ui;
 };

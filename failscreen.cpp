@@ -1,5 +1,6 @@
 #include "failscreen.h"
 #include "ui_failscreen.h"
+#include "model.h"
 
 FailScreen::FailScreen(QWidget *parent) :
     QWidget(parent),
@@ -11,4 +12,9 @@ FailScreen::FailScreen(QWidget *parent) :
 FailScreen::~FailScreen()
 {
     delete ui;
+}
+
+void FailScreen::homeButtonClicked()
+{
+    Model::instance->goHome();
 }

@@ -15,6 +15,9 @@ public:
     explicit SuccessScreen(QWidget *parent = nullptr);
     ~SuccessScreen();
 
+private slots:
+    void homeButtonClicked();
+
 private:
     Ui::SuccessScreen *ui;
 };
