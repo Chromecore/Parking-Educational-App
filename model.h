@@ -9,6 +9,7 @@ A8: Educational App
 
 #include <QWidget>
 #include <QObject>
+#include "carmodel.h"
 #include "mainwindow.h"
 #include "welcomescreen.h"
 
@@ -33,6 +34,8 @@ public:
     QVector<QString> dialogue;
 
     static float PI;
+
+    CarModel* carModel;
 
 public slots:
     void startTutorial();

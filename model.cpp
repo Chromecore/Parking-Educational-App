@@ -16,7 +16,8 @@ Model::Model(QObject *parent)
 }
 
 void Model::init(){
-    instance = new Model();
+    instance = new Model;
+    instance->carModel = new CarModel;
 }
 
 void Model::startTutorial()

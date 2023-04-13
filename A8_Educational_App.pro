@@ -56,6 +56,7 @@ SOURCES += \
     Box2D/Dynamics/b2WorldCallbacks.cpp \
     Box2D/Rope/b2Rope.cpp \
     car.cpp \
+    carmodel.cpp \
     level1.cpp \
     levelselectscreen.cpp \
     main.cpp \
@@ -112,6 +113,7 @@ HEADERS += \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
     car.h \
+    carmodel.h \
     level1.h \
     levelselectscreen.h \
     mainwindow.h \
