@@ -25,9 +25,13 @@ Car::Car(QWidget *parent) : QWidget(parent),
             this,
             &Car::keyPressed);
 
+    connect(ui->homeButton,
+            &QPushButton::clicked,
+            this,
+            &Car::homeButtonClicked);
+
     // setup the image
-    float sqrt2 = sqrt(2);
-    float size = width() / sqrt2;
+    float size = width() / sqrt(2);
     image = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     // Define the dynamic body. We set its position and call the body factory.
@@ -79,9 +83,14 @@ void Car::paintEvent(QPaintEvent *) {
     // scale the car based on rotation to account for growing and shrinking
     // the sin function gives 1 at all diagonal directions and 0 at all cardinal directions
     float scaler = abs(sin(Model::degToRad(angle) * 2)) * scalerAt45Deg + 1;
-    float recenterOffset = (pixmap.width() * scaler - pixmap.width()) / 2 / 8;
-    //qDebug() << recenterOffset / 80;
+    float recenterYOffset = (pixmap.width() * scaler - pixmap.width()) / 2 / 8;
     // draw the car at its position and scale
+
+    // find the direction the car is facing
+    float angleRad = Model::degToRad(-body->GetAngle() + 180);
+    b2Vec2 direction(cos(angleRad), sin(angleRad));
+    qDebug() << direction.x;
+    float recentXOffset = recenterYOffset - direction.x;
 
     // --------TODO : Remove--------
     QImage imageFrame(":/sprites/Resources/Frame.png");
@@ -89,11 +98,17 @@ void Car::paintEvent(QPaintEvent *) {
     float size = width() / sqrt2;
     imageFrame = imageFrame.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     QPixmap pixmapFrame;
+    QPixmap pixmapPivot(1,1);
+    pixmapPivot.fill(Qt::red);
     pixmapFrame.convertFromImage(imageFrame);
-    painter.drawPixmap(QRect((int)(position.x*80) - recenterOffset - 1, (int)(position.y*80) - recenterOffset, carScale * scaler, carScale * scaler), pixmapFrame);
+    painter.drawPixmap(QRect((int)(position.x*80) - recentXOffset, (int)(position.y*80) - recenterYOffset, carScale * scaler, carScale * scaler), pixmapFrame);
     // --------------------------------
 
-    painter.drawPixmap(QRect((int)(position.x*80) - recenterOffset - 1, (int)(position.y*80) - recenterOffset, carScale * scaler, carScale * scaler), pixmap);
+    painter.drawPixmap(QRect((int)(position.x*80) - recentXOffset, (int)(position.y*80) - recenterYOffset, carScale * scaler, carScale * scaler), pixmap);
+
+    // TODO : Remove
+    painter.drawPixmap(QRect((int)(position.x*80) + width() / 2 / 8, (int)(position.y*80) + width() / 2 / 8, 5, 5), pixmapPivot);
+
     painter.end();
 }
 
@@ -120,15 +135,15 @@ void Car::updateWorld() {
     body->SetLinearVelocity(b2Vec2(velocity.x(), velocity.y()));
 
     // clamp the car speed at the maximum speed
-    float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
-    if(carSpeed > maxSpeed)
-    {
-        b2Vec2 newClampedSpeed = body->GetLinearVelocity();
-        newClampedSpeed.Normalize();
-        newClampedSpeed.x = newClampedSpeed.x * maxSpeed;
-        newClampedSpeed.y = newClampedSpeed.y * maxSpeed;
-        body->SetLinearVelocity(newClampedSpeed);
-    }
+//    float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
+//    if(carSpeed > maxSpeed)
+//    {
+//        b2Vec2 newClampedSpeed = body->GetLinearVelocity();
+//        newClampedSpeed.Normalize();
+//        newClampedSpeed.x = newClampedSpeed.x * maxSpeed;
+//        newClampedSpeed.y = newClampedSpeed.y * maxSpeed;
+//        body->SetLinearVelocity(newClampedSpeed);
+//    }
 }
 
 void Car::keyPressed(QKeyEvent* event)
@@ -138,9 +153,9 @@ void Car::keyPressed(QKeyEvent* event)
     b2Vec2 direction(cos(angleRad), sin(angleRad));
 
     // stop from turning when not moving
-    float angleEffector = 0;
-    float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
-    angleEffector = abs(carSpeed) / 0.6f;
+    float angleEffector = 1;
+    //float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
+    //angleEffector = abs(carSpeed) / 0.6f;
 
     b2Vec2 velocity = body->GetLinearVelocity();
 
@@ -175,12 +190,22 @@ void Car::keyPressed(QKeyEvent* event)
             if(velocity.y < 0) velocity.y += breakSpeed;
 
             // snap to 0 if withing break stopping point
-            if(velocity.x <= breakStoppingPoint && velocity.x >= -breakStoppingPoint) velocity.x = 0;
-            if(velocity.y <= breakStoppingPoint && velocity.y >= -breakStoppingPoint) velocity.y = 0;
+            if(velocity.x <= breakSpeed && velocity.x >= -breakSpeed) velocity.x = 0;
+            if(velocity.y <= breakSpeed && velocity.y >= -breakSpeed) velocity.y = 0;
 
             body->SetLinearVelocity(velocity);
             break;
         default:
             break;
     }
+}
+
+void Car::setCarPosition(b2Vec2 newPosition)
+{
+    body->SetTransform(newPosition, body->GetAngle());
+}
+
+void Car::homeButtonClicked()
+{
+    Model::instance->goHome();
 }

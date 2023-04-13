@@ -29,6 +29,11 @@ void Model::runLevelSelect()
     emit runningLevelSelect();
 }
 
+void Model::goHome()
+{
+    emit goingHome();
+}
+
 float Model::degToRad(float degree)
 {
     return PI * (180 - degree) / 180;
