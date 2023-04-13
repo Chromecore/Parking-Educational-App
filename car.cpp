@@ -84,12 +84,29 @@ void Car::paintEvent(QPaintEvent *) {
     // scale the car based on rotation to account for growing and shrinking
     // the sin function gives 1 at all diagonal directions and 0 at all cardinal directions
     float scaler = abs(sin(Model::degToRad(angle) * 2)) * scalerAt45Deg + 1;
+    float recenterOffset = (pixmap.width() * scaler - pixmap.width()) / 2 / 8;
+    //qDebug() << recenterOffset / 80;
     // draw the car at its position and scale
-    painter.drawPixmap(QRect((int)(position.x*80), (int)(position.y*80), carScale * scaler, carScale * scaler), pixmap);
+
+    // --------TODO : Remove--------
+    QImage imageFrame(":/sprites/Resources/Frame.png");
+    float sqrt2 = sqrt(2);
+    float size = width() / sqrt2;
+    imageFrame = imageFrame.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QPixmap pixmapFrame;
+    pixmapFrame.convertFromImage(imageFrame);
+    painter.drawPixmap(QRect((int)(position.x*80) - recenterOffset - 1, (int)(position.y*80) - recenterOffset, carScale * scaler, carScale * scaler), pixmapFrame);
+    // --------------------------------
+
+    painter.drawPixmap(QRect((int)(position.x*80) - recenterOffset - 1, (int)(position.y*80) - recenterOffset, carScale * scaler, carScale * scaler), pixmap);
     painter.end();
 }
 
 void Car::updateWorld() {
+    // update the world
+    world.Step(1.0/60.0, 6, 2);
+    update();
+
     // apply angular friction to stop car from continualy rotating
     body->SetAngularVelocity(0);
 
@@ -97,8 +114,7 @@ void Car::updateWorld() {
     float angleRad = Model::degToRad(-body->GetAngle() + 180);
     QVector2D upVector(cos(angleRad), sin(angleRad));
 
-    float PI = acos(-1.0);
-    QVector2D rightVector(cos(angleRad + PI / 2), sin(angleRad  + PI / 2));
+    QVector2D rightVector(cos(angleRad + Model::PI / 2), sin(angleRad  + Model::PI / 2));
     QVector2D carVelocity(body->GetLinearVelocity().x, body->GetLinearVelocity().y);
 
     QVector2D forwardVelocity = upVector * carVelocity.dotProduct(carVelocity, upVector);
@@ -118,10 +134,6 @@ void Car::updateWorld() {
         newClampedSpeed.y = newClampedSpeed.y * maxSpeed;
         body->SetLinearVelocity(newClampedSpeed);
     }
-
-    // update the world
-    world.Step(1.0/60.0, 6, 2);
-    update();
 }
 
 void Car::keyPressed(QKeyEvent* event)
@@ -148,7 +160,7 @@ void Car::keyPressed(QKeyEvent* event)
             break;
         case Qt::Key_A:
             // turn left
-            body->ApplyAngularImpulse(angularImpulse * angleEffector, true);
+            body->ApplyAngularImpulse(-angularImpulse * angleEffector, true);
             break;
         case Qt::Key_S:
             // move backwards

@@ -7,5 +7,6 @@
         <file>Resources/car4.png</file>
         <file>Resources/car5.png</file>
         <file>Resources/car6.png</file>
+        <file>Resources/Frame.png</file>
     </qresource>
 </RCC>

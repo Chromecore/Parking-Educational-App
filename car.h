@@ -52,7 +52,7 @@ private:
     const float scalerAt45Deg = 0.38f;
 
     const float carScale = 100;
-    const b2Vec2 startingPosition = b2Vec2(0, 4);
+    const b2Vec2 startingPosition = b2Vec2(4, 4);
 
 protected:
     void paintEvent(QPaintEvent *);

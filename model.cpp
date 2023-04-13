@@ -7,6 +7,7 @@ A8: Educational App
 #include "model.h"
 
 Model* Model::instance;
+float Model::PI = acos(-1.0);
 
 Model::Model(QObject *parent)
     : QObject{parent}
@@ -35,7 +36,6 @@ void Model::goHome()
 
 float Model::degToRad(float degree)
 {
-    float PI = acos(-1.0);
     return PI * (180 - degree) / 180;
 }
 
