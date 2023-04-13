@@ -25,6 +25,11 @@ Car::Car(QWidget *parent) : QWidget(parent),
             this,
             &Car::keyPressed);
 
+    connect(ui->homeButton,
+            &QPushButton::clicked,
+            this,
+            &Car::homeButtonClicked);
+
     // setup the image
     float sqrt2 = sqrt(2);
     float size = width() / sqrt2;
@@ -171,4 +176,9 @@ void Car::keyPressed(QKeyEvent* event)
         default:
             break;
     }
+}
+
+void Car::homeButtonClicked()
+{
+    Model::instance->goHome();
 }
