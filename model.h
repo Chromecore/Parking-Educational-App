@@ -20,6 +20,7 @@ public:
     Model(const Model& obj) = delete;
     void setMainWindow(MainWindow* mainWindowPtr);
     void setWelcomeScreen(WelcomeScreen* welcomeScreenPtr);
+    void loadDialogueToArray();
 
     //set up instance
     static void init();
@@ -29,6 +30,9 @@ public:
 
     // converts degrees to radians
     static float degToRad(float deg);
+
+    //Dialogue array to be used for pop up text boxes.
+    QVector<QString> dialogue;
 
 public slots:
     void startTutorial();

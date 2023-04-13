@@ -32,3 +32,8 @@ float Model::degToRad(float degree)
 {
     return PI * (180 - degree) / 180;
 }
+
+void Model::loadDialogueToArray()
+{
+
+}
