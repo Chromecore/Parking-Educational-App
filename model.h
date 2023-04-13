@@ -37,11 +37,13 @@ public:
 public slots:
     void startTutorial();
     void runLevelSelect();
+    void runCarWidget();
 
 signals:
     void keyPressed(QKeyEvent* event);
     void tutorialStarted();
     void runningLevelSelect();
+    void runningCarWidget();
 
 private:
 };
