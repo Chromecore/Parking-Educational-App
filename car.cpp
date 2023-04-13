@@ -91,7 +91,9 @@ void Car::updateWorld() {
     // kill side velocity
     float angleRad = Model::degToRad(-body->GetAngle() + 180);
     QVector2D upVector(cos(angleRad), sin(angleRad));
-    QVector2D rightVector(cos(angleRad + Model::PI / 2), sin(angleRad  + Model::PI / 2));
+
+    float PI = acos(-1.0);
+    QVector2D rightVector(cos(angleRad + PI / 2), sin(angleRad  + PI / 2));
     QVector2D carVelocity(body->GetLinearVelocity().x, body->GetLinearVelocity().y);
 
     QVector2D forwardVelocity = upVector * carVelocity.dotProduct(carVelocity, upVector);

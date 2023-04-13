@@ -53,11 +53,6 @@ private:
     const float carScale = 100;
     const b2Vec2 startingPosition = b2Vec2(0, 4);
 
-    // converts radians to degrees
-    float radToDeg(float rad);
-    // converts degrees to radians
-    float degToRad(float deg);
-
 protected:
     void paintEvent(QPaintEvent *);
     // take in key input as an event and convert it to an action performed on the car
