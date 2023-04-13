@@ -21,6 +21,7 @@ class Car : public QWidget
 public:
     explicit Car(QWidget *parent = nullptr);
     ~Car();
+    void setCarPosition(b2Vec2 newPosition);
 
 private slots:
     // updates the world the car is in
@@ -36,8 +37,6 @@ private:
 
     // Fastest speed the car can go
     const float maxSpeed = 0.6f;
-    // The speed at which the car will snap to 0 velocity when breaking
-    const float breakStoppingPoint = 0.05f;
     // The speed at which the car breaks
     const float breakSpeed = 0.05f;
     // The angular impulse used when turning
