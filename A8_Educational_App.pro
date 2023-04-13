@@ -56,11 +56,13 @@ SOURCES += \
     Box2D/Dynamics/b2WorldCallbacks.cpp \
     Box2D/Rope/b2Rope.cpp \
     car.cpp \
+    fail.cpp \
     level1.cpp \
     levelselectscreen.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
+    passed.cpp \
     welcomescreen.cpp
 
 HEADERS += \
@@ -112,16 +114,20 @@ HEADERS += \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
     car.h \
+    fail.h \
     level1.h \
     levelselectscreen.h \
     mainwindow.h \
     model.h \
+    passed.h \
     welcomescreen.h
 
 FORMS += \
     car.ui \
+    fail.ui \
     levelselectscreen.ui \
     mainwindow.ui \
+    passed.ui \
     welcomescreen.ui \
     level1.ui
 
