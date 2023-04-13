@@ -57,11 +57,13 @@ SOURCES += \
     Box2D/Rope/b2Rope.cpp \
     car.cpp \
     carmodel.cpp \
+    failscreen.cpp \
     level1.cpp \
     levelselectscreen.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
+    successscreen.cpp \
     welcomescreen.cpp
 
 HEADERS += \
@@ -114,16 +116,20 @@ HEADERS += \
     Box2D/Rope/b2Rope.h \
     car.h \
     carmodel.h \
+    failscreen.h \
     level1.h \
     levelselectscreen.h \
     mainwindow.h \
     model.h \
+    successscreen.h \
     welcomescreen.h
 
 FORMS += \
     car.ui \
+    failscreen.ui \
     levelselectscreen.ui \
     mainwindow.ui \
+    successscreen.ui \
     welcomescreen.ui \
     level1.ui
 

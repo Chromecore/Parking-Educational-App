@@ -5,6 +5,7 @@ A8: Educational App
 */
 
 #include "model.h"
+#include "car.h"
 
 Model* Model::instance;
 float Model::PI = acos(-1.0);
@@ -20,11 +21,6 @@ void Model::init(){
     instance->carModel = new CarModel;
 }
 
-void Model::startTutorial()
-{
-    emit tutorialStarted();
-}
-
 void Model::runLevelSelect()
 {
     emit runningLevelSelect();
@@ -35,16 +31,33 @@ void Model::goHome()
     emit goingHome();
 }
 
+void Model::runLevel1()
+{
+    emit level1Started();
+}
+
+void Model::runLevel2()
+{
+    emit level2Started();
+}
+
+void Model::runLevel3()
+{
+    emit level3Started();
+}
+
 float Model::degToRad(float degree)
 {
     return PI * (180 - degree) / 180;
 }
 
-void Model::loadDialogueToArray()
+void Model::loadDialogToArray()
 {
 
 }
 
+
+// Probably only needed for testButton
 void Model::runCarWidget()
 {
     emit runningCarWidget();

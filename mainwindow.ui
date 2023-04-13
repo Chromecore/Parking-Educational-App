@@ -54,7 +54,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_2" native="true">
+   <widget class="QWidget" name="level2Widget" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -64,7 +64,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_3" native="true">
+   <widget class="QWidget" name="level3Widget" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -77,8 +77,8 @@
    <zorder>welcomeWidget</zorder>
    <zorder>level1Widget</zorder>
    <zorder>levelSelectWidget</zorder>
-   <zorder>widget_2</zorder>
-   <zorder>widget_3</zorder>
+   <zorder>level2Widget</zorder>
+   <zorder>level3Widget</zorder>
    <zorder>carWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">

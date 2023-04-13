@@ -31,7 +31,7 @@ WelcomeScreen::~WelcomeScreen()
 
 void WelcomeScreen::onStartButtonClicked()
 {
-    Model::instance->startTutorial();
+    Model::instance->runLevel1();
 }
 
 void WelcomeScreen::onLevelSelectClicked()

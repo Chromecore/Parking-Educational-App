@@ -25,8 +25,10 @@ public:
 public slots:
     void showCarWidget();
     void showWelcomeWidget();
-    void showLevel1Widget();
     void showLevelSelectWidget();
+    void showLevel1Widget();
+    void showLevel2Widget();
+    void showLevel3Widget();
 
 private:
     Ui::MainWindow *ui;

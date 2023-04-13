@@ -8,5 +8,7 @@
         <file>Resources/car5.png</file>
         <file>Resources/car6.png</file>
         <file>Resources/Frame.png</file>
+        <file>Resources/passed.png</file>
+        <file>Resources/failed.png</file>
     </qresource>
 </RCC>

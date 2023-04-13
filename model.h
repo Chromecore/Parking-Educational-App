@@ -21,7 +21,7 @@ public:
     Model(const Model& obj) = delete;
     void setMainWindow(MainWindow* mainWindowPtr);
     void setWelcomeScreen(WelcomeScreen* welcomeScreenPtr);
-    void loadDialogueToArray();
+    void loadDialogToArray();
 
     //set up instance
     static void init();
@@ -38,17 +38,21 @@ public:
     CarModel* carModel;
 
 public slots:
-    void startTutorial();
     void runLevelSelect();
     void runCarWidget();
     void goHome();
+    void runLevel1();
+    void runLevel2();
+    void runLevel3();
 
 signals:
     void keyPressed(QKeyEvent* event);
-    void tutorialStarted();
     void runningLevelSelect();
     void runningCarWidget();
     void goingHome();
+    void level1Started();
+    void level2Started();
+    void level3Started();
 
 private:
 };
