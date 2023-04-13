@@ -20,10 +20,14 @@ public:
     Model(const Model& obj) = delete;
     void setMainWindow(MainWindow* mainWindowPtr);
     void setWelcomeScreen(WelcomeScreen* welcomeScreenPtr);
+    void loadDialogueToArray();
 
     //set up instance
     static void init();
     static Model* instance;
+
+    //Dialogue array to be used for pop up text boxes.
+    QVector<QString> dialogue;
 
 public slots:
     void startTutorial();

@@ -27,3 +27,8 @@ void Model::runLevelSelect()
 {
     emit runningLevelSelect();
 }
+
+void Model::loadDialogueToArray()
+{
+
+}
