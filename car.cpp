@@ -25,15 +25,17 @@ Car::Car(QWidget *parent) : QWidget(parent),
                 this,
                 &Car::keyPressed);
 
+    // setup the image
     float sqrt2 = sqrt(2);
     float size = width() / sqrt2;
     image = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
     PI = acos(-1.0);
 
     // Define the dynamic body. We set its position and call the body factory.
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(0.0f, 4.0f);
+    bodyDef.position.Set(startingPosition.x, startingPosition.y);
 
     body = world.CreateBody(&bodyDef);
 
@@ -53,6 +55,7 @@ Car::Car(QWidget *parent) : QWidget(parent),
     // Add the shape to the body.
     body->CreateFixture(&fixtureDef);
 
+    // start the main update loop
     connect(&timer, &QTimer::timeout, this, &Car::updateWorld);
     timer.start(10);
 }
@@ -63,48 +66,64 @@ Car::~Car()
 }
 
 void Car::paintEvent(QPaintEvent *) {
-    // Create a painter
+    // create a painter and get pixmap
     QPainter painter(this);
-    b2Vec2 position = body->GetPosition();
-    float angle = body->GetAngle();
     QPixmap pixmap;
     pixmap.convertFromImage(image);
 
-    //rotate
-    float scaler = abs(sin(PI * (180 - angle) / 180 * 2)) * 0.35 + 1;
+    // rotate the car based on the body angle
+    float angle = body->GetAngle();
     QTransform transform;
     transform.rotate(angle);
     pixmap = pixmap.transformed(transform, Qt::SmoothTransformation);
 
-    // draw
-    painter.drawPixmap(QRect((int)(position.x*80), (int)(position.y*80), 100 * scaler, 100 * scaler), pixmap);
+    b2Vec2 position = body->GetPosition();
+    // scale the car based on rotation to account for growing and shrinking
+    // the sin function gives 1 at all diagonal directions and 0 at all cardinal directions
+    float scaler = abs(sin(degToRad(angle) * 2)) * scalerAt45Deg + 1;
+    // draw the car at its position and scale
+    painter.drawPixmap(QRect((int)(position.x*80), (int)(position.y*80), carScale * scaler, carScale * scaler), pixmap);
     painter.end();
 }
 
 void Car::updateWorld() {
-    world.Step(1.0/60.0, 6, 2);
-    update();
+    // apply angular friction to stop car from continualy rotating
     body->SetAngularVelocity(0);
 
     // kill side velocity
-    float angle = -body->GetAngle() + 180;
-    QVector2D up(cos(PI * (180 - angle) / 180), sin(PI * (180 - angle) / 180));
-    angle += 90;
-    QVector2D right(cos(PI * (180 - angle) / 180), sin(PI * (180 - angle) / 180));
+    float angleRad = degToRad(-body->GetAngle() + 180);
+    QVector2D upVector(cos(angleRad), sin(angleRad));
+    QVector2D rightVector(cos(angleRad + PI / 2), sin(angleRad  + PI / 2));
     QVector2D carVelocity(body->GetLinearVelocity().x, body->GetLinearVelocity().y);
-    QVector2D forwardVelocity = up * carVelocity.dotProduct(carVelocity, up);
-    QVector2D rightVelocity = right * carVelocity.dotProduct(carVelocity, right);
-    QVector2D velocity = forwardVelocity + rightVelocity * 0;
-    b2Vec2 boxVelocity(velocity.x(), velocity.y());
-    body->SetLinearVelocity(boxVelocity);
+
+    QVector2D forwardVelocity = upVector * carVelocity.dotProduct(carVelocity, upVector);
+    QVector2D rightVelocity = rightVector * carVelocity.dotProduct(carVelocity, rightVector);
+
+    QVector2D velocity = forwardVelocity + rightVelocity * sideVelocityMultiplyer;
+
+    body->SetLinearVelocity(b2Vec2(velocity.x(), velocity.y()));
+
+    // clamp the car speed at the maximum speed
+    float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
+    if(carSpeed > maxSpeed)
+    {
+        b2Vec2 newClampedSpeed = body->GetLinearVelocity();
+        newClampedSpeed.Normalize();
+        newClampedSpeed.x = newClampedSpeed.x * maxSpeed;
+        newClampedSpeed.y = newClampedSpeed.y * maxSpeed;
+        body->SetLinearVelocity(newClampedSpeed);
+    }
+
+    // update the world
+    world.Step(1.0/60.0, 6, 2);
+    update();
 }
 
 void Car::keyPressed(QKeyEvent* event)
 {
-    float angle = -body->GetAngle() + 180;
-    b2Vec2 direction(cos(PI * (180 - angle) / 180), sin(PI * (180 - angle) / 180));
-    direction.x *= 3.0f;
-    direction.y *= 3.0f;
+    // find the direction the car is facing
+    float angleRad = degToRad(-body->GetAngle() + 180);
+    b2Vec2 direction(cos(angleRad), sin(angleRad));
 
     // stop from turning when not moving
     float angleEffector = 0;
@@ -113,42 +132,53 @@ void Car::keyPressed(QKeyEvent* event)
 
     b2Vec2 velocity = body->GetLinearVelocity();
 
+    // handle the input
     switch(event->key())
     {
         case Qt::Key_W:
+            // move forward
+            direction.x *= driveSpeed;
+            direction.y *= driveSpeed;
             body->ApplyForceToCenter(direction, true);
             break;
         case Qt::Key_A:
-            body->ApplyAngularImpulse(-300.0f * angleEffector, true);
+            // turn left
+            body->ApplyAngularImpulse(angularImpulse * angleEffector, true);
             break;
         case Qt::Key_S:
+            // move backwards
+            direction.x *= reverseSpeed;
+            direction.y *= reverseSpeed;
             body->ApplyForceToCenter(-direction, true);
             break;
         case Qt::Key_D:
-            body->ApplyAngularImpulse(300.0f * angleEffector, true);
+            // turn right
+            body->ApplyAngularImpulse(angularImpulse * angleEffector, true);
             break;
         case Qt::Key_Space:
             // break
-            if(velocity.x > 0) velocity.x -= 0.01f;
-            if(velocity.x < 0) velocity.x += 0.01f;
-            if(velocity.y > 0) velocity.y -= 0.01f;
-            if(velocity.y < 0) velocity.y += 0.01f;
+            if(velocity.x > 0) velocity.x -= breakSpeed;
+            if(velocity.x < 0) velocity.x += breakSpeed;
+            if(velocity.y > 0) velocity.y -= breakSpeed;
+            if(velocity.y < 0) velocity.y += breakSpeed;
 
-            if(velocity.x <= 0.01 && velocity.x >= -0.01) velocity.x = 0;
-            if(velocity.y <= 0.01 && velocity.y >= -0.01) velocity.y = 0;
+            // snap to 0 if withing break stopping point
+            if(velocity.x <= breakStoppingPoint && velocity.x >= -breakStoppingPoint) velocity.x = 0;
+            if(velocity.y <= breakStoppingPoint && velocity.y >= -breakStoppingPoint) velocity.y = 0;
 
             body->SetLinearVelocity(velocity);
             break;
         default:
             break;
     }
+}
 
-    // max car speed
-    if(carSpeed > 0.6f){
-        b2Vec2 newClmapedSpeed = body->GetLinearVelocity();
-        newClmapedSpeed.Normalize();
-        newClmapedSpeed.x = newClmapedSpeed.x * 0.6f;
-        newClmapedSpeed.y = newClmapedSpeed.y * 0.6f;
-        body->SetLinearVelocity(newClmapedSpeed);
-    }
+float Car::radToDeg(float radian)
+{
+    return 0;
+}
+
+float Car::degToRad(float degree)
+{
+    return PI * (180 - degree) / 180;
 }
