@@ -25,6 +25,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
             &Model::runningLevelSelect,
             this,
             &MainWindow::showLevelSelectWidget);
+
+    connect(Model::instance,
+            &Model::runningCarWidget,
+            this,
+            &MainWindow::showCarWidget);
 }
 
 MainWindow::~MainWindow()

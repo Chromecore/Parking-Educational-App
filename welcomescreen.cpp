@@ -17,6 +17,11 @@ WelcomeScreen::WelcomeScreen(QWidget *parent) :
             &QPushButton::clicked,
             this,
             &WelcomeScreen::onLevelSelectClicked);
+
+    connect(ui->testButton,
+            &QPushButton::clicked,
+            this,
+            &WelcomeScreen::onTestButtonClicked);
 }
 
 WelcomeScreen::~WelcomeScreen()
@@ -34,3 +39,7 @@ void WelcomeScreen::onLevelSelectClicked()
     Model::instance->runLevelSelect();
 }
 
+void WelcomeScreen::onTestButtonClicked()
+{
+    Model::instance->runCarWidget();
+}

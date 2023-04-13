@@ -18,6 +18,7 @@ public:
 private slots:
     void onStartButtonClicked();
     void onLevelSelectClicked();
+    void onTestButtonClicked();
 
 private:
     Ui::WelcomeScreen *ui;

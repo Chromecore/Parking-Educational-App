@@ -38,3 +38,8 @@ void Model::loadDialogueToArray()
 {
 
 }
+
+void Model::runCarWidget()
+{
+    emit runningCarWidget();
+}
