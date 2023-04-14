@@ -18,15 +18,23 @@ class CarModel : public QObject
 public:
     explicit CarModel(QObject *parent = nullptr);
 
+    // Sets the position of the car
     void setCarPosition(b2Vec2 newPosition);
+    // Sets the angle of the car in degrees
     void setCarAngle(float newAngle);
+    // Sets the cars velocity to 0
     void zeroOutVelocity();
+    // Returns the body used for the car physics
     b2Body* getCarBody();
+    // Returns the image used to display the car
     QImage getCarImage();
+    // Returns the scale of the car
     float getCarScale();
 
     // How much extra to scale the car at diagonal directions
     const float scalerAt45Deg = 0.38f;
+    // How much to scale the Box2D positions into the UI positions
+    const float positionScaler = 80;
 
 signals:
     void updateUI();
@@ -55,7 +63,7 @@ private:
     const float sideVelocityMultiplyer = 0;
 
     const float carScale = 100;
-    const b2Vec2 startingPosition = b2Vec2(4, 4);
+    const float drivableAreaWidth = 600;
     const float screenWidth = 800;
 
 protected:

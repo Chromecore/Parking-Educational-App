@@ -29,7 +29,7 @@ CarModel::CarModel(QObject *parent)
     // Define the dynamic body. We set its position and call the body factory.
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(startingPosition.x, startingPosition.y);
+    bodyDef.position.Set(4, 4);
 
     body = world.CreateBody(&bodyDef);
 
@@ -75,6 +75,26 @@ void CarModel::updateWorld() {
     QVector2D velocity = forwardVelocity + rightVelocity * sideVelocityMultiplyer;
 
     body->SetLinearVelocity(b2Vec2(velocity.x(), velocity.y()));
+
+    // clamp car to screen
+    b2Vec2 bodyPosition = body->GetPosition();
+    if(bodyPosition.x > drivableAreaWidth / positionScaler){
+        bodyPosition.x = drivableAreaWidth / positionScaler;
+        zeroOutVelocity();
+    }
+    else if(bodyPosition.x < 0) {
+        bodyPosition.x = 0;
+        zeroOutVelocity();
+    }
+    if(bodyPosition.y > drivableAreaWidth / positionScaler){
+        bodyPosition.y = drivableAreaWidth / positionScaler;
+        zeroOutVelocity();
+    }
+    else if(bodyPosition.y < 0) {
+        bodyPosition.y = 0;
+        zeroOutVelocity();
+    }
+    setCarPosition(bodyPosition);
 
     // clamp the car speed at the maximum speed
 //    float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));

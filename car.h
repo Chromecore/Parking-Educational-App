@@ -24,9 +24,17 @@ public:
 
 private:
     Ui::Car *ui;
+    const bool shouldDrawGizmos = false;
+
+    // Rotates a pixmap around a pivot point based on an angle and returns the offset
+    QPixmap rotatePixmap(QPixmap pixmap, QPointF pivot, qreal angle, QPointF &offset);
+    // Displays gizmos relating to the car
+    void drawGizmos(float x, float y, float scale);
 
 private slots:
+    // Lets the model know when the home button is clicked
     void homeButtonClicked();
+    // Updated the UI
     void updateUI();
 
 protected:
