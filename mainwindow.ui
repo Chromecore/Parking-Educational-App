@@ -74,12 +74,23 @@
      </rect>
     </property>
    </widget>
+   <widget class="FailScreen" name="failScreen" native="true">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+     </rect>
+    </property>
+   </widget>
    <zorder>welcomeWidget</zorder>
    <zorder>level1Widget</zorder>
    <zorder>levelSelectWidget</zorder>
    <zorder>level2Widget</zorder>
    <zorder>level3Widget</zorder>
    <zorder>carWidget</zorder>
+   <zorder>failScreen</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -87,7 +98,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -116,6 +127,12 @@
    <class>LevelSelectScreen</class>
    <extends>QWidget</extends>
    <header>levelselectscreen.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FailScreen</class>
+   <extends>QWidget</extends>
+   <header>failscreen.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

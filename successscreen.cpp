@@ -7,6 +7,8 @@ SuccessScreen::SuccessScreen(QWidget *parent) :
     ui(new Ui::SuccessScreen)
 {
     ui->setupUi(this);
+    QPixmap pixmap(":/sprites/Resources/passed.png");
+    ui->label->setPixmap(pixmap.scaled(600, 600));
 }
 
 SuccessScreen::~SuccessScreen()

@@ -107,4 +107,5 @@ void MainWindow::hideAllWidgets()
     ui->level1Widget->hide();
     ui->level2Widget->hide();
     ui->level3Widget->hide();
+    ui->failScreen->hide();
 }
