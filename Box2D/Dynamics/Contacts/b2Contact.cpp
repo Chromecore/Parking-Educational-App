@@ -253,3 +253,4 @@ b2Fixture* GetFixtureA();
 
 // Get the second fixture in this contact
 b2Fixture* GetFixtureB();
+

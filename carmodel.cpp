@@ -55,7 +55,7 @@ CarModel::CarModel(QObject *parent)
 
 
     //Added for Collision Testing
-    body->SetUserData( this );
+    body->SetUserData( body );
     world.SetContactListener(&myContactListener);
 }
 
