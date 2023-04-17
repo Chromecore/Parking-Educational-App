@@ -52,12 +52,23 @@ CarModel::CarModel(QObject *parent)
     // start the main update loop
     connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
     timer.start(10);
+
+
+    //Added for Collision Testing
+    body->SetUserData( this );
+    world.SetContactListener(&myContactListener);
 }
 
 void CarModel::updateWorld() {
     // update the world
     world.Step(1.0/60.0, 6, 2);
     emit updateUI();
+
+    //Test for Collision
+    if (body->getContactNum() > 0 ){
+        qDebug() << "contacting";
+    }
+
 
     // apply angular friction to stop car from continualy rotating
     body->SetAngularVelocity(0);

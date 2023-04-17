@@ -57,6 +57,7 @@ SOURCES += \
     Box2D/Rope/b2Rope.cpp \
     car.cpp \
     carmodel.cpp \
+    contactlistener.cpp \
     failscreen.cpp \
     level1.cpp \
     levelselectscreen.cpp \
@@ -116,6 +117,7 @@ HEADERS += \
     Box2D/Rope/b2Rope.h \
     car.h \
     carmodel.h \
+    contactlistener.h \
     failscreen.h \
     level1.h \
     levelselectscreen.h \

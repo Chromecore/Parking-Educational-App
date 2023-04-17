@@ -245,3 +245,11 @@ void b2Contact::Update(b2ContactListener* listener)
 		listener->PreSolve(this, &oldManifold);
 	}
 }
+
+
+//Added for Collision Testing
+// Get the first fixture in this contact
+b2Fixture* GetFixtureA();
+
+// Get the second fixture in this contact
+b2Fixture* GetFixtureB();

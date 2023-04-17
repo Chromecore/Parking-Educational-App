@@ -24,6 +24,9 @@
 
 b2Body::b2Body(const b2BodyDef* bd, b2World* world)
 {
+    //Added for Collision Testing
+    m_numContacts = 0;
+
 	b2Assert(bd->position.IsValid());
 	b2Assert(bd->linearVelocity.IsValid());
 	b2Assert(b2IsValid(bd->angle));
@@ -546,4 +549,21 @@ void b2Body::Dump()
 		b2Log("  }\n");
 	}
 	b2Log("}\n");
+}
+
+
+//Added for Collision Testing
+void b2Body::startContact()
+{
+  m_numContacts++;
+}
+
+void b2Body::endContact()
+{
+  m_numContacts--;
+}
+
+int b2Body::getContactNum()
+{
+  return m_numContacts;
 }

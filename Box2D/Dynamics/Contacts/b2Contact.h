@@ -78,6 +78,14 @@ class b2Contact
 {
 public:
 
+    //Added for Collision Testing
+    // Get the first fixture in this contact
+    b2Fixture* GetFixtureA();
+
+    // Get the second fixture in this contact
+    b2Fixture* GetFixtureB();
+
+
 	/// Get the contact manifold. Do not modify the manifold unless you understand the
 	/// internals of Box2D.
 	b2Manifold* GetManifold();

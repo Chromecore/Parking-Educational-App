@@ -32,6 +32,8 @@ struct b2FixtureDef;
 struct b2JointEdge;
 struct b2ContactEdge;
 
+
+
 /// The body type.
 /// static: zero mass, zero velocity, may be manually moved
 /// kinematic: zero mass, non-zero velocity set by user, moved by solver
@@ -126,6 +128,11 @@ struct b2BodyDef
 class b2Body
 {
 public:
+
+    //Added for Collision Testing
+    int m_numContacts;
+
+
 	/// Creates a fixture and attach it to this body. Use this function if you need
 	/// to set some fixture parameters, like friction. Otherwise you can create the
 	/// fixture directly from a shape.
@@ -382,6 +389,13 @@ public:
 
 	/// Dump this body to a log file
 	void Dump();
+
+    //Added for Collision Testing
+    //Ball class functions
+    void startContact();
+    void endContact();
+    int getContactNum();
+
 
 private:
 

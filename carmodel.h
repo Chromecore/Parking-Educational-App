@@ -11,6 +11,7 @@ A8: Educational App
 #include <Box2D/Box2D.h>
 #include <QTimer>
 #include <QWidget>
+#include "contactlistener.h"
 
 class CarModel : public QObject
 {
@@ -35,6 +36,11 @@ public:
     const float scalerAt45Deg = 0.38f;
     // How much to scale the Box2D positions into the UI positions
     const float positionScaler = 80;
+
+
+    //Added for Collision Testing
+    ContactListener myContactListener;
+
 
 signals:
     void updateUI();
