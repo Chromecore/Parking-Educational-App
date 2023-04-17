@@ -57,6 +57,11 @@ CarModel::CarModel(QObject *parent)
     //Added for Collision Testing
     body->SetUserData( body );
     world.SetContactListener(&myContactListener);
+
+
+    //Testing to see if casting works. It does.
+    //b2Body* body2 = world.CreateBody(&bodyDef);
+    //body2->CreateFixture(&fixtureDef);
 }
 
 void CarModel::updateWorld() {
