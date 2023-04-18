@@ -25,11 +25,10 @@ Model::Model(QObject *parent)
     numLevels = 3;
 }
 
-void Model::init(){
+void Model::init()
+{
     instance = new Model;
     instance->carModel = new CarModel;
-
-
 }
 
 void Model::runLevelSelect()

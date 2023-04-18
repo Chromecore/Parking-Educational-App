@@ -37,7 +37,6 @@ public:
     // How much to scale the Box2D positions into the UI positions
     const float positionScaler = 80;
 
-
     //Added for Collision Testing
     ContactListener myContactListener;
 
@@ -58,23 +57,31 @@ private:
     // Fastest speed the car can go
     const float maxSpeed = 0.6f;
     // The speed at which the car breaks
-    const float breakSpeed = 0.05f;
+    const float breakSpeed = 0.08f;
     // The angular impulse used when turning
-    const float angularImpulse = 300;
+    const float angularImpulse = 200;
     // The speed that the car accelerates at when driving
-    const float driveSpeed = 3;
+    const float driveSpeed = 1;
     // The speed that the car accelerates at when reversing
-    const float reverseSpeed = 8;
+    const float reverseSpeed = 1;
     // The amount of side velocity to keep (0 - none, 1 - all)
-    const float sideVelocityMultiplyer = 0;
+    const float sideVelocityMultiplyer = 0.2f;
 
     const float carScale = 100;
     const float drivableAreaWidth = 600;
     const float screenWidth = 800;
 
-protected:
+    // input variables
+    bool wPressed;
+    bool aPressed;
+    bool sPressed;
+    bool dPressed;
+    bool spacePressed;
+
     // take in key input as an event and convert it to an action performed on the car
     void keyPressed(QKeyEvent* event);
+    void keyRelease(QKeyEvent *event);
+    void handleInput();
 };
 
 #endif // CARMODEL_H

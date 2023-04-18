@@ -51,6 +51,7 @@ public slots:
 
 signals:
     void keyPressed(QKeyEvent* event);
+    void keyRelease(QKeyEvent* event);
     void runningLevelSelect();
     void runningCarWidget();
     void goingHome();
