@@ -111,14 +111,14 @@ void MainWindow::showLevelSelectWidget()
 
 void MainWindow::showSuccessWidget()
 {
-    hideAllWidgets();
     ui->successWidget->show();
+    ui->successWidget->raise();
 }
 
 void MainWindow::showFailWidget()
 {
-    hideAllWidgets();
     ui->failWidget->show();
+    ui->failWidget->raise();
 }
 
 void MainWindow::hideAllWidgets()
