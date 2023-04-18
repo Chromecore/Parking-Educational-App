@@ -60,6 +60,8 @@ SOURCES += \
     contactlistener.cpp \
     failscreen.cpp \
     level1.cpp \
+    level2.cpp \
+    level3.cpp \
     levelselectscreen.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -121,6 +123,8 @@ HEADERS += \
     contactlistener.h \
     failscreen.h \
     level1.h \
+    level2.h \
+    level3.h \
     levelselectscreen.h \
     mainwindow.h \
     model.h \
@@ -131,6 +135,8 @@ HEADERS += \
 FORMS += \
     car.ui \
     failscreen.ui \
+    level2.ui \
+    level3.ui \
     levelselectscreen.ui \
     mainwindow.ui \
     successscreen.ui \
