@@ -152,9 +152,8 @@ void CarModel::keyPressed(QKeyEvent* event)
         case Qt::Key_D:
             dPressed = true;
             break;
-        case Qt::Key_Space:
-            qDebug() << "Space Pressed";
-            spacePressed = true;
+        case Qt::Key_Return:
+            returnPressed = true;
             break;
         default:
             break;
@@ -177,9 +176,8 @@ void CarModel::keyRelease(QKeyEvent* event)
         case Qt::Key_D:
             dPressed = false;
             break;
-        case Qt::Key_Space:
-            qDebug() << "Space Released";
-            spacePressed = false;
+        case Qt::Key_Return:
+            returnPressed = false;
             break;
         default:
             break;
@@ -194,7 +192,7 @@ void CarModel::handleInput(){
     // stop from turning when not moving
     float angleEffector = 0;
     float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
-    angleEffector = abs(carSpeed) / 0.6f;
+    angleEffector = abs(carSpeed) / 3;
 
     b2Vec2 velocity = body->GetLinearVelocity();
 
@@ -227,7 +225,7 @@ void CarModel::handleInput(){
         body->ApplyAngularImpulse(angularImpulse * angleEffector, true);
         qDebug() << "Turn Right";
     }
-    if(spacePressed)
+    if(returnPressed)
     {
         // break
         if(velocity.x > 0) velocity.x -= breakSpeed;
