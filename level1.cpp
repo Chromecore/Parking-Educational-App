@@ -15,3 +15,9 @@ Level1::~Level1()
 {
     delete ui;
 }
+
+void Level1::on_checkParking_clicked()
+{
+
+}
+
