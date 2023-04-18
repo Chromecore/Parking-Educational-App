@@ -16,7 +16,7 @@ CarModel::CarModel(QObject *parent)
     : QObject{parent},
       world(b2Vec2(0.0f, 0.0f)),
       timer(this),
-      image(":/sprites/Resources/car.png")
+      image(":/sprites/Resources/car3.png")
 {
     connect(Model::instance,
             &Model::keyPressed,
