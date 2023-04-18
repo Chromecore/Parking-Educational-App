@@ -99,6 +99,18 @@ void MainWindow::showLevelSelectWidget()
     ui->levelSelectWidget->show();
 }
 
+void MainWindow::showFailed()
+{
+    ui->failScreen->show();
+    ui->failScreen->raise();
+}
+
+void MainWindow::showSuccess()
+{
+    ui->successScreen->show();
+    ui->successScreen->raise();
+}
+
 void MainWindow::hideAllWidgets()
 {
     ui->carWidget->hide();
@@ -108,4 +120,5 @@ void MainWindow::hideAllWidgets()
     ui->level2Widget->hide();
     ui->level3Widget->hide();
     ui->failScreen->hide();
+    ui->successScreen->hide();
 }

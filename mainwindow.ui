@@ -84,6 +84,16 @@
      </rect>
     </property>
    </widget>
+   <widget class="SuccessScreen" name="successScreen" native="true">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+     </rect>
+    </property>
+   </widget>
    <zorder>welcomeWidget</zorder>
    <zorder>level1Widget</zorder>
    <zorder>levelSelectWidget</zorder>
@@ -91,6 +101,7 @@
    <zorder>level3Widget</zorder>
    <zorder>carWidget</zorder>
    <zorder>failScreen</zorder>
+   <zorder>successScreen</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -133,6 +144,12 @@
    <class>FailScreen</class>
    <extends>QWidget</extends>
    <header>failscreen.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SuccessScreen</class>
+   <extends>QWidget</extends>
+   <header location="global">successscreen.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
