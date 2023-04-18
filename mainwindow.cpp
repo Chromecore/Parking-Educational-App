@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 {
     ui->setupUi(this);
 
-    showWelcomeWidget();
+//    showWelcomeWidget();
 
     connect(Model::instance,
             &Model::runningLevelSelect,
@@ -56,6 +56,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
             &Model::showLevelFailure,
             this,
             &MainWindow::showFailWidget);
+
+    Model::instance->goHome();
 }
 
 MainWindow::~MainWindow()
@@ -65,14 +67,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::keyPressEvent(QKeyEvent* event)
 {
-    if(event->isAutoRepeat()) return;
+    if(event->isAutoRepeat() || !Model::instance->canDrive) return;
     emit Model::instance->keyPressed(event);
     QMainWindow::keyPressEvent(event);
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event)
 {
-    if(event->isAutoRepeat()) return;
+    if(event->isAutoRepeat() || !Model::instance->canDrive) return;
     emit Model::instance->keyRelease(event);
     QMainWindow::keyReleaseEvent(event);
 }
