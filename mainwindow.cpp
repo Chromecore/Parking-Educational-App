@@ -8,6 +8,7 @@ A8: Educational App
 #include "ui_mainwindow.h"
 #include "model.h"
 #include "welcomescreen.h"
+#include <QKeyEvent>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -64,7 +65,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::keyPressEvent(QKeyEvent* event)
 {
+    if(event->isAutoRepeat()) return;
     emit Model::instance->keyPressed(event);
+    QMainWindow::keyPressEvent(event);
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->isAutoRepeat()) return;
+    emit Model::instance->keyRelease(event);
+    QMainWindow::keyReleaseEvent(event);
 }
 
 void MainWindow::showWelcomeWidget()

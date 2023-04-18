@@ -11,6 +11,7 @@ A8: Educational App
 #include <vector>
 #include "model.h"
 
+
 #include "yellowlinehitbox.h"
 
 CarModel::CarModel(QObject *parent)
@@ -23,6 +24,11 @@ CarModel::CarModel(QObject *parent)
             &Model::keyPressed,
             this,
             &CarModel::keyPressed);
+
+    connect(Model::instance,
+            &Model::keyRelease,
+            this,
+            &CarModel::keyRelease);
 
     // setup the image
     float size = screenWidth / sqrt(2);
@@ -115,6 +121,8 @@ void CarModel::updateWorld() {
     }
     setCarPosition(bodyPosition);
 
+    handleInput();
+
     // clamp the car speed at the maximum speed
 //    float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
 //    if(carSpeed > maxSpeed)
@@ -129,6 +137,56 @@ void CarModel::updateWorld() {
 
 void CarModel::keyPressed(QKeyEvent* event)
 {
+    qDebug() << event->key();
+    switch(event->key())
+    {
+        case Qt::Key_W:
+            wPressed = true;
+            break;
+        case Qt::Key_A:
+            aPressed = true;
+            break;
+        case Qt::Key_S:
+            sPressed = true;
+            break;
+        case Qt::Key_D:
+            dPressed = true;
+            break;
+        case Qt::Key_Space:
+            qDebug() << "Space Pressed";
+            spacePressed = true;
+            break;
+        default:
+            break;
+    }
+}
+
+void CarModel::keyRelease(QKeyEvent* event)
+{
+    switch(event->key())
+    {
+        case Qt::Key_W:
+            wPressed = false;
+            break;
+        case Qt::Key_A:
+            aPressed = false;
+            break;
+        case Qt::Key_S:
+            sPressed = false;
+            break;
+        case Qt::Key_D:
+            dPressed = false;
+            break;
+        case Qt::Key_Space:
+            qDebug() << "Space Released";
+            spacePressed = false;
+            break;
+        default:
+            break;
+    }
+}
+
+void CarModel::handleInput(){
     // find the direction the car is facing
     float angleRad = Model::degToRad(-body->GetAngle() + 180);
     b2Vec2 direction(cos(angleRad), sin(angleRad));
@@ -141,43 +199,48 @@ void CarModel::keyPressed(QKeyEvent* event)
     b2Vec2 velocity = body->GetLinearVelocity();
 
     // handle the input
-    switch(event->key())
+    if(wPressed)
     {
-        case Qt::Key_W:
-            // move forward
-            direction.x *= driveSpeed;
-            direction.y *= driveSpeed;
-            body->ApplyForceToCenter(direction, true);
-            break;
-        case Qt::Key_A:
-            // turn left
-            body->ApplyAngularImpulse(-angularImpulse * angleEffector, true);
-            break;
-        case Qt::Key_S:
-            // move backwards
-            direction.x *= reverseSpeed;
-            direction.y *= reverseSpeed;
-            body->ApplyForceToCenter(-direction, true);
-            break;
-        case Qt::Key_D:
-            // turn right
-            body->ApplyAngularImpulse(angularImpulse * angleEffector, true);
-            break;
-        case Qt::Key_Space:
-            // break
-            if(velocity.x > 0) velocity.x -= breakSpeed;
-            if(velocity.x < 0) velocity.x += breakSpeed;
-            if(velocity.y > 0) velocity.y -= breakSpeed;
-            if(velocity.y < 0) velocity.y += breakSpeed;
+        // move forward
+        direction.x *= driveSpeed;
+        direction.y *= driveSpeed;
+        body->ApplyForceToCenter(direction, true);
+        qDebug() << "Drive";
+    }
+    if(aPressed)
+    {
+        // turn left
+        body->ApplyAngularImpulse(-angularImpulse * angleEffector, true);
+        qDebug() << "Turn Left";
+    }
+    if(sPressed)
+    {
+        // move backwards
+        direction.x *= reverseSpeed;
+        direction.y *= reverseSpeed;
+        body->ApplyForceToCenter(-direction, true);
+        qDebug() << "Reverse";
+    }
+    if(dPressed)
+    {
+        // turn right
+        body->ApplyAngularImpulse(angularImpulse * angleEffector, true);
+        qDebug() << "Turn Right";
+    }
+    if(spacePressed)
+    {
+        // break
+        if(velocity.x > 0) velocity.x -= breakSpeed;
+        if(velocity.x < 0) velocity.x += breakSpeed;
+        if(velocity.y > 0) velocity.y -= breakSpeed;
+        if(velocity.y < 0) velocity.y += breakSpeed;
 
-            // snap to 0 if withing break stopping point
-            if(velocity.x <= breakSpeed && velocity.x >= -breakSpeed) velocity.x = 0;
-            if(velocity.y <= breakSpeed && velocity.y >= -breakSpeed) velocity.y = 0;
+        // snap to 0 if withing break stopping point
+        if(velocity.x <= breakSpeed && velocity.x >= -breakSpeed) velocity.x = 0;
+        if(velocity.y <= breakSpeed && velocity.y >= -breakSpeed) velocity.y = 0;
 
-            body->SetLinearVelocity(velocity);
-            break;
-        default:
-            break;
+        body->SetLinearVelocity(velocity);
+        qDebug() << "Break";
     }
 }
 
