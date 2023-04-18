@@ -17,11 +17,6 @@ Car::Car(QWidget *parent) : QWidget(parent),
 {
     ui->setupUi(this);
 
-    connect(ui->homeButton,
-            &QPushButton::clicked,
-            this,
-            &Car::homeButtonClicked);
-
     connect(Model::instance->carModel,
             &CarModel::updateUI,
             this,
@@ -112,11 +107,6 @@ QPixmap Car::rotatePixmap(QPixmap pixmap, QPointF pivot, qreal angle, QPointF &o
     offset = -rotationPivot - rotationOffset;
 
     return rotationImage;
-}
-
-void Car::homeButtonClicked()
-{
-    Model::instance->goHome();
 }
 
 void Car::updateUI(){

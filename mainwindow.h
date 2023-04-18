@@ -29,6 +29,8 @@ public slots:
     void showLevel1Widget();
     void showLevel2Widget();
     void showLevel3Widget();
+    void showSuccessWidget();
+    void showFailWidget();
 
 private:
     Ui::MainWindow *ui;

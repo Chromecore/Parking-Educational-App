@@ -21,6 +21,8 @@ Model::Model(QObject *parent)
 
     loadDialogToArray();
 
+    curLevel = 0;
+    numLevels = 3;
 }
 
 void Model::init(){
@@ -42,17 +44,37 @@ void Model::goHome()
 
 void Model::runLevel1()
 {
+    curLevel = 1;
     emit level1Started();
 }
 
 void Model::runLevel2()
 {
+    curLevel = 2;
     emit level2Started();
 }
 
 void Model::runLevel3()
 {
+    curLevel = 3;
     emit level3Started();
+}
+
+void Model::successfulPark()
+{
+    if (curLevel == numLevels)
+    {
+        emit showTutorialComplete();
+    }
+    else
+    {
+        emit showLevelComplete();
+    }
+}
+
+void Model::failedPark()
+{
+    emit showLevelFailure();
 }
 
 float Model::degToRad(float degree)

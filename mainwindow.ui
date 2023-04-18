@@ -17,9 +17,9 @@
    <widget class="Car" name="carWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>100</x>
       <y>0</y>
-      <width>800</width>
+      <width>600</width>
       <height>600</height>
      </rect>
     </property>
@@ -74,12 +74,22 @@
      </rect>
     </property>
    </widget>
-   <widget class="FailScreen" name="failScreen" native="true">
+   <widget class="FailScreen" name="failWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>0</x>
       <y>0</y>
-      <width>600</width>
+      <width>800</width>
+      <height>600</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="SuccessScreen" name="successWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>800</width>
       <height>600</height>
      </rect>
     </property>
@@ -90,7 +100,8 @@
    <zorder>level2Widget</zorder>
    <zorder>level3Widget</zorder>
    <zorder>carWidget</zorder>
-   <zorder>failScreen</zorder>
+   <zorder>failWidget</zorder>
+   <zorder>successWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -98,7 +109,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>
@@ -133,6 +144,12 @@
    <class>FailScreen</class>
    <extends>QWidget</extends>
    <header>failscreen.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SuccessScreen</class>
+   <extends>QWidget</extends>
+   <header>successscreen.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

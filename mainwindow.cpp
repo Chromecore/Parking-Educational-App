@@ -45,6 +45,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
             &Model::level3Started,
             this,
             &MainWindow::showLevel3Widget);
+
+    connect(Model::instance,
+            &Model::showLevelComplete,
+            this,
+            &MainWindow::showSuccessWidget);
+
+    connect(Model::instance,
+            &Model::showLevelFailure,
+            this,
+            &MainWindow::showFailWidget);
 }
 
 MainWindow::~MainWindow()
@@ -99,6 +109,18 @@ void MainWindow::showLevelSelectWidget()
     ui->levelSelectWidget->show();
 }
 
+void MainWindow::showSuccessWidget()
+{
+    hideAllWidgets();
+    ui->successWidget->show();
+}
+
+void MainWindow::showFailWidget()
+{
+    hideAllWidgets();
+    ui->failWidget->show();
+}
+
 void MainWindow::hideAllWidgets()
 {
     ui->carWidget->hide();
@@ -107,5 +129,6 @@ void MainWindow::hideAllWidgets()
     ui->level1Widget->hide();
     ui->level2Widget->hide();
     ui->level3Widget->hide();
-    ui->failScreen->hide();
+    ui->failWidget->hide();
+    ui->successWidget->hide();
 }
