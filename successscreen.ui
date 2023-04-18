@@ -31,26 +31,13 @@
     <string>Home</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>0</y>
-     <width>600</width>
-     <height>600</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QPushButton" name="nextLevelButton">
    <property name="geometry">
     <rect>
      <x>640</x>
-     <y>280</y>
+     <y>275</y>
      <width>150</width>
-     <height>40</height>
+     <height>50</height>
     </rect>
    </property>
    <property name="font">
@@ -60,6 +47,37 @@
    </property>
    <property name="text">
     <string>Next Level</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>100</y>
+     <width>400</width>
+     <height>400</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="retryLevelButton">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>275</y>
+     <width>150</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Retry Level</string>
    </property>
   </widget>
  </widget>

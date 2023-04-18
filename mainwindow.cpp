@@ -8,13 +8,14 @@ A8: Educational App
 #include "ui_mainwindow.h"
 #include "model.h"
 #include "welcomescreen.h"
+#include <QKeyEvent>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    showWelcomeWidget();
+//    showWelcomeWidget();
 
     connect(Model::instance,
             &Model::runningLevelSelect,
@@ -45,6 +46,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
             &Model::level3Started,
             this,
             &MainWindow::showLevel3Widget);
+
+    connect(Model::instance,
+            &Model::showLevelComplete,
+            this,
+            &MainWindow::showSuccessWidget);
+
+    connect(Model::instance,
+            &Model::showLevelFailure,
+            this,
+            &MainWindow::showFailWidget);
+
+    Model::instance->goHome();
 }
 
 MainWindow::~MainWindow()
@@ -54,7 +67,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::keyPressEvent(QKeyEvent* event)
 {
+    if(event->isAutoRepeat() || !Model::instance->canDrive) return;
     emit Model::instance->keyPressed(event);
+    QMainWindow::keyPressEvent(event);
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->isAutoRepeat() || !Model::instance->canDrive) return;
+    emit Model::instance->keyRelease(event);
+    QMainWindow::keyReleaseEvent(event);
 }
 
 void MainWindow::showWelcomeWidget()
@@ -99,6 +121,18 @@ void MainWindow::showLevelSelectWidget()
     ui->levelSelectWidget->show();
 }
 
+void MainWindow::showSuccessWidget()
+{
+    ui->successWidget->show();
+    ui->successWidget->raise();
+}
+
+void MainWindow::showFailWidget()
+{
+    ui->failWidget->show();
+    ui->failWidget->raise();
+}
+
 void MainWindow::hideAllWidgets()
 {
     ui->carWidget->hide();
@@ -107,5 +141,6 @@ void MainWindow::hideAllWidgets()
     ui->level1Widget->hide();
     ui->level2Widget->hide();
     ui->level3Widget->hide();
-    ui->failScreen->hide();
+    ui->failWidget->hide();
+    ui->successWidget->hide();
 }

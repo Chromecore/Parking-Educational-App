@@ -29,11 +29,14 @@ public slots:
     void showLevel1Widget();
     void showLevel2Widget();
     void showLevel3Widget();
+    void showSuccessWidget();
+    void showFailWidget();
 
 private:
     Ui::MainWindow *ui;
 
 protected:
     void keyPressEvent( QKeyEvent * event );
+    void keyReleaseEvent(QKeyEvent *event);
 };
 #endif // MAINWINDOW_H

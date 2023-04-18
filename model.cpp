@@ -5,7 +5,6 @@ A8: Educational App
 */
 
 #include "model.h"
-#include "car.h"
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QJsonArray>
@@ -21,38 +20,66 @@ Model::Model(QObject *parent)
 
     loadDialogToArray();
 
+    curLevel = 0;
+    numLevels = 3;
 }
 
-void Model::init(){
+void Model::init()
+{
     instance = new Model;
     instance->carModel = new CarModel;
-
-
 }
 
 void Model::runLevelSelect()
 {
+    canDrive = false;
     emit runningLevelSelect();
 }
 
 void Model::goHome()
 {
+    canDrive = false;
     emit goingHome();
 }
 
 void Model::runLevel1()
 {
+    canDrive = true;
+    curLevel = 1;
     emit level1Started();
 }
 
 void Model::runLevel2()
 {
+    canDrive = true;
+    curLevel = 2;
     emit level2Started();
 }
 
 void Model::runLevel3()
 {
+    canDrive = true;
+    curLevel = 3;
     emit level3Started();
+}
+
+void Model::successfulPark()
+{
+    canDrive = false;
+    if (curLevel == numLevels)
+    {
+        emit showTutorialComplete();
+    }
+    else
+    {
+        emit showLevelComplete();
+    }
+}
+
+void Model::failedPark()
+{
+    canDrive = false;
+    emit showLevelFailure();
 }
 
 float Model::degToRad(float degree)
@@ -89,5 +116,6 @@ void Model::loadDialogToArray()
 // Probably only needed for testButton
 void Model::runCarWidget()
 {
+    canDrive = true;
     emit runningCarWidget();
 }

@@ -10,19 +10,23 @@ A8: Educational App
 #include <QKeyEvent>
 #include <vector>
 #include "model.h"
-
 #include "yellowlinehitbox.h"
 
 CarModel::CarModel(QObject *parent)
     : QObject{parent},
       world(b2Vec2(0.0f, 0.0f)),
       timer(this),
-      image(":/sprites/Resources/car.png")
+      image(":/sprites/Resources/car3.png")
 {
     connect(Model::instance,
             &Model::keyPressed,
             this,
             &CarModel::keyPressed);
+
+    connect(Model::instance,
+            &Model::keyRelease,
+            this,
+            &CarModel::keyRelease);
 
     // setup the image
     float size = screenWidth / sqrt(2);
@@ -97,38 +101,63 @@ void CarModel::updateWorld() {
 
     // clamp car to screen
     b2Vec2 bodyPosition = body->GetPosition();
-    if(bodyPosition.x > drivableAreaWidth / positionScaler){
-        bodyPosition.x = drivableAreaWidth / positionScaler;
+    // clamp right side
+    if(bodyPosition.x > (drivableAreaWidth - carScale) / positionScaler){
+        bodyPosition.x = (drivableAreaWidth - carScale) / positionScaler;
         zeroOutVelocity();
     }
+    // clamp left side
     else if(bodyPosition.x < 0) {
         bodyPosition.x = 0;
         zeroOutVelocity();
     }
-    if(bodyPosition.y > drivableAreaWidth / positionScaler){
-        bodyPosition.y = drivableAreaWidth / positionScaler;
+    // clamp bottom
+    if(bodyPosition.y > (drivableAreaWidth - carScale) / positionScaler){
+        bodyPosition.y = (drivableAreaWidth - carScale) / positionScaler;
         zeroOutVelocity();
     }
+    // clamp top
     else if(bodyPosition.y < 0) {
         bodyPosition.y = 0;
         zeroOutVelocity();
     }
     setCarPosition(bodyPosition);
 
+    handleInput();
+
     // clamp the car speed at the maximum speed
-//    float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
-//    if(carSpeed > maxSpeed)
-//    {
-//        b2Vec2 newClampedSpeed = body->GetLinearVelocity();
-//        newClampedSpeed.Normalize();
-//        newClampedSpeed.x = newClampedSpeed.x * maxSpeed;
-//        newClampedSpeed.y = newClampedSpeed.y * maxSpeed;
-//        body->SetLinearVelocity(newClampedSpeed);
-//    }
+    float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
+    if(carSpeed > maxSpeed)
+    {
+        b2Vec2 newClampedSpeed = body->GetLinearVelocity();
+        newClampedSpeed.Normalize();
+        newClampedSpeed.x = newClampedSpeed.x * maxSpeed;
+        newClampedSpeed.y = newClampedSpeed.y * maxSpeed;
+        body->SetLinearVelocity(newClampedSpeed);
+    }
 }
 
 void CarModel::keyPressed(QKeyEvent* event)
 {
+    int key = event->key();
+    if(key == driveKey) drivePressed = true;
+    if(key == leftKey) leftPressed = true;
+    if(key == reverseKey) reversePressed = true;
+    if(key == rightKey) rightPressed = true;
+    if(key == breakKey) breakPressed = true;
+}
+
+void CarModel::keyRelease(QKeyEvent* event)
+{
+    int key = event->key();
+    if(key == driveKey) drivePressed = false;
+    if(key == leftKey) leftPressed = false;
+    if(key == reverseKey) reversePressed = false;
+    if(key == rightKey) rightPressed = false;
+    if(key == breakKey) breakPressed = false;
+}
+
+void CarModel::handleInput(){
     // find the direction the car is facing
     float angleRad = Model::degToRad(-body->GetAngle() + 180);
     b2Vec2 direction(cos(angleRad), sin(angleRad));
@@ -136,48 +165,48 @@ void CarModel::keyPressed(QKeyEvent* event)
     // stop from turning when not moving
     float angleEffector = 0;
     float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
-    angleEffector = abs(carSpeed) / 0.6f;
+    angleEffector = abs(carSpeed) / turnDriveRelationship;
 
     b2Vec2 velocity = body->GetLinearVelocity();
 
-    // handle the input
-    switch(event->key())
+    // apply the input
+    if(drivePressed)
     {
-        case Qt::Key_W:
-            // move forward
-            direction.x *= driveSpeed;
-            direction.y *= driveSpeed;
-            body->ApplyForceToCenter(direction, true);
-            break;
-        case Qt::Key_A:
-            // turn left
-            body->ApplyAngularImpulse(-angularImpulse * angleEffector, true);
-            break;
-        case Qt::Key_S:
-            // move backwards
-            direction.x *= reverseSpeed;
-            direction.y *= reverseSpeed;
-            body->ApplyForceToCenter(-direction, true);
-            break;
-        case Qt::Key_D:
-            // turn right
-            body->ApplyAngularImpulse(angularImpulse * angleEffector, true);
-            break;
-        case Qt::Key_Space:
-            // break
-            if(velocity.x > 0) velocity.x -= breakSpeed;
-            if(velocity.x < 0) velocity.x += breakSpeed;
-            if(velocity.y > 0) velocity.y -= breakSpeed;
-            if(velocity.y < 0) velocity.y += breakSpeed;
+        // move forward
+        direction.x *= driveSpeed;
+        direction.y *= driveSpeed;
+        body->ApplyForceToCenter(direction, true);
+    }
+    if(leftPressed)
+    {
+        // turn left
+        body->ApplyAngularImpulse(-angularImpulse * angleEffector, true);
+    }
+    if(reversePressed)
+    {
+        // move backwards
+        direction.x *= reverseSpeed;
+        direction.y *= reverseSpeed;
+        body->ApplyForceToCenter(-direction, true);
+    }
+    if(rightPressed)
+    {
+        // turn right
+        body->ApplyAngularImpulse(angularImpulse * angleEffector, true);
+    }
+    if(breakPressed)
+    {
+        // break
+        if(velocity.x > 0) velocity.x -= breakSpeed;
+        if(velocity.x < 0) velocity.x += breakSpeed;
+        if(velocity.y > 0) velocity.y -= breakSpeed;
+        if(velocity.y < 0) velocity.y += breakSpeed;
 
-            // snap to 0 if withing break stopping point
-            if(velocity.x <= breakSpeed && velocity.x >= -breakSpeed) velocity.x = 0;
-            if(velocity.y <= breakSpeed && velocity.y >= -breakSpeed) velocity.y = 0;
+        // snap to 0 if withing break stopping point
+        if(velocity.x <= breakSpeed && velocity.x >= -breakSpeed) velocity.x = 0;
+        if(velocity.y <= breakSpeed && velocity.y >= -breakSpeed) velocity.y = 0;
 
-            body->SetLinearVelocity(velocity);
-            break;
-        default:
-            break;
+        body->SetLinearVelocity(velocity);
     }
 }
 

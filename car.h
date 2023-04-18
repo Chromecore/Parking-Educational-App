@@ -32,9 +32,7 @@ private:
     void drawGizmos(float x, float y, float scale);
 
 private slots:
-    // Lets the model know when the home button is clicked
-    void homeButtonClicked();
-    // Updated the UI
+    // Update the UI
     void updateUI();
 
 protected:

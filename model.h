@@ -36,6 +36,9 @@ public:
     static float PI;
 
     CarModel* carModel;
+    int curLevel;
+    int numLevels;
+    bool canDrive;
 
 public slots:
     void runLevelSelect();
@@ -44,15 +47,21 @@ public slots:
     void runLevel1();
     void runLevel2();
     void runLevel3();
+    void successfulPark();
+    void failedPark();
 
 signals:
     void keyPressed(QKeyEvent* event);
+    void keyRelease(QKeyEvent* event);
     void runningLevelSelect();
     void runningCarWidget();
     void goingHome();
     void level1Started();
     void level2Started();
     void level3Started();
+    void showLevelComplete();
+    void showTutorialComplete();
+    void showLevelFailure();
 
 private:
 };

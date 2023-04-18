@@ -1,7 +1,8 @@
 {
 	"Dialogue":[
-    		"Learn to Drive.",
+                "Level 1 instructions index 1 - 10",
     		"Okay you learned how to drive.",
-		"Wait no learn to drive!"
+                "Wait no learn to drive!",
+                "Level 2 instructions index "
 	]
 }
