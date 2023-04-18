@@ -48,3 +48,4 @@ void Level1::failed()
 {
     Model::instance->failedPark();
 }
+

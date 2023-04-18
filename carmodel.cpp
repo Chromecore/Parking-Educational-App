@@ -11,6 +11,8 @@ A8: Educational App
 #include <vector>
 #include "model.h"
 
+#include "yellowlinehitbox.h"
+
 CarModel::CarModel(QObject *parent)
     : QObject{parent},
       world(b2Vec2(0.0f, 0.0f)),
@@ -60,8 +62,9 @@ CarModel::CarModel(QObject *parent)
 
 
     //Testing to see if casting works. It does.
-    //b2Body* body2 = world.CreateBody(&bodyDef);
-    //body2->CreateFixture(&fixtureDef);
+    //YellowLineHitbox* testBox = world.CreateBody(&bodyDef);Trying to get the hitbox to be set up like b2Body.
+    //Maybe try b2Body testBox = YellowLineHitbox; world.AddBody(?)
+    //testBox->CreateFixture(&fixtureDef);
 }
 
 void CarModel::updateWorld() {
