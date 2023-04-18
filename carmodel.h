@@ -55,7 +55,7 @@ private:
     QImage image;
 
     // Fastest speed the car can go
-    //const float maxSpeed = 0.6f;
+    const float maxSpeed = 0.6f;
     // The speed at which the car breaks
     const float breakSpeed = 0.04f;
     // The angular impulse used when turning

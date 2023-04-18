@@ -10,8 +10,6 @@ A8: Educational App
 #include <QKeyEvent>
 #include <vector>
 #include "model.h"
-
-
 #include "yellowlinehitbox.h"
 
 CarModel::CarModel(QObject *parent)
@@ -124,20 +122,19 @@ void CarModel::updateWorld() {
     handleInput();
 
     // clamp the car speed at the maximum speed
-//    float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
-//    if(carSpeed > maxSpeed)
-//    {
-//        b2Vec2 newClampedSpeed = body->GetLinearVelocity();
-//        newClampedSpeed.Normalize();
-//        newClampedSpeed.x = newClampedSpeed.x * maxSpeed;
-//        newClampedSpeed.y = newClampedSpeed.y * maxSpeed;
-//        body->SetLinearVelocity(newClampedSpeed);
-//    }
+    float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
+    if(carSpeed > maxSpeed)
+    {
+        b2Vec2 newClampedSpeed = body->GetLinearVelocity();
+        newClampedSpeed.Normalize();
+        newClampedSpeed.x = newClampedSpeed.x * maxSpeed;
+        newClampedSpeed.y = newClampedSpeed.y * maxSpeed;
+        body->SetLinearVelocity(newClampedSpeed);
+    }
 }
 
 void CarModel::keyPressed(QKeyEvent* event)
 {
-    qDebug() << event->key();
     switch(event->key())
     {
         case Qt::Key_W:
@@ -203,13 +200,11 @@ void CarModel::handleInput(){
         direction.x *= driveSpeed;
         direction.y *= driveSpeed;
         body->ApplyForceToCenter(direction, true);
-        qDebug() << "Drive";
     }
     if(aPressed)
     {
         // turn left
         body->ApplyAngularImpulse(-angularImpulse * angleEffector, true);
-        qDebug() << "Turn Left";
     }
     if(sPressed)
     {
@@ -217,13 +212,11 @@ void CarModel::handleInput(){
         direction.x *= reverseSpeed;
         direction.y *= reverseSpeed;
         body->ApplyForceToCenter(-direction, true);
-        qDebug() << "Reverse";
     }
     if(dPressed)
     {
         // turn right
         body->ApplyAngularImpulse(angularImpulse * angleEffector, true);
-        qDebug() << "Turn Right";
     }
     if(returnPressed)
     {
@@ -238,7 +231,6 @@ void CarModel::handleInput(){
         if(velocity.y <= breakSpeed && velocity.y >= -breakSpeed) velocity.y = 0;
 
         body->SetLinearVelocity(velocity);
-        qDebug() << "Break";
     }
 }
 
