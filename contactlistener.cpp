@@ -9,7 +9,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
   //check if fixture A was a ball
   void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
   if ( bodyUserData )
-    //static_cast<YellowLineHitbox*>( bodyUserData )->startContact();
+    //static_cast<YellowLineHitbox*>( bodyUserData )->startContact(); This is what it will look like once we get YellowLineHitbox done.
     static_cast<b2Body*>( bodyUserData )->startContact();
   //check if fixture B was a ball
   bodyUserData = contact->GetFixtureB()->GetBody()->GetUserData();
