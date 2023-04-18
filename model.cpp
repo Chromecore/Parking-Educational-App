@@ -5,7 +5,6 @@ A8: Educational App
 */
 
 #include "model.h"
-#include "car.h"
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QJsonArray>
@@ -33,34 +32,40 @@ void Model::init()
 
 void Model::runLevelSelect()
 {
+    canDrive = false;
     emit runningLevelSelect();
 }
 
 void Model::goHome()
 {
+    canDrive = false;
     emit goingHome();
 }
 
 void Model::runLevel1()
 {
+    canDrive = true;
     curLevel = 1;
     emit level1Started();
 }
 
 void Model::runLevel2()
 {
+    canDrive = true;
     curLevel = 2;
     emit level2Started();
 }
 
 void Model::runLevel3()
 {
+    canDrive = true;
     curLevel = 3;
     emit level3Started();
 }
 
 void Model::successfulPark()
 {
+    canDrive = false;
     if (curLevel == numLevels)
     {
         emit showTutorialComplete();
@@ -73,6 +78,7 @@ void Model::successfulPark()
 
 void Model::failedPark()
 {
+    canDrive = false;
     emit showLevelFailure();
 }
 
@@ -110,5 +116,6 @@ void Model::loadDialogToArray()
 // Probably only needed for testButton
 void Model::runCarWidget()
 {
+    canDrive = true;
     emit runningCarWidget();
 }

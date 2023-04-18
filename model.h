@@ -38,6 +38,7 @@ public:
     CarModel* carModel;
     int curLevel;
     int numLevels;
+    bool canDrive;
 
 public slots:
     void runLevelSelect();
