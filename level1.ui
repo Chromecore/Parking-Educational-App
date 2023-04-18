@@ -105,6 +105,24 @@ Failure
 Button</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="checkButton">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>275</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Check</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

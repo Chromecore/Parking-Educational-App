@@ -48,9 +48,9 @@
    <property name="geometry">
     <rect>
      <x>640</x>
-     <y>280</y>
+     <y>275</y>
      <width>150</width>
-     <height>40</height>
+     <height>50</height>
     </rect>
    </property>
    <property name="font">
