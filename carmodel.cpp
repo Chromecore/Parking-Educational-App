@@ -10,15 +10,13 @@ A8: Educational App
 #include <QKeyEvent>
 #include <vector>
 #include "model.h"
-
-
 #include "yellowlinehitbox.h"
 
 CarModel::CarModel(QObject *parent)
     : QObject{parent},
       world(b2Vec2(0.0f, 0.0f)),
       timer(this),
-      image(":/sprites/Resources/car.png")
+      image(":/sprites/Resources/car3.png")
 {
     connect(Model::instance,
             &Model::keyPressed,
@@ -103,18 +101,22 @@ void CarModel::updateWorld() {
 
     // clamp car to screen
     b2Vec2 bodyPosition = body->GetPosition();
-    if(bodyPosition.x > drivableAreaWidth / positionScaler){
-        bodyPosition.x = drivableAreaWidth / positionScaler;
+    // clamp right side
+    if(bodyPosition.x > (drivableAreaWidth - carScale) / positionScaler){
+        bodyPosition.x = (drivableAreaWidth - carScale) / positionScaler;
         zeroOutVelocity();
     }
+    // clamp left side
     else if(bodyPosition.x < 0) {
         bodyPosition.x = 0;
         zeroOutVelocity();
     }
-    if(bodyPosition.y > drivableAreaWidth / positionScaler){
-        bodyPosition.y = drivableAreaWidth / positionScaler;
+    // clamp bottom
+    if(bodyPosition.y > (drivableAreaWidth - carScale) / positionScaler){
+        bodyPosition.y = (drivableAreaWidth - carScale) / positionScaler;
         zeroOutVelocity();
     }
+    // clamp top
     else if(bodyPosition.y < 0) {
         bodyPosition.y = 0;
         zeroOutVelocity();
@@ -124,66 +126,35 @@ void CarModel::updateWorld() {
     handleInput();
 
     // clamp the car speed at the maximum speed
-//    float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
-//    if(carSpeed > maxSpeed)
-//    {
-//        b2Vec2 newClampedSpeed = body->GetLinearVelocity();
-//        newClampedSpeed.Normalize();
-//        newClampedSpeed.x = newClampedSpeed.x * maxSpeed;
-//        newClampedSpeed.y = newClampedSpeed.y * maxSpeed;
-//        body->SetLinearVelocity(newClampedSpeed);
-//    }
+    float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
+    if(carSpeed > maxSpeed)
+    {
+        b2Vec2 newClampedSpeed = body->GetLinearVelocity();
+        newClampedSpeed.Normalize();
+        newClampedSpeed.x = newClampedSpeed.x * maxSpeed;
+        newClampedSpeed.y = newClampedSpeed.y * maxSpeed;
+        body->SetLinearVelocity(newClampedSpeed);
+    }
 }
 
 void CarModel::keyPressed(QKeyEvent* event)
 {
-    qDebug() << event->key();
-    switch(event->key())
-    {
-        case Qt::Key_W:
-            wPressed = true;
-            break;
-        case Qt::Key_A:
-            aPressed = true;
-            break;
-        case Qt::Key_S:
-            sPressed = true;
-            break;
-        case Qt::Key_D:
-            dPressed = true;
-            break;
-        case Qt::Key_Space:
-            qDebug() << "Space Pressed";
-            spacePressed = true;
-            break;
-        default:
-            break;
-    }
+    int key = event->key();
+    if(key == driveKey) drivePressed = true;
+    if(key == leftKey) leftPressed = true;
+    if(key == reverseKey) reversePressed = true;
+    if(key == rightKey) rightPressed = true;
+    if(key == breakKey) breakPressed = true;
 }
 
 void CarModel::keyRelease(QKeyEvent* event)
 {
-    switch(event->key())
-    {
-        case Qt::Key_W:
-            wPressed = false;
-            break;
-        case Qt::Key_A:
-            aPressed = false;
-            break;
-        case Qt::Key_S:
-            sPressed = false;
-            break;
-        case Qt::Key_D:
-            dPressed = false;
-            break;
-        case Qt::Key_Space:
-            qDebug() << "Space Released";
-            spacePressed = false;
-            break;
-        default:
-            break;
-    }
+    int key = event->key();
+    if(key == driveKey) drivePressed = false;
+    if(key == leftKey) leftPressed = false;
+    if(key == reverseKey) reversePressed = false;
+    if(key == rightKey) rightPressed = false;
+    if(key == breakKey) breakPressed = false;
 }
 
 void CarModel::handleInput(){
@@ -194,40 +165,36 @@ void CarModel::handleInput(){
     // stop from turning when not moving
     float angleEffector = 0;
     float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
-    angleEffector = abs(carSpeed) / 0.6f;
+    angleEffector = abs(carSpeed) / turnDriveRelationship;
 
     b2Vec2 velocity = body->GetLinearVelocity();
 
-    // handle the input
-    if(wPressed)
+    // apply the input
+    if(drivePressed)
     {
         // move forward
         direction.x *= driveSpeed;
         direction.y *= driveSpeed;
         body->ApplyForceToCenter(direction, true);
-        qDebug() << "Drive";
     }
-    if(aPressed)
+    if(leftPressed)
     {
         // turn left
         body->ApplyAngularImpulse(-angularImpulse * angleEffector, true);
-        qDebug() << "Turn Left";
     }
-    if(sPressed)
+    if(reversePressed)
     {
         // move backwards
         direction.x *= reverseSpeed;
         direction.y *= reverseSpeed;
         body->ApplyForceToCenter(-direction, true);
-        qDebug() << "Reverse";
     }
-    if(dPressed)
+    if(rightPressed)
     {
         // turn right
         body->ApplyAngularImpulse(angularImpulse * angleEffector, true);
-        qDebug() << "Turn Right";
     }
-    if(spacePressed)
+    if(breakPressed)
     {
         // break
         if(velocity.x > 0) velocity.x -= breakSpeed;
@@ -240,7 +207,6 @@ void CarModel::handleInput(){
         if(velocity.y <= breakSpeed && velocity.y >= -breakSpeed) velocity.y = 0;
 
         body->SetLinearVelocity(velocity);
-        qDebug() << "Break";
     }
 }
 
