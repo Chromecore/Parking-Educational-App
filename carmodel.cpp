@@ -27,7 +27,7 @@ CarModel::CarModel(QObject *parent)
             this,
             &CarModel::keyRelease);
 
-    loadTruck();
+    loadCar();
 
     // setup the image
     float size = screenWidth / sqrt(2);
