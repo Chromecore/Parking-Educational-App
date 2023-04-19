@@ -56,6 +56,8 @@ CarModel::CarModel(QObject *parent)
     // Add the shape to the body.
     body->CreateFixture(&fixtureDef);
 
+    setCarAngle(-90);
+
     // start the main update loop
     connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
     timer.start(10);
