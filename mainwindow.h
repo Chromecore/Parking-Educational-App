@@ -29,6 +29,8 @@ public slots:
     void showLevel1Widget();
     void showLevel2Widget();
     void showLevel3Widget();
+    void showLevel4Widget();
+    void showLevel5Widget();
     void showSuccessWidget();
     void showFailWidget();
 

@@ -47,6 +47,8 @@ public slots:
     void runLevel1();
     void runLevel2();
     void runLevel3();
+    void runLevel4();
+    void runLevel5();
     void successfulPark();
     void failedPark();
     void retryLevel();
@@ -61,6 +63,8 @@ signals:
     void level1Started();
     void level2Started();
     void level3Started();
+    void level4Started();
+    void level5Started();
     void showLevelComplete();
     void showTutorialComplete();
     void showLevelFailure();

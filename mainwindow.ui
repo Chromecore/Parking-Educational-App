@@ -17,7 +17,7 @@
    <widget class="Car" name="carWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>0</x>
       <y>0</y>
       <width>600</width>
       <height>600</height>
@@ -94,6 +94,26 @@
      </rect>
     </property>
    </widget>
+   <widget class="Level4" name="level4Widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>800</width>
+      <height>600</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="Level5" name="level5Widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>800</width>
+      <height>600</height>
+     </rect>
+    </property>
+   </widget>
    <zorder>welcomeWidget</zorder>
    <zorder>level1Widget</zorder>
    <zorder>levelSelectWidget</zorder>
@@ -102,6 +122,8 @@
    <zorder>carWidget</zorder>
    <zorder>failWidget</zorder>
    <zorder>successWidget</zorder>
+   <zorder>level4Widget</zorder>
+   <zorder>level5Widget</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -109,7 +131,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>
@@ -162,6 +184,18 @@
    <class>Level3</class>
    <extends>QWidget</extends>
    <header>level3.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Level4</class>
+   <extends>QWidget</extends>
+   <header>level4.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Level5</class>
+   <extends>QWidget</extends>
+   <header>level5.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

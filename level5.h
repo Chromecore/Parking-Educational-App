@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::Level5 *ui;
+
+private slots:
+    // Lets the model know when the home button is clicked
+    void homeButtonClicked();
+    void successfullyParked();
+    void failed();
 };
 
 #endif // LEVEL5_H

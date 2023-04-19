@@ -20,6 +20,8 @@ private slots:
     void level1ButtonClicked();
     void level2ButtonClicked();
     void level3ButtonClicked();
+    void level4ButtonClicked();
+    void level5ButtonClicked();
 
 private:
     Ui::LevelSelectScreen *ui;

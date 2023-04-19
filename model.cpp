@@ -21,7 +21,7 @@ Model::Model(QObject *parent)
     loadDialogToArray();
 
     curLevel = 0;
-    numLevels = 3;
+    numLevels = 5;
 }
 
 void Model::init()
@@ -75,6 +75,28 @@ void Model::runLevel3()
     emit level3Started();
 }
 
+void Model::runLevel4()
+{
+    carModel->setCarPosition(b2Vec2(4, 4));
+    carModel->setCarAngle(0);
+    carModel->zeroOutVelocity();
+
+    canDrive = true;
+    curLevel = 4;
+    emit level4Started();
+}
+
+void Model::runLevel5()
+{
+    carModel->setCarPosition(b2Vec2(4, 4));
+    carModel->setCarAngle(0);
+    carModel->zeroOutVelocity();
+
+    canDrive = true;
+    curLevel = 5;
+    emit level5Started();
+}
+
 void Model::successfulPark()
 {
     canDrive = false;
@@ -107,6 +129,12 @@ void Model::retryLevel()
         case 3:
             runLevel3();
             break;
+        case 4:
+            runLevel4();
+            break;
+        case 5:
+            runLevel5();
+            break;
         default:
             break;
     }
@@ -121,6 +149,12 @@ void Model::runNextLevel()
         break;
     case 2:
         runLevel3();
+        break;
+    case 3:
+        runLevel4();
+        break;
+    case 4:
+        runLevel5();
         break;
     default:
         break;

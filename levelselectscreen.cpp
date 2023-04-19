@@ -27,6 +27,16 @@ LevelSelectScreen::LevelSelectScreen(QWidget *parent) :
             &QPushButton::clicked,
             this,
             &LevelSelectScreen::level3ButtonClicked);
+
+    connect(ui->level4Button,
+            &QPushButton::clicked,
+            this,
+            &LevelSelectScreen::level4ButtonClicked);
+
+    connect(ui->level5Button,
+            &QPushButton::clicked,
+            this,
+            &LevelSelectScreen::level5ButtonClicked);
 }
 
 LevelSelectScreen::~LevelSelectScreen()
@@ -52,4 +62,14 @@ void LevelSelectScreen::level2ButtonClicked()
 void LevelSelectScreen::level3ButtonClicked()
 {
     Model::instance->runLevel3();
+}
+
+void LevelSelectScreen::level4ButtonClicked()
+{
+    Model::instance->runLevel4();
+}
+
+void LevelSelectScreen::level5ButtonClicked()
+{
+    Model::instance->runLevel5();
 }
