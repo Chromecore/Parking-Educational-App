@@ -56,7 +56,7 @@ CarModel::CarModel(QObject *parent)
     // Add the shape to the body.
     body->CreateFixture(&fixtureDef);
 
-    setCarAngle(-90);
+    setCarAngle(0);
 
     // start the main update loop
     connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
@@ -105,6 +105,7 @@ void CarModel::updateWorld() {
 
     body->SetLinearVelocity(b2Vec2(velocity.x(), velocity.y()));
 
+    // TODO : Fix car boundaries
     // clamp car to screen
     b2Vec2 bodyPosition = body->GetPosition();
     // clamp right side
@@ -229,6 +230,8 @@ void CarModel::setCarPosition(b2Vec2 newPosition)
 
 void CarModel::setCarAngle(float newAngle)
 {
+    // offset to face up at 0 degrees
+    newAngle -= 90;
     body->SetTransform(body->GetPosition(), newAngle);
 }
 
