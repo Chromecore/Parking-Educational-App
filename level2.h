@@ -16,13 +16,9 @@ public:
     ~Level2();
 
 private slots:
-    void on_homeButton_clicked();
+    void homeButtonClicked();
 
     void on_checkButton_clicked();
-
-    void on_tempButton_clicked();
-
-    void on_tempButton_3_clicked();
 
     void successfullyParked();
 

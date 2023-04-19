@@ -10,6 +10,7 @@
         <file>Resources/Frame.png</file>
         <file>Resources/passed.png</file>
         <file>Resources/failed.png</file>
+        <file>Resources/Truck.png</file>
     </qresource>
     <qresource prefix="/Dialogue">
         <file>Resources/Dialogue.txt</file>

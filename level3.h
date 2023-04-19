@@ -16,7 +16,7 @@ public:
     ~Level3();
 
 private slots:
-    void on_homeButton_clicked();
+    void homeButtonClicked();
 
     void on_checkButton_clicked();
 

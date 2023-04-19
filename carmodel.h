@@ -55,27 +55,27 @@ private:
     QImage image;
 
     // Fastest speed the car can go
-    const float maxSpeed = 0.8f;
+    float maxSpeed;
     // The speed at which the car breaks
-    const float breakSpeed = 0.04f;
+    float breakSpeed;
     // The angular impulse used when turning
-    const float angularImpulse = 300;
+    float angularImpulse;
     // The speed that the car accelerates at when driving
-    const float driveSpeed = 1;
+    float driveSpeed;
     // The speed that the car accelerates at when reversing
-    const float reverseSpeed = 1;
+    float reverseSpeed;
     // The amount of side velocity to keep (0 - none, 1 - all)
-    const float sideVelocityMultiplyer = 0.2;
+    float sideVelocityMultiplyer;
     // The relationship between the amount the car can turn vs the speed of the car
     // 0 - Can turn with 0 velocity
     // The higher the number the faster the car must be going for the car to turn
-    const float turnDriveRelationship = 2;
+    float turnDriveRelationship;
 
-    const float carScale = 100;
+    float carScale;
     const float drivableAreaWidth = 600;
     const float screenWidth = 800;
 
-    // keys
+    // movement keys
     const Qt::Key driveKey = Qt::Key_W;
     const Qt::Key reverseKey = Qt::Key_S;
     const Qt::Key leftKey = Qt::Key_A;
@@ -89,10 +89,16 @@ private:
     bool rightPressed;
     bool breakPressed;
 
-    // take in key input as an event and convert it to an action performed on the car
+    // take in key pressed events and record them to be applied later
     void keyPressed(QKeyEvent* event);
+    // take in key released events and record them to be applied later
     void keyRelease(QKeyEvent *event);
-    void handleInput();
+    // applies the input given from the main window to the car
+    void appliesInput();
+    // loads the data related to the car
+    void loadCar();
+    // loads the data related to the truck
+    void loadTruck();
 };
 
 #endif // CARMODEL_H

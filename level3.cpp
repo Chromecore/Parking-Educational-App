@@ -13,7 +13,7 @@ Level3::Level3(QWidget *parent) :
     connect(ui->homeButton,
             &QPushButton::clicked,
             this,
-            &Level3::on_homeButton_clicked);
+            &Level3::homeButtonClicked);
 
     // for temp button
     connect(ui->tempButton,
@@ -33,7 +33,7 @@ Level3::~Level3()
     delete ui;
 }
 
-void Level3::on_homeButton_clicked()
+void Level3::homeButtonClicked()
 {
     Model::instance->goHome();
 }
