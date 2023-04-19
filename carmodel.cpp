@@ -10,7 +10,6 @@ A8: Educational App
 #include <QKeyEvent>
 #include <vector>
 #include "model.h"
-#include "yellowlinehitbox.h"
 
 CarModel::CarModel(QObject *parent)
     : QObject{parent},
@@ -63,12 +62,13 @@ CarModel::CarModel(QObject *parent)
     //Added for Collision Testing
     body->SetUserData( body );
     world.SetContactListener(&myContactListener);
+    isParkedSuccessfully = false;
 
 
     //Testing to see if casting works. It does.
-    //YellowLineHitbox* testBox = world.CreateBody(&bodyDef);Trying to get the hitbox to be set up like b2Body.
-    //Maybe try b2Body testBox = YellowLineHitbox; world.AddBody(?)
-    //testBox->CreateFixture(&fixtureDef);
+    b2Body* testHitBox = world.CreateBody(&bodyDef);
+    testHitBox->setHitboxType(1);
+    testHitBox->CreateFixture(&fixtureDef);
 }
 
 void CarModel::updateWorld() {
@@ -76,10 +76,16 @@ void CarModel::updateWorld() {
     world.Step(1.0/60.0, 6, 2);
     emit updateUI();
 
-    //Test for Collision
-    if (body->getContactNum() > 0 ){
-        qDebug() << "contacting";
+    //Wincondition
+    if (body->getHazardContactNum() > 0 ){
+        qDebug() << "LOSE";
+        isParkedSuccessfully = false;
     }
+    else if (body->getGoalContactNum() > 0){
+        qDebug() << "WIN";
+        isParkedSuccessfully = true;
+    }
+
 
 
     // apply angular friction to stop car from continualy rotating
