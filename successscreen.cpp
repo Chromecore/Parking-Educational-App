@@ -14,6 +14,16 @@ SuccessScreen::SuccessScreen(QWidget *parent) :
             &QPushButton::clicked,
             this,
             &SuccessScreen::homeButtonClicked);
+
+    connect(ui->retryLevelButton,
+            &QPushButton::clicked,
+            this,
+            &SuccessScreen::retryClicked);
+
+    connect(ui->nextLevelButton,
+            &QPushButton::clicked,
+            this,
+            &SuccessScreen::nextLevelClicked);
 }
 
 SuccessScreen::~SuccessScreen()
@@ -24,4 +34,14 @@ SuccessScreen::~SuccessScreen()
 void SuccessScreen::homeButtonClicked()
 {
     Model::instance->goHome();
+}
+
+void SuccessScreen::retryClicked()
+{
+    Model::instance->retryLevel();
+}
+
+void SuccessScreen::nextLevelClicked()
+{
+    Model::instance->runNextLevel();
 }

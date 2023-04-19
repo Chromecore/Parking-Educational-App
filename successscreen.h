@@ -17,6 +17,8 @@ public:
 
 private slots:
     void homeButtonClicked();
+    void retryClicked();
+    void nextLevelClicked();
 
 private:
     Ui::SuccessScreen *ui;

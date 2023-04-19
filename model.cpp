@@ -44,6 +44,10 @@ void Model::goHome()
 
 void Model::runLevel1()
 {
+    carModel->setCarPosition(b2Vec2(4, 4));
+    carModel->setCarAngle(0);
+    carModel->zeroOutVelocity();
+
     canDrive = true;
     curLevel = 1;
     emit level1Started();
@@ -51,6 +55,10 @@ void Model::runLevel1()
 
 void Model::runLevel2()
 {
+    carModel->setCarPosition(b2Vec2(4, 4));
+    carModel->setCarAngle(0);
+    carModel->zeroOutVelocity();
+
     canDrive = true;
     curLevel = 2;
     emit level2Started();
@@ -58,6 +66,10 @@ void Model::runLevel2()
 
 void Model::runLevel3()
 {
+    carModel->setCarPosition(b2Vec2(4, 4));
+    carModel->setCarAngle(0);
+    carModel->zeroOutVelocity();
+
     canDrive = true;
     curLevel = 3;
     emit level3Started();
@@ -97,6 +109,21 @@ void Model::retryLevel()
             break;
         default:
             break;
+    }
+}
+
+void Model::runNextLevel()
+{
+    switch(curLevel)
+    {
+    case 1:
+        runLevel2();
+        break;
+    case 2:
+        runLevel3();
+        break;
+    default:
+        break;
     }
 }
 
