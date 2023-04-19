@@ -1,0 +1,22 @@
+#ifndef LEVEL5_H
+#define LEVEL5_H
+
+#include <QWidget>
+
+namespace Ui {
+class Level5;
+}
+
+class Level5 : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit Level5(QWidget *parent = nullptr);
+    ~Level5();
+
+private:
+    Ui::Level5 *ui;
+};
+
+#endif // LEVEL5_H
