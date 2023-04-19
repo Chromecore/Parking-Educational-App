@@ -23,7 +23,6 @@ public:
     void hideAllWidgets();
 
 public slots:
-    void showCarWidget();
     void showWelcomeWidget();
     void showLevelSelectWidget();
     void showLevel1Widget();

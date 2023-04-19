@@ -15,17 +15,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 {
     ui->setupUi(this);
 
-//    showWelcomeWidget();
-
     connect(Model::instance,
             &Model::runningLevelSelect,
             this,
             &MainWindow::showLevelSelectWidget);
-
-    connect(Model::instance,
-            &Model::runningCarWidget,
-            this,
-            &MainWindow::showCarWidget);
 
     connect(Model::instance,
             &Model::goingHome,
@@ -93,12 +86,6 @@ void MainWindow::showWelcomeWidget()
 {
     hideAllWidgets();
     ui->welcomeWidget->show();
-}
-
-void MainWindow::showCarWidget()
-{
-    hideAllWidgets();
-    ui->carWidget->show();
 }
 
 void MainWindow::showLevel1Widget()
