@@ -32,6 +32,7 @@ public slots:
     void showLevel5Widget();
     void showSuccessWidget();
     void showFailWidget();
+    void showCertificateWidget(bool tutorialComplete);
 
 private:
     Ui::MainWindow *ui;

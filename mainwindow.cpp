@@ -60,6 +60,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
             this,
             &MainWindow::showFailWidget);
 
+    connect(Model::instance,
+            &Model::showTutorialComplete,
+            this,
+            &MainWindow::showCertificateWidget);
+
     Model::instance->goHome();
 }
 
@@ -146,6 +151,14 @@ void MainWindow::showFailWidget()
     ui->failWidget->raise();
 }
 
+void MainWindow::showCertificateWidget(bool tutorialComplete)
+{
+
+
+    hideAllWidgets();
+    ui->certificateWidget->show();
+}
+
 void MainWindow::hideAllWidgets()
 {
     ui->carWidget->hide();
@@ -158,4 +171,5 @@ void MainWindow::hideAllWidgets()
     ui->level5Widget->hide();
     ui->failWidget->hide();
     ui->successWidget->hide();
+    ui->certificateWidget->hide();
 }
