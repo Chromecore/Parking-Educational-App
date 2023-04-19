@@ -102,7 +102,17 @@ void Model::successfulPark()
     canDrive = false;
     if (curLevel == numLevels)
     {
-        emit showTutorialComplete();
+        bool allLevelsComplete = true;
+        for (int i = 0; i < numLevels; i++)
+        {
+            if (!levelsCompleted[i])
+            {
+                allLevelsComplete = false;
+                break;
+            }
+        }
+
+        emit showTutorialComplete(allLevelsComplete);
     }
     else
     {

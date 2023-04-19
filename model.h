@@ -39,6 +39,7 @@ public:
     int curLevel;
     int numLevels;
     bool canDrive;
+    bool levelsCompleted[5] { 0 };
 
 public slots:
     void runLevelSelect();
@@ -64,7 +65,7 @@ signals:
     void level4Started();
     void level5Started();
     void showLevelComplete();
-    void showTutorialComplete();
+    void showTutorialComplete(bool allLevelsComplete);
     void showLevelFailure();
 
 private:
