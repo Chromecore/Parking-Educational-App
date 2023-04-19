@@ -12,7 +12,7 @@ Level2::Level2(QWidget *parent) :
     connect(ui->homeButton,
             &QPushButton::clicked,
             this,
-            &Level2::on_checkButton_clicked);
+            &Level2::on_homeButton_clicked);
 
     // for temp button
     connect(ui->tempButton,
