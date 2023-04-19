@@ -17,6 +17,7 @@ public:
 
 private slots:
     void homeButtonClicked();
+    void retryClicked();
 
 private:
     Ui::FailScreen *ui;

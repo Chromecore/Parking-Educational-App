@@ -82,6 +82,24 @@ void Model::failedPark()
     emit showLevelFailure();
 }
 
+void Model::retryLevel()
+{
+    switch(curLevel)
+    {
+        case 1:
+            runLevel1();
+            break;
+        case 2:
+            runLevel2();
+            break;
+        case 3:
+            runLevel3();
+            break;
+        default:
+            break;
+    }
+}
+
 float Model::degToRad(float degree)
 {
     return PI * (180 - degree) / 180;

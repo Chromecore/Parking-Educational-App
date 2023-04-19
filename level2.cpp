@@ -12,7 +12,7 @@ Level2::Level2(QWidget *parent) :
     connect(ui->homeButton,
             &QPushButton::clicked,
             this,
-            &Level2::on_homeButton_clicked);
+            &Level2::homeButtonClicked);
 
     // for temp button
     connect(ui->tempButton,
@@ -21,7 +21,7 @@ Level2::Level2(QWidget *parent) :
             &Level2::successfullyParked);
 
     // for temp button
-    connect(ui->tempButton_3,
+    connect(ui->tempButton_2,
             &QPushButton::clicked,
             this,
             &Level2::failed);
@@ -32,7 +32,7 @@ Level2::~Level2()
     delete ui;
 }
 
-void Level2::on_homeButton_clicked()
+void Level2::homeButtonClicked()
 {
     Model::instance->goHome();
 }
@@ -43,17 +43,6 @@ void Level2::on_checkButton_clicked()
 
 }
 
-
-void Level2::on_tempButton_clicked()
-{
-
-}
-
-
-void Level2::on_tempButton_3_clicked()
-{
-
-}
 void Level2::successfullyParked()
 {
     Model::instance->successfulPark();

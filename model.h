@@ -49,6 +49,7 @@ public slots:
     void runLevel3();
     void successfulPark();
     void failedPark();
+    void retryLevel();
 
 signals:
     void keyPressed(QKeyEvent* event);

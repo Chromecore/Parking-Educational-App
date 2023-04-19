@@ -14,6 +14,11 @@ FailScreen::FailScreen(QWidget *parent) :
             &QPushButton::clicked,
             this,
             &FailScreen::homeButtonClicked);
+
+    connect(ui->retryLevelButton,
+            &QPushButton::clicked,
+            this,
+            &FailScreen::retryClicked);
 }
 
 FailScreen::~FailScreen()
@@ -24,4 +29,9 @@ FailScreen::~FailScreen()
 void FailScreen::homeButtonClicked()
 {
     Model::instance->goHome();
+}
+
+void FailScreen::retryClicked()
+{
+    Model::instance->retryLevel();
 }
