@@ -15,6 +15,14 @@ public:
     explicit Level3(QWidget *parent = nullptr);
     ~Level3();
 
+private slots:
+    void on_homeButton_clicked();
+
+    void on_checkButton_clicked();
+
+    void successfullyParked();
+
+    void failed();
 private:
     Ui::Level3 *ui;
 };

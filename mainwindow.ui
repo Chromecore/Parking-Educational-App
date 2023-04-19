@@ -64,7 +64,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="level3Widget" native="true">
+   <widget class="Level3" name="level3Widget" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -155,7 +155,13 @@
   <customwidget>
    <class>Level2</class>
    <extends>QWidget</extends>
-   <header location="global">level2.h</header>
+   <header>level2.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Level3</class>
+   <extends>QWidget</extends>
+   <header>level3.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
