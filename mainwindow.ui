@@ -54,7 +54,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="level2Widget" native="true">
+   <widget class="Level2" name="level2Widget" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -109,7 +109,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -150,6 +150,12 @@
    <class>SuccessScreen</class>
    <extends>QWidget</extends>
    <header>successscreen.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Level2</class>
+   <extends>QWidget</extends>
+   <header location="global">level2.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

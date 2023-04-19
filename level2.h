@@ -15,6 +15,18 @@ public:
     explicit Level2(QWidget *parent = nullptr);
     ~Level2();
 
+private slots:
+    void on_homeButton_clicked();
+
+    void on_checkButton_clicked();
+
+    void on_tempButton_clicked();
+
+    void on_tempButton_3_clicked();
+
+    void successfullyParked();
+
+    void failed();
 private:
     Ui::Level2 *ui;
 };
