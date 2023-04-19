@@ -15,7 +15,7 @@ CarModel::CarModel(QObject *parent)
     : QObject{parent},
       world(b2Vec2(0.0f, 0.0f)),
       timer(this),
-      image(":/sprites/Resources/car3.png")
+      image("")
 {
     connect(Model::instance,
             &Model::keyPressed,
@@ -26,6 +26,8 @@ CarModel::CarModel(QObject *parent)
             &Model::keyRelease,
             this,
             &CarModel::keyRelease);
+
+    loadTruck();
 
     // setup the image
     float size = screenWidth / sqrt(2);
@@ -58,17 +60,15 @@ CarModel::CarModel(QObject *parent)
     connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
     timer.start(10);
 
-
-    //Added for Collision Testing
+    // added for Collision Testing
     body->SetUserData( body );
     world.SetContactListener(&myContactListener);
     isParkedSuccessfully = false;
 
-
-    //Testing to see if casting works. It does.
+    // testing to see if casting works. It does.
     b2Body* testHitBox = world.CreateBody(&bodyDef);
     testHitBox->setHitboxType(1);
-    testHitBox->CreateFixture(&fixtureDef);
+    //testHitBox->CreateFixture(&fixtureDef);
 }
 
 void CarModel::updateWorld() {
@@ -76,7 +76,7 @@ void CarModel::updateWorld() {
     world.Step(1.0/60.0, 6, 2);
     emit updateUI();
 
-    //Wincondition
+    // win condition
     if (body->getHazardContactNum() > 0 ){
         qDebug() << "LOSE";
         isParkedSuccessfully = false;
@@ -85,8 +85,6 @@ void CarModel::updateWorld() {
         qDebug() << "WIN";
         isParkedSuccessfully = true;
     }
-
-
 
     // apply angular friction to stop car from continualy rotating
     body->SetAngularVelocity(0);
@@ -129,7 +127,7 @@ void CarModel::updateWorld() {
     }
     setCarPosition(bodyPosition);
 
-    handleInput();
+    appliesInput();
 
     // clamp the car speed at the maximum speed
     float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
@@ -145,16 +143,21 @@ void CarModel::updateWorld() {
 
 void CarModel::keyPressed(QKeyEvent* event)
 {
+    // record key presses
     int key = event->key();
     if(key == driveKey) drivePressed = true;
     if(key == leftKey) leftPressed = true;
     if(key == reverseKey) reversePressed = true;
     if(key == rightKey) rightPressed = true;
     if(key == breakKey) breakPressed = true;
+    // TODO : Temp Remove
+    if(key == Qt::Key_P) loadCar();
+    if(key == Qt::Key_O) loadTruck();
 }
 
 void CarModel::keyRelease(QKeyEvent* event)
 {
+    // record key releases
     int key = event->key();
     if(key == driveKey) drivePressed = false;
     if(key == leftKey) leftPressed = false;
@@ -163,7 +166,8 @@ void CarModel::keyRelease(QKeyEvent* event)
     if(key == breakKey) breakPressed = false;
 }
 
-void CarModel::handleInput(){
+void CarModel::appliesInput()
+{
     // find the direction the car is facing
     float angleRad = Model::degToRad(-body->GetAngle() + 180);
     b2Vec2 direction(cos(angleRad), sin(angleRad));
@@ -241,4 +245,29 @@ QImage CarModel::getCarImage(){
 
 float CarModel::getCarScale(){
     return carScale;
+}
+
+void CarModel::loadCar()
+{
+    image.load(":/sprites/Resources/car2.png");
+    carScale = 100;
+    maxSpeed = 0.8f;
+    breakSpeed = 0.04f;
+    angularImpulse = 300;
+    driveSpeed = 1;
+    reverseSpeed = 1;
+    sideVelocityMultiplyer = 0.2;
+    turnDriveRelationship = 2;
+}
+void CarModel::loadTruck()
+{
+    image.load(":/sprites/Resources/Truck.png");
+    carScale = 150;
+    maxSpeed = 0.7f;
+    breakSpeed = 0.03f;
+    angularImpulse = 250;
+    driveSpeed = 0.8;
+    reverseSpeed = 0.8;
+    sideVelocityMultiplyer = 0.1;
+    turnDriveRelationship = 2.5;
 }
