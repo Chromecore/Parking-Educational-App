@@ -67,8 +67,7 @@ SOURCES += \
     mainwindow.cpp \
     model.cpp \
     successscreen.cpp \
-    welcomescreen.cpp \
-    yellowlinehitbox.cpp
+    welcomescreen.cpp
 
 HEADERS += \
     Box2D/Box2D.h \
@@ -129,8 +128,7 @@ HEADERS += \
     mainwindow.h \
     model.h \
     successscreen.h \
-    welcomescreen.h \
-    yellowlinehitbox.h
+    welcomescreen.h
 
 FORMS += \
     car.ui \

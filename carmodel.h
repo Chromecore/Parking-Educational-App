@@ -39,6 +39,7 @@ public:
 
     //Added for Collision Testing
     ContactListener myContactListener;
+    bool isParkedSuccessfully;
 
 signals:
     void updateUI();

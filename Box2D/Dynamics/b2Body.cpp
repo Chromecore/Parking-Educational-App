@@ -25,7 +25,9 @@
 b2Body::b2Body(const b2BodyDef* bd, b2World* world)
 {
     //Added for Collision Testing
-    m_numContacts = 0;
+    NumGoalContacts   = 0;
+    NumHazardContacts = 0;
+    objHitboxType = driveableCar;
 
 	b2Assert(bd->position.IsValid());
 	b2Assert(bd->linearVelocity.IsValid());
@@ -553,17 +555,49 @@ void b2Body::Dump()
 
 
 //Added for Collision Testing
-void b2Body::startContact()
+void b2Body::startGoalContact()
 {
-  m_numContacts++;
+  NumGoalContacts++;
 }
 
-void b2Body::endContact()
+void b2Body::endGoalContact()
 {
-  m_numContacts--;
+  NumGoalContacts--;
 }
 
-int b2Body::getContactNum()
+int b2Body::getGoalContactNum()
 {
-  return m_numContacts;
+  return NumGoalContacts;
+}
+
+void b2Body::startHazardContact()
+{
+  NumHazardContacts++;
+}
+
+void b2Body::endHazardContact()
+{
+  NumHazardContacts--;
+}
+
+int b2Body::getHazardContactNum()
+{
+  return NumHazardContacts;
+}
+
+int b2Body::getHitboxType()
+{
+    return objHitboxType;
+}
+
+void b2Body::setHitboxType(int hitBoxIndex)
+{
+    switch (hitBoxIndex)
+    {
+    case 0: objHitboxType = driveableCar; break;
+    case 1: objHitboxType = goal; break;
+    case 2: objHitboxType = hazardLine; break;
+    case 3: objHitboxType = parkedCar; break;
+    }
+
 }

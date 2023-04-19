@@ -48,6 +48,11 @@ enum b2BodyType
 	//b2_bulletBody,
 };
 
+
+//Added for Collision testing.
+//Used for determining what to do when collided with the car.
+enum hitboxType { driveableCar, goal, hazardLine, parkedCar };
+
 /// A body definition holds all the data needed to construct a rigid body.
 /// You can safely re-use body definitions. Shapes are added to a body after construction.
 struct b2BodyDef
@@ -130,8 +135,11 @@ class b2Body
 public:
 
     //Added for Collision Testing
-    int m_numContacts;
-
+    int NumGoalContacts;
+    int NumHazardContacts;
+    int getHitboxType();
+    void setHitboxType(int);
+    hitboxType objHitboxType;
 
 	/// Creates a fixture and attach it to this body. Use this function if you need
 	/// to set some fixture parameters, like friction. Otherwise you can create the
@@ -391,11 +399,12 @@ public:
 	void Dump();
 
     //Added for Collision Testing
-    //Ball class functions
-    void startContact();
-    void endContact();
-    int getContactNum();
-
+    void startGoalContact();
+    void endGoalContact();
+    int getGoalContactNum();
+    void startHazardContact();
+    void endHazardContact();
+    int getHazardContactNum();
 
 private:
 
