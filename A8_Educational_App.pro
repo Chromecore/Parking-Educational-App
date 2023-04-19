@@ -62,6 +62,8 @@ SOURCES += \
     level1.cpp \
     level2.cpp \
     level3.cpp \
+    level4.cpp \
+    level5.cpp \
     levelselectscreen.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -124,6 +126,8 @@ HEADERS += \
     level1.h \
     level2.h \
     level3.h \
+    level4.h \
+    level5.h \
     levelselectscreen.h \
     mainwindow.h \
     model.h \
@@ -135,6 +139,8 @@ FORMS += \
     failscreen.ui \
     level2.ui \
     level3.ui \
+    level4.ui \
+    level5.ui \
     levelselectscreen.ui \
     mainwindow.ui \
     successscreen.ui \

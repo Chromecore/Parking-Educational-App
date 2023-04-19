@@ -27,7 +27,7 @@ CarModel::CarModel(QObject *parent)
             this,
             &CarModel::keyRelease);
 
-    loadTruck();
+    loadCar();
 
     // setup the image
     float size = screenWidth / sqrt(2);
@@ -55,6 +55,8 @@ CarModel::CarModel(QObject *parent)
     fixtureDef.friction = 1.0f;
     // Add the shape to the body.
     body->CreateFixture(&fixtureDef);
+
+    setCarAngle(-90);
 
     // start the main update loop
     connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
