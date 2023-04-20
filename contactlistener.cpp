@@ -1,17 +1,20 @@
 #include "contactlistener.h"
 #include <Box2D/Box2D.h>
+#include <QDebug>
 
 
 
 void ContactListener::BeginContact(b2Contact* contact) {
-    /*
+
   //check if fixture A & fixture B are b2Body, then decide what to do based on what kind of hitbox it is.
-  void* bodyUserData1 = contact->GetFixtureA()->GetBody()->GetUserData();
-  void* bodyUserData2 = contact->GetFixtureB()->GetBody()->GetUserData();
+  void* bodyUserData1 = contact->GetFixtureA()->GetBody();
+  void* bodyUserData2 = contact->GetFixtureB()->GetBody();
+  if ( bodyUserData1) qDebug()<< "Found Fixture One";
+  if ( bodyUserData2) qDebug()<< "Found Fixture Two";
   if ( bodyUserData1 && bodyUserData2 )
   {
      int hitboxType1 = static_cast<b2Body*>( bodyUserData1 )->getHitboxType();
-     int hitboxType2 = static_cast<b2Body*>( bodyUserData1 )->getHitboxType();
+     int hitboxType2 = static_cast<b2Body*>( bodyUserData2 )->getHitboxType();
      if (IsValidCollision(hitboxType1, hitboxType2))
      {
         //First determine which fixture is bigger. Since driveable car is always 0,
@@ -60,10 +63,10 @@ void ContactListener::BeginContact(b2Contact* contact) {
 
      }
   }
-  */
 
+    /*
         //GRANDFATHER CODE THAT IS HERE FOR REFERENCE IN CASE CURRENT CODE DOESN'T WORK. DELETE LATER
-    //check if fixture A is a b2Body, then decide what to do based on what kind of hitbox it is.
+    //check if fixture A is a b2Body, thSen decide what to do based on what kind of hitbox it is.
     void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
     if ( bodyUserData )
       static_cast<b2Body*>( bodyUserData )->startGoalContact();
@@ -72,19 +75,21 @@ void ContactListener::BeginContact(b2Contact* contact) {
     bodyUserData = contact->GetFixtureB()->GetBody()->GetUserData();
     if ( bodyUserData )
       static_cast<b2Body*>( bodyUserData )->startGoalContact();
-
+    */
 
 }
 
 void ContactListener::EndContact(b2Contact* contact) {
-    /*
+
     //check if fixture A & fixture B are b2Body, then decide what to do based on what kind of hitbox it is.
-    void* bodyUserData1 = contact->GetFixtureA()->GetBody()->GetUserData();
-    void* bodyUserData2 = contact->GetFixtureB()->GetBody()->GetUserData();
+    void* bodyUserData1 = contact->GetFixtureA()->GetBody();
+    void* bodyUserData2 = contact->GetFixtureB()->GetBody();
+    if ( bodyUserData1) qDebug()<< "Left Fixture One";
+    if ( bodyUserData2) qDebug()<< "Left Fixture Two";
     if ( bodyUserData1 && bodyUserData2 )
     {
        int hitboxType1 = static_cast<b2Body*>( bodyUserData1 )->getHitboxType();
-       int hitboxType2 = static_cast<b2Body*>( bodyUserData1 )->getHitboxType();
+       int hitboxType2 = static_cast<b2Body*>( bodyUserData2 )->getHitboxType();
        if (IsValidCollision(hitboxType1, hitboxType2))
        {
           //First determine which fixture is bigger. Since driveable car is always 0,
@@ -133,9 +138,9 @@ void ContactListener::EndContact(b2Contact* contact) {
 
        }
     }
-    */
 
 
+  /*
      //GRANDFATHER CODE THAT IS HERE FOR REFERENCE IN CASE CURRENT CODE DOESN'T WORK. DELETE LATER
   //check if fixture A is a b2Body, then decide what to do based on what kind of hitbox it is.
   void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
@@ -146,7 +151,7 @@ void ContactListener::EndContact(b2Contact* contact) {
   bodyUserData = contact->GetFixtureB()->GetBody()->GetUserData();
   if ( bodyUserData )
     static_cast<b2Body*>( bodyUserData )->endGoalContact();
-
+    */
 }
 
 bool ContactListener::IsValidCollision(int hitboxType1, int hitboxType2)

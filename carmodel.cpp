@@ -68,9 +68,13 @@ CarModel::CarModel(QObject *parent)
     isParkedSuccessfully = false;
 
     // testing to see if casting works. It does.
-    b2Body* testHitBox = world.CreateBody(&bodyDef);
-    testHitBox->setHitboxType(1);
-    //testHitBox->CreateFixture(&fixtureDef);
+    //Need to set location and make b2Body static so they don't move. Then, make size and orientation correct and place them in their proper spot.
+    b2Body* testHitBoxGoal = world.CreateBody(&bodyDef);
+    testHitBoxGoal->setHitboxType(1);
+    testHitBoxGoal->CreateFixture(&fixtureDef);
+    b2Body* testHitBoxHazard = world.CreateBody(&bodyDef);
+    testHitBoxHazard->setHitboxType(2);
+    testHitBoxHazard->CreateFixture(&fixtureDef);
 }
 
 void CarModel::updateWorld() {
