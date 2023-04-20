@@ -15,17 +15,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 {
     ui->setupUi(this);
 
-//    showWelcomeWidget();
-
     connect(Model::instance,
             &Model::runningLevelSelect,
             this,
             &MainWindow::showLevelSelectWidget);
-
-    connect(Model::instance,
-            &Model::runningCarWidget,
-            this,
-            &MainWindow::showCarWidget);
 
     connect(Model::instance,
             &Model::goingHome,
@@ -67,6 +60,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
             this,
             &MainWindow::showFailWidget);
 
+    connect(Model::instance,
+            &Model::showTutorialComplete,
+            this,
+            &MainWindow::showCertificateWidget);
+
     Model::instance->goHome();
 }
 
@@ -93,12 +91,6 @@ void MainWindow::showWelcomeWidget()
 {
     hideAllWidgets();
     ui->welcomeWidget->show();
-}
-
-void MainWindow::showCarWidget()
-{
-    hideAllWidgets();
-    ui->carWidget->show();
 }
 
 void MainWindow::showLevel1Widget()
@@ -159,6 +151,14 @@ void MainWindow::showFailWidget()
     ui->failWidget->raise();
 }
 
+void MainWindow::showCertificateWidget(bool tutorialComplete)
+{
+
+
+    hideAllWidgets();
+    ui->certificateWidget->show();
+}
+
 void MainWindow::hideAllWidgets()
 {
     ui->carWidget->hide();
@@ -171,4 +171,5 @@ void MainWindow::hideAllWidgets()
     ui->level5Widget->hide();
     ui->failWidget->hide();
     ui->successWidget->hide();
+    ui->certificateWidget->hide();
 }

@@ -21,7 +21,7 @@ public:
     Model(const Model& obj) = delete;
     void setMainWindow(MainWindow* mainWindowPtr);
     void setWelcomeScreen(WelcomeScreen* welcomeScreenPtr);
-    void loadDialogToArray();
+    void loadDialogueToArray();
 
     //set up instance
     static void init();
@@ -39,10 +39,10 @@ public:
     int curLevel;
     int numLevels;
     bool canDrive;
+    bool levelsCompleted[5] { 0 };
 
 public slots:
     void runLevelSelect();
-    void runCarWidget();
     void goHome();
     void runLevel1();
     void runLevel2();
@@ -58,7 +58,6 @@ signals:
     void keyPressed(QKeyEvent* event);
     void keyRelease(QKeyEvent* event);
     void runningLevelSelect();
-    void runningCarWidget();
     void goingHome();
     void level1Started();
     void level2Started();
@@ -66,7 +65,7 @@ signals:
     void level4Started();
     void level5Started();
     void showLevelComplete();
-    void showTutorialComplete();
+    void showTutorialComplete(bool allLevelsComplete);
     void showLevelFailure();
 
 private:

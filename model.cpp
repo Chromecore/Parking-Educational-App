@@ -18,7 +18,7 @@ Model::Model(QObject *parent)
     : QObject{parent}
 {
 
-    loadDialogToArray();
+    loadDialogueToArray();
 
     curLevel = 0;
     numLevels = 5;
@@ -102,7 +102,17 @@ void Model::successfulPark()
     canDrive = false;
     if (curLevel == numLevels)
     {
-        emit showTutorialComplete();
+        bool allLevelsComplete = true;
+        for (int i = 0; i < numLevels; i++)
+        {
+            if (!levelsCompleted[i])
+            {
+                allLevelsComplete = false;
+                break;
+            }
+        }
+
+        emit showTutorialComplete(allLevelsComplete);
     }
     else
     {
@@ -166,7 +176,7 @@ float Model::degToRad(float degree)
     return PI * (180 - degree) / 180;
 }
 
-void Model::loadDialogToArray()
+void Model::loadDialogueToArray()
 {
     //Do not change from directory. Dialogue can be added into the file, deleted, etc. so long as the file maintains its structure.
     QString filepath = ":/Dialogue/Resources/Dialogue.txt";
@@ -189,12 +199,4 @@ void Model::loadDialogToArray()
     foreach (const QString & s, dialogue)
         qDebug() << s;
     */
-}
-
-
-// Probably only needed for testButton
-void Model::runCarWidget()
-{
-    canDrive = true;
-    emit runningCarWidget();
 }

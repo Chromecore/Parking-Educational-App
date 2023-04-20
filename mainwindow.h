@@ -23,7 +23,6 @@ public:
     void hideAllWidgets();
 
 public slots:
-    void showCarWidget();
     void showWelcomeWidget();
     void showLevelSelectWidget();
     void showLevel1Widget();
@@ -33,6 +32,7 @@ public slots:
     void showLevel5Widget();
     void showSuccessWidget();
     void showFailWidget();
+    void showCertificateWidget(bool tutorialComplete);
 
 private:
     Ui::MainWindow *ui;

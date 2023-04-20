@@ -11,6 +11,7 @@
         <file>Resources/passed.png</file>
         <file>Resources/failed.png</file>
         <file>Resources/Truck.png</file>
+        <file>Resources/welldone.png</file>
     </qresource>
     <qresource prefix="/Dialogue">
         <file>Resources/Dialogue.txt</file>

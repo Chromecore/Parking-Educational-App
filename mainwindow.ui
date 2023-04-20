@@ -114,6 +114,16 @@
      </rect>
     </property>
    </widget>
+   <widget class="CertificateScreen" name="certificateWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>800</width>
+      <height>600</height>
+     </rect>
+    </property>
+   </widget>
    <zorder>welcomeWidget</zorder>
    <zorder>level1Widget</zorder>
    <zorder>levelSelectWidget</zorder>
@@ -124,6 +134,7 @@
    <zorder>successWidget</zorder>
    <zorder>level4Widget</zorder>
    <zorder>level5Widget</zorder>
+   <zorder>certificateWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -196,6 +207,12 @@
    <class>Level5</class>
    <extends>QWidget</extends>
    <header>level5.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CertificateScreen</class>
+   <extends>QWidget</extends>
+   <header>certificatescreen.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -58,6 +58,7 @@ SOURCES += \
     car.cpp \
     carmodel.cpp \
     carobstacle.cpp \
+    certificatescreen.cpp \
     contactlistener.cpp \
     failscreen.cpp \
     level1.cpp \
@@ -123,6 +124,7 @@ HEADERS += \
     car.h \
     carmodel.h \
     carobstacle.h \
+    certificatescreen.h \
     contactlistener.h \
     failscreen.h \
     level1.h \
@@ -139,6 +141,7 @@ HEADERS += \
 FORMS += \
     car.ui \
     carobstacle.ui \
+    certificatescreen.ui \
     failscreen.ui \
     level2.ui \
     level3.ui \
