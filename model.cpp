@@ -10,6 +10,7 @@ A8: Educational App
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QFileDialog>
+#include "instructiondialog.h"
 
 Model* Model::instance;
 float Model::PI = acos(-1.0);
@@ -17,7 +18,6 @@ float Model::PI = acos(-1.0);
 Model::Model(QObject *parent)
     : QObject{parent}
 {
-
     loadDialogueToArray();
 
     curLevel = 0;
@@ -169,6 +169,11 @@ void Model::runNextLevel()
     default:
         break;
     }
+}
+
+void Model::showInstructions(QWidget *parent)
+{
+    InstructionDialog instructions(parent);
 }
 
 float Model::degToRad(float degree)

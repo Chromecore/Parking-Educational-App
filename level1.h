@@ -23,6 +23,8 @@ private slots:
     void homeButtonClicked();
     void successfullyParked();
     void failed();
+    void instructionsClicked();
+    void prepareToShow();
 };
 
 #endif // LEVEL1_H

@@ -23,6 +23,8 @@ private slots:
     void successfullyParked();
 
     void failed();
+    void instructionsClicked();
+    void prepareToShow();
 private:
     Ui::Level3 *ui;
 };

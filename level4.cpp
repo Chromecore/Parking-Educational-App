@@ -16,6 +16,16 @@ Level4::Level4(QWidget *parent) :
             this,
             &Level4::homeButtonClicked);
 
+    connect(ui->instructionsButton,
+            &QPushButton::clicked,
+            this,
+            &Level4::instructionsClicked);
+
+    connect(Model::instance,
+            &Model::level4Started,
+            this,
+            &Level4::prepareToShow);
+
     // for temp button
     connect(ui->tempButton,
             &QPushButton::clicked,
@@ -41,11 +51,23 @@ void Level4::homeButtonClicked()
 
 void Level4::successfullyParked()
 {
+    ui->instructionsButton->hide();
     Model::instance->successfulPark();
 }
 
 void Level4::failed()
 {
+    ui->instructionsButton->hide();
     Model::instance->failedPark();
+}
+
+void Level4::instructionsClicked()
+{
+    Model::instance->showInstructions(this);
+}
+
+void Level4::prepareToShow()
+{
+    ui->instructionsButton->show();
 }
 

@@ -53,6 +53,7 @@ public slots:
     void failedPark();
     void retryLevel();
     void runNextLevel();
+    void showInstructions(QWidget *parent);
 
 signals:
     void keyPressed(QKeyEvent* event);

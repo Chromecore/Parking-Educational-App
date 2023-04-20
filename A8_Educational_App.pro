@@ -61,6 +61,7 @@ SOURCES += \
     certificatescreen.cpp \
     contactlistener.cpp \
     failscreen.cpp \
+    instructiondialog.cpp \
     level1.cpp \
     level2.cpp \
     level3.cpp \
@@ -127,6 +128,7 @@ HEADERS += \
     certificatescreen.h \
     contactlistener.h \
     failscreen.h \
+    instructiondialog.h \
     level1.h \
     level2.h \
     level3.h \
@@ -143,6 +145,7 @@ FORMS += \
     carobstacle.ui \
     certificatescreen.ui \
     failscreen.ui \
+    instructiondialog.ui \
     level2.ui \
     level3.ui \
     level4.ui \

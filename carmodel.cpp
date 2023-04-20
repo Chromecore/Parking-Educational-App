@@ -71,10 +71,10 @@ CarModel::CarModel(QObject *parent)
     //Need to set location and make b2Body static so they don't move. Then, make size and orientation correct and place them in their proper spot.
     b2Body* testHitBoxGoal = world.CreateBody(&bodyDef);
     testHitBoxGoal->setHitboxType(1);
-    testHitBoxGoal->CreateFixture(&fixtureDef);
+//    testHitBoxGoal->CreateFixture(&fixtureDef);
     b2Body* testHitBoxHazard = world.CreateBody(&bodyDef);
     testHitBoxHazard->setHitboxType(2);
-    testHitBoxHazard->CreateFixture(&fixtureDef);
+//    testHitBoxHazard->CreateFixture(&fixtureDef);
 }
 
 void CarModel::updateWorld() {

@@ -10,6 +10,11 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>9</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -108,9 +113,9 @@ Button</string>
   <widget class="QPushButton" name="checkButton">
    <property name="geometry">
     <rect>
-     <x>740</x>
+     <x>710</x>
      <y>275</y>
-     <width>50</width>
+     <width>80</width>
      <height>50</height>
     </rect>
    </property>
@@ -131,6 +136,24 @@ Button</string>
      <width>150</width>
      <height>75</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="instructionsButton">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>80</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Instructions</string>
    </property>
   </widget>
  </widget>
