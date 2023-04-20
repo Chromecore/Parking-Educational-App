@@ -18,6 +18,9 @@ public:
 
 private:
     Ui::CarObstacle *ui;
+    int ran;
+protected:
+    void paintEvent(QPaintEvent *);
 };
 
 #endif // CAROBSTACLE_H
