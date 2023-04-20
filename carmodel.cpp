@@ -71,10 +71,10 @@ CarModel::CarModel(QObject *parent)
     //Need to set location and make b2Body static so they don't move. Then, make size and orientation correct and place them in their proper spot.
     b2Body* testHitBoxGoal = world.CreateBody(&bodyDef);
     testHitBoxGoal->setHitboxType(1);
-    testHitBoxGoal->CreateFixture(&fixtureDef);
+    //testHitBoxGoal->CreateFixture(&fixtureDef);
     b2Body* testHitBoxHazard = world.CreateBody(&bodyDef);
     testHitBoxHazard->setHitboxType(2);
-    testHitBoxHazard->CreateFixture(&fixtureDef);
+    //testHitBoxHazard->CreateFixture(&fixtureDef);
 }
 
 void CarModel::updateWorld() {
@@ -109,9 +109,13 @@ void CarModel::updateWorld() {
 
     body->SetLinearVelocity(b2Vec2(velocity.x(), velocity.y()));
 
-    // TODO : Fix car boundaries
     // clamp car to screen
     b2Vec2 bodyPosition = body->GetPosition();
+    // change the car position so the car collides with the boundries at the center of the car instead of the edge
+    b2Vec2 direction(cos(angleRad), sin(angleRad));
+    direction.x *= 0.25;
+    direction.y *= 0.25;
+    bodyPosition += direction;
     // clamp right side
     if(bodyPosition.x > (drivableAreaWidth - carScale) / positionScaler)
     {
@@ -125,9 +129,9 @@ void CarModel::updateWorld() {
         zeroOutVelocity();
     }
     // clamp bottom
-    if(bodyPosition.y > (drivableAreaWidth - carScale) / positionScaler)
+    if(bodyPosition.y > (drivableAreaWidth - carScale) / positionScaler + 1)
     {
-        bodyPosition.y = (drivableAreaWidth - carScale) / positionScaler;
+        bodyPosition.y = (drivableAreaWidth - carScale) / positionScaler + 1;
         zeroOutVelocity();
     }
     // clamp top
@@ -136,6 +140,7 @@ void CarModel::updateWorld() {
         bodyPosition.y = 0;
         zeroOutVelocity();
     }
+    bodyPosition -= direction;
     setCarPosition(bodyPosition);
 
     appliesInput();
