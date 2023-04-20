@@ -117,9 +117,9 @@ void CarModel::updateWorld() {
     direction.y *= 0.25;
     bodyPosition += direction;
     // clamp right side
-    if(bodyPosition.x > (drivableAreaWidth - carScale) / positionScaler)
+    if(bodyPosition.x > (drivableAreaWidth - carScale) / positionScaler + 1)
     {
-        bodyPosition.x = (drivableAreaWidth - carScale) / positionScaler;
+        bodyPosition.x = (drivableAreaWidth - carScale) / positionScaler + 1;
         zeroOutVelocity();
     }
     // clamp left side
@@ -191,14 +191,15 @@ void CarModel::appliesInput()
     // stop from turning when not moving
     float angleEffector = 0;
     float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
-    angleEffector = abs(carSpeed) / turnDriveRelationship;
+    angleEffector = carSpeed / turnDriveRelationship;
 
     b2Vec2 velocity = body->GetLinearVelocity();
 
-    QVector2D velVec(velocity.x, velocity.y);
-    QVector2D dirVec(direction.x, direction.y);
-    float invertTurn = velVec.dotProduct(velVec, dirVec);
-    invertTurn = invertTurn / abs(invertTurn);
+//    QVector2D velVec(velocity.x, velocity.y);
+//    QVector2D dirVec(direction.x, direction.y);
+//    float invertTurn = velVec.dotProduct(velVec, dirVec);
+//    invertTurn = invertTurn / abs(invertTurn);
+//    qDebug();
 
     // apply the input
     if(drivePressed)
@@ -211,7 +212,7 @@ void CarModel::appliesInput()
     if(leftPressed)
     {
         // turn left
-        body->ApplyAngularImpulse(-angularImpulse * angleEffector * invertTurn, true);
+        body->ApplyAngularImpulse(-angularImpulse * angleEffector, true);
     }
     if(reversePressed)
     {
@@ -223,7 +224,7 @@ void CarModel::appliesInput()
     if(rightPressed)
     {
         // turn right
-        body->ApplyAngularImpulse(angularImpulse * angleEffector * invertTurn, true);
+        body->ApplyAngularImpulse(angularImpulse * angleEffector, true);
     }
     if(breakPressed)
     {
