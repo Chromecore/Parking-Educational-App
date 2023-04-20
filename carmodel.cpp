@@ -113,22 +113,26 @@ void CarModel::updateWorld() {
     // clamp car to screen
     b2Vec2 bodyPosition = body->GetPosition();
     // clamp right side
-    if(bodyPosition.x > (drivableAreaWidth - carScale) / positionScaler){
+    if(bodyPosition.x > (drivableAreaWidth - carScale) / positionScaler)
+    {
         bodyPosition.x = (drivableAreaWidth - carScale) / positionScaler;
         zeroOutVelocity();
     }
     // clamp left side
-    else if(bodyPosition.x < 0) {
+    else if(bodyPosition.x < 0)
+    {
         bodyPosition.x = 0;
         zeroOutVelocity();
     }
     // clamp bottom
-    if(bodyPosition.y > (drivableAreaWidth - carScale) / positionScaler){
+    if(bodyPosition.y > (drivableAreaWidth - carScale) / positionScaler)
+    {
         bodyPosition.y = (drivableAreaWidth - carScale) / positionScaler;
         zeroOutVelocity();
     }
     // clamp top
-    else if(bodyPosition.y < 0) {
+    else if(bodyPosition.y < 0)
+    {
         bodyPosition.y = 0;
         zeroOutVelocity();
     }
