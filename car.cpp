@@ -36,23 +36,9 @@ void Car::paintEvent(QPaintEvent *) {
 
     float angle = Model::instance->carModel->getCarBody()->GetAngle();
 
-    // TODO : Remove
-    //QTransform transform;
-    //transform.rotate(angle);
-    //pixmap = pixmap.transformed(transform, Qt::SmoothTransformation);
-
     // rotate the car around a pivot
     QPointF offset;
     pixmap = rotatePixmap(pixmap, QPoint(5, 0), Model::degToRad(-angle + 180), offset);
-
-    // TODO : Remove
-    //float recenterYOffset = (pixmap.width() * scaler - pixmap.width()) / 2 / 8;
-    // draw the car at its position and scale
-    // find the direction the car is facing
-    //float angleRad = Model::degToRad(-Model::instance->carModel->getCarBody()->GetAngle() + 180);
-    //b2Vec2 direction(cos(angleRad), sin(angleRad));
-    //qDebug() << direction.x;
-    //float recenterXOffset = recenterYOffset - direction.x;
 
     // get the position to draw the car on the UI
     b2Vec2 position = Model::instance->carModel->getCarBody()->GetPosition();
@@ -89,6 +75,7 @@ void Car::drawGizmos(float x, float y, float scale){
     float angle = Model::instance->carModel->getCarBody()->GetAngle();
     pixmapFrame = rotatePixmap(pixmapFrame, QPoint(5, 0), Model::degToRad(-angle + 180), offset);
     painter.drawPixmap(QRect(x, y, scale, scale), pixmapFrame);
+    painter.end();
 }
 
 QPixmap Car::rotatePixmap(QPixmap pixmap, QPointF pivot, qreal angle, QPointF &offset)
