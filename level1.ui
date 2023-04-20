@@ -131,9 +131,19 @@ Button</string>
   <widget class="CarObstacle" name="widget" native="true">
    <property name="geometry">
     <rect>
-     <x>600</x>
-     <y>260</y>
-     <width>150</width>
+     <x>560</x>
+     <y>250</y>
+     <width>115</width>
+     <height>75</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="CarObstacle" name="widget_2" native="true">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>185</y>
+     <width>115</width>
      <height>75</height>
     </rect>
    </property>
