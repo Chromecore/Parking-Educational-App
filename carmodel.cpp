@@ -195,6 +195,11 @@ void CarModel::appliesInput()
 
     b2Vec2 velocity = body->GetLinearVelocity();
 
+    QVector2D velVec(velocity.x, velocity.y);
+    QVector2D dirVec(direction.x, direction.y);
+    float invertTurn = velVec.dotProduct(velVec, dirVec);
+    invertTurn = invertTurn / abs(invertTurn);
+
     // apply the input
     if(drivePressed)
     {
@@ -206,7 +211,7 @@ void CarModel::appliesInput()
     if(leftPressed)
     {
         // turn left
-        body->ApplyAngularImpulse(-angularImpulse * angleEffector, true);
+        body->ApplyAngularImpulse(-angularImpulse * angleEffector * invertTurn, true);
     }
     if(reversePressed)
     {
@@ -218,7 +223,7 @@ void CarModel::appliesInput()
     if(rightPressed)
     {
         // turn right
-        body->ApplyAngularImpulse(angularImpulse * angleEffector, true);
+        body->ApplyAngularImpulse(angularImpulse * angleEffector * invertTurn, true);
     }
     if(breakPressed)
     {
