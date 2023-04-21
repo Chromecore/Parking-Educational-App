@@ -36,7 +36,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
                break;
            case 3:
                //increment number of negative contacts by 1 for hitboxType2.
-               static_cast<b2Body*>( bodyUserData2 )->startHazardContact();
+               static_cast<b2Body*>( bodyUserData2 )->setFailedPark(true);
                break;
            }
         }
@@ -56,7 +56,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
                 break;
             case 3:
                 //increment number of negative contacts by 1 for hitboxType1.
-                static_cast<b2Body*>( bodyUserData1 )->startHazardContact();
+                static_cast<b2Body*>( bodyUserData1 )->setFailedPark(true);
                 break;
             }
         }
@@ -110,8 +110,6 @@ void ContactListener::EndContact(b2Contact* contact) {
                  static_cast<b2Body*>( bodyUserData2 )->endHazardContact();
                  break;
              case 3:
-                 //increment number of negative contacts by 1 for hitboxType2.
-                 static_cast<b2Body*>( bodyUserData2 )->endHazardContact();
                  break;
              }
           }
@@ -130,8 +128,6 @@ void ContactListener::EndContact(b2Contact* contact) {
                   static_cast<b2Body*>( bodyUserData1 )->endHazardContact();
                   break;
               case 3:
-                  //increment number of negative contacts by 1 for hitboxType1.
-                  static_cast<b2Body*>( bodyUserData1 )->endHazardContact();
                   break;
               }
           }

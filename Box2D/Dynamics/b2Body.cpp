@@ -28,6 +28,7 @@ b2Body::b2Body(const b2BodyDef* bd, b2World* world)
     NumGoalContacts   = 0;
     NumHazardContacts = 0;
     objHitboxType = driveableCar;
+    failedPark = false;
 
 	b2Assert(bd->position.IsValid());
 	b2Assert(bd->linearVelocity.IsValid());
@@ -600,4 +601,14 @@ void b2Body::setHitboxType(int hitBoxIndex)
     case 3: objHitboxType = parkedCar; break;
     }
 
+}
+
+void b2Body::setFailedPark(bool didPlayerFailPark)
+{
+    failedPark = didPlayerFailPark;
+}
+
+bool b2Body::getFailedPark()
+{
+    return failedPark;
 }

@@ -405,6 +405,10 @@ public:
     void startHazardContact();
     void endHazardContact();
     int getHazardContactNum();
+    bool failedPark;
+    void setFailedPark(bool failedPark);
+    bool getFailedPark();
+
 
 private:
 

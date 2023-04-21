@@ -38,6 +38,11 @@ CarModel::CarModel(QObject *parent)
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(4, 4);
 
+    // Simultaneously creating definition for immovable hitbox
+    b2BodyDef bodyDefHazard;
+    bodyDefHazard.type = b2_dynamicBody;
+    bodyDefHazard.position.Set(4, 3);
+
     body = world.CreateBody(&bodyDef);
 
     // Define another box shape for our dynamic body.
@@ -67,14 +72,13 @@ CarModel::CarModel(QObject *parent)
     world.SetContactListener(&myContactListener);
     isParkedSuccessfully = false;
 
-    // testing to see if casting works. It does.
-    //Need to set location and make b2Body static so they don't move. Then, make size and orientation correct and place them in their proper spot.
-    b2Body* testHitBoxGoal = world.CreateBody(&bodyDef);
+    //Creation of more hitboxes.
+    b2Body* testHitBoxGoal = world.CreateBody(&bodyDefHazard);
     testHitBoxGoal->setHitboxType(1);
     //testHitBoxGoal->CreateFixture(&fixtureDef);
-    b2Body* testHitBoxHazard = world.CreateBody(&bodyDef);
+    b2Body* testHitBoxHazard = world.CreateBody(&bodyDefHazard);
     testHitBoxHazard->setHitboxType(2);
-    //testHitBoxHazard->CreateFixture(&fixtureDef);
+    testHitBoxHazard->CreateFixture(&fixtureDef);
 }
 
 void CarModel::updateWorld() {
@@ -91,6 +95,10 @@ void CarModel::updateWorld() {
         qDebug() << "WIN";
         isParkedSuccessfully = true;
     }
+
+    // check if collided with obstacle that causes automatic fail
+    if (body->getFailedPark())
+        Model::instance->failedPark();
 
     // apply angular friction to stop car from continualy rotating
     body->SetAngularVelocity(0);
