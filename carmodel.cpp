@@ -32,53 +32,34 @@ CarModel::CarModel(QObject *parent)
     // setup the image
     float size = screenWidth / sqrt(2);
     image = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    hitBoxImage = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
-    // Define the dynamic body. We set its position and call the body factory.
-    b2BodyDef bodyDef;
-    bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(4, 4);
+    //Create all body definitions
+    createAllHitboxBodyDefinitions();
 
-    // Simultaneously creating definition for immovable hitbox
-    b2BodyDef bodyDefHazard;
-    bodyDefHazard.type = b2_dynamicBody;
-    bodyDefHazard.position.Set(4, 3);
-
-    body = world.CreateBody(&bodyDef);
-
-    // Define another box shape for our dynamic body.
-    b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(1.0f, 1.0f);
-
-    // Define the dynamic body fixture.
-    b2FixtureDef fixtureDef;
-    fixtureDef.shape = &dynamicBox;
-
-    // Set the box density to be non-zero, so it will be dynamic.
-    fixtureDef.density = 1.0f;
-
-    // Override the default friction.
-    fixtureDef.friction = 1.0f;
-    // Add the shape to the body.
-    body->CreateFixture(&fixtureDef);
+    //assign car's body.
+    body = world.CreateBody(&bodyDefinitions[0]);
 
     setCarAngle(0);
+
+
 
     // start the main update loop
     connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
     timer.start(10);
 
-    // added for Collision Testing
+    // set up Collision Testing
     body->SetUserData( body );
     world.SetContactListener(&myContactListener);
     isParkedSuccessfully = false;
 
-    //Creation of more hitboxes.
-    b2Body* testHitBoxGoal = world.CreateBody(&bodyDefHazard);
-    testHitBoxGoal->setHitboxType(1);
-    //testHitBoxGoal->CreateFixture(&fixtureDef);
-    b2Body* testHitBoxHazard = world.CreateBody(&bodyDefHazard);
-    testHitBoxHazard->setHitboxType(2);
-    testHitBoxHazard->CreateFixture(&fixtureDef);
+    //Creation of all the hitboxes hitboxes.
+    testHitbox = world.CreateBody(&bodyDefHazard);
+    testHitbox->setHitboxType(2);
+    testHitbox->CreateFixture(&fixtureDefHitbox);
+    //b2Body* testHitBoxHazard = world.CreateBody(&bodyDefHazard);
+    //testHitBoxHazard->setHitboxType(2);
+    //testHitBoxHazard->CreateFixture(&fixtureDefHitbox);
 }
 
 void CarModel::updateWorld() {
@@ -271,9 +252,19 @@ b2Body* CarModel::getCarBody(){
     return body;
 }
 
+
+b2Body* CarModel::getTestHitbox(){
+    return testHitbox;
+}
+
 QImage CarModel::getCarImage(){
     return image;
 }
+
+QImage CarModel::getHitboxImage(){
+    return hitBoxImage;
+}
+
 
 float CarModel::getCarScale(){
     return carScale;
@@ -282,6 +273,7 @@ float CarModel::getCarScale(){
 void CarModel::loadCar()
 {
     image.load(":/sprites/Resources/car2.png");
+    hitBoxImage.load(":/sprites/Resources/Frame.png");
     carScale = 100;
     maxSpeed = 0.8f;
     breakSpeed = 0.04f;
@@ -302,4 +294,57 @@ void CarModel::loadTruck()
     reverseSpeed = 0.8;
     sideVelocityMultiplyer = 0.1;
     turnDriveRelationship = 2.5;
+}
+
+void CarModel::createAllHitboxBodyDefinitions()
+{
+    // Define the dynamic body. We set its position and call the body factory.
+    b2BodyDef driveableCarBodyDef;
+    b2BodyDef goalBodyDef;
+    b2BodyDef hazardBodyDef;
+    b2BodyDef parkedCarBodyDef;
+
+    driveableCarBodyDef.type = b2_dynamicBody;
+    goalBodyDef.type = b2_staticBody;
+    hazardBodyDef.type = b2_staticBody;
+    parkedCarBodyDef.type = b2_staticBody;
+
+    driveableCarBodyDef.position.Set(4, 4);
+    goalBodyDef.position.Set(1, 1);
+    hazardBodyDef.position.Set(2, 1);
+    parkedCarBodyDef.position.Set(3, 1);
+
+    // Define another box shape for our dynamic body.
+    b2PolygonShape driveableCarBox;
+    driveableCarBox.SetAsBox(1.0f, 1.0f);
+
+        // Define another box shape for our dynamic body.
+        b2PolygonShape hitboxShape;
+        hitboxShape.SetAsBox(1.0f, 1.0f/5 * 3);
+
+    // Define the dynamic body fixture.
+    b2FixtureDef driveableCarFixtureDef;
+    driveableCarFixtureDef.shape = &driveableCarBox;
+
+        // Define the dynamic body fixture.
+        b2FixtureDef fixtureDefHitbox;
+        fixtureDefHitbox.shape = &hitboxShape;
+        fixtureDefHitbox.isSensor = true;
+       // fixtureDefHitbox.filter.categoryBits = HAZARD_HITBOX;
+        //fixtureDefHitbox.filter.maskBits = DRIVEABLE_CAR_HITBOX;
+
+
+    // Set the box density to be non-zero, so it will be dynamic.
+    driveableCarFixtureDef.density = 1.0f;
+
+        // Set the box density to be non-zero, so it will be dynamic.
+        fixtureDefHitbox.density = 1.0f;
+
+    // Override the default friction.
+    driveableCarFixtureDef.friction = 1.0f;
+    // Add the shape to the body.
+    body->CreateFixture(&driveableCarFixtureDef);
+
+        // Override the default friction.
+        fixtureDefHitbox.friction = 1.0f;
 }

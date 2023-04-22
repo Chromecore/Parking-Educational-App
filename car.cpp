@@ -29,6 +29,7 @@ Car::~Car()
 }
 
 void Car::paintEvent(QPaintEvent *) {
+
     // create a painter and get pixmap
     QPainter painter(this);
     QPixmap pixmap;
@@ -57,6 +58,42 @@ void Car::paintEvent(QPaintEvent *) {
     painter.end();
 
     if(shouldDrawGizmos) drawGizmos(x, y, scale);
+
+
+
+
+    // Comment out when not drawing hitboxes.
+    QPainter painterHitbox(this);
+    QPixmap pixmapHitbox;
+    pixmapHitbox.convertFromImage(Model::instance->carModel->getHitboxImage());
+
+    float angleHitbox = Model::instance->carModel->getTestHitbox()->GetAngle();
+
+    // rotate the car around a pivot
+    QPointF offsetHitbox;
+    pixmapHitbox = rotatePixmap(pixmapHitbox, QPoint(5, 0), Model::degToRad(-angleHitbox + 180), offsetHitbox);
+
+    // get the position to draw the car on the UI
+    b2Vec2 positionHitbox = Model::instance->carModel->getTestHitbox()->GetPosition();
+    float xHitbox = (int)(positionHitbox.x*positionScaler) + offsetHitbox.x();
+    float yHitbox = (int)(positionHitbox.y*positionScaler) + offsetHitbox.y();
+
+    // scale the car based on rotation to account for growing and shrinking
+    // the sin function gives 1 at all diagonal directions and 0 at all cardinal directions
+    float scalerHitbox = abs(sin(Model::degToRad(angleHitbox) * 2)) * Model::instance->carModel->scalerAt45Deg + 1;
+    float hitboxScale = 100;
+    float scaleTotal = hitboxScale * scalerHitbox;
+
+    // draw the car
+    painterHitbox.drawPixmap(QRect(xHitbox, yHitbox, scaleTotal, scaleTotal), pixmapHitbox);
+    painterHitbox.end();
+
+    if(shouldDrawGizmos) drawGizmos(xHitbox, yHitbox, scaleTotal);
+
+
+
+
+
 }
 
 void Car::drawGizmos(float x, float y, float scale){
