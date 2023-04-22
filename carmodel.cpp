@@ -27,6 +27,16 @@ CarModel::CarModel(QObject *parent)
             this,
             &CarModel::keyRelease);
 
+    setupCar();
+    setupColliders();
+
+    // start the main update loop
+    connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
+    timer.start(10);
+}
+
+void CarModel::setupCar()
+{
     loadCar();
 
     // setup the image
@@ -38,11 +48,6 @@ CarModel::CarModel(QObject *parent)
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(4, 4);
 
-    // Simultaneously creating definition for immovable hitbox
-    b2BodyDef bodyDefHazard;
-    bodyDefHazard.type = b2_dynamicBody;
-    bodyDefHazard.position.Set(4, 3);
-
     body = world.CreateBody(&bodyDef);
 
     // Define another box shape for our dynamic body.
@@ -53,26 +58,37 @@ CarModel::CarModel(QObject *parent)
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
 
-    // Set the box density to be non-zero, so it will be dynamic.
+    // set the box density to be non-zero, so it will be dynamic.
     fixtureDef.density = 1.0f;
 
-    // Override the default friction.
+    // override the default friction.
     fixtureDef.friction = 1.0f;
-    // Add the shape to the body.
+    // add the shape to the body.
     body->CreateFixture(&fixtureDef);
 
     setCarAngle(0);
+}
 
-    // start the main update loop
-    connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
-    timer.start(10);
-
+void CarModel::setupColliders()
+{
     // added for Collision Testing
     body->SetUserData( body );
     world.SetContactListener(&myContactListener);
     isParkedSuccessfully = false;
 
-    //Creation of more hitboxes.
+    // simultaneously creating definition for immovable hitbox
+    b2BodyDef bodyDefHazard;
+    bodyDefHazard.type = b2_dynamicBody;
+    bodyDefHazard.position.Set(4, 3);
+
+    b2PolygonShape dynamicBox;
+    dynamicBox.SetAsBox(1.0f, 1.0f);
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &dynamicBox;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 1.0f;
+
+    // creation of more hitboxes
     b2Body* testHitBoxGoal = world.CreateBody(&bodyDefHazard);
     testHitBoxGoal->setHitboxType(1);
     //testHitBoxGoal->CreateFixture(&fixtureDef);
@@ -81,11 +97,22 @@ CarModel::CarModel(QObject *parent)
     testHitBoxHazard->CreateFixture(&fixtureDef);
 }
 
-void CarModel::updateWorld() {
+void CarModel::updateWorld()
+{
     // update the world
     world.Step(1.0/60.0, 6, 2);
     emit updateUI();
 
+    // update the car
+    handleCollisions();
+    handleDrifting();
+    clampCarPosition();
+    applyInput();
+    clampCarSpeed();
+}
+
+void CarModel::handleCollisions()
+{
     // win condition
     if (body->getHazardContactNum() > 0 ){
         qDebug() << "LOSE";
@@ -99,7 +126,10 @@ void CarModel::updateWorld() {
     // check if collided with obstacle that causes automatic fail
     if (body->getFailedPark())
         Model::instance->failedPark();
+}
 
+void CarModel::handleDrifting()
+{
     // apply angular friction to stop car from continualy rotating
     body->SetAngularVelocity(0);
 
@@ -116,8 +146,11 @@ void CarModel::updateWorld() {
     QVector2D velocity = forwardVelocity + rightVelocity * sideVelocityMultiplyer;
 
     body->SetLinearVelocity(b2Vec2(velocity.x(), velocity.y()));
+}
 
-    // clamp car to screen
+void CarModel::clampCarPosition()
+{
+    float angleRad = Model::degToRad(-body->GetAngle() + 180);
     b2Vec2 bodyPosition = body->GetPosition();
     // change the car position so the car collides with the boundries at the center of the car instead of the edge
     b2Vec2 direction(cos(angleRad), sin(angleRad));
@@ -150,9 +183,10 @@ void CarModel::updateWorld() {
     }
     bodyPosition -= direction;
     setCarPosition(bodyPosition);
+}
 
-    appliesInput();
-
+void CarModel::clampCarSpeed()
+{
     // clamp the car speed at the maximum speed
     float carSpeed = sqrt(pow(body->GetLinearVelocity().x, 2) + pow(body->GetLinearVelocity().y, 2));
     if(carSpeed > maxSpeed)
@@ -174,6 +208,7 @@ void CarModel::keyPressed(QKeyEvent* event)
     if(key == reverseKey) reversePressed = true;
     if(key == rightKey) rightPressed = true;
     if(key == breakKey) breakPressed = true;
+
     // TODO : Temp Remove
     if(key == Qt::Key_P) loadCar();
     if(key == Qt::Key_O) loadTruck();
@@ -190,7 +225,7 @@ void CarModel::keyRelease(QKeyEvent* event)
     if(key == breakKey) breakPressed = false;
 }
 
-void CarModel::appliesInput()
+void CarModel::applyInput()
 {
     // find the direction the car is facing
     float angleRad = Model::degToRad(-body->GetAngle() + 180);
@@ -202,12 +237,6 @@ void CarModel::appliesInput()
     angleEffector = carSpeed / turnDriveRelationship;
 
     b2Vec2 velocity = body->GetLinearVelocity();
-
-//    QVector2D velVec(velocity.x, velocity.y);
-//    QVector2D dirVec(direction.x, direction.y);
-//    float invertTurn = velVec.dotProduct(velVec, dirVec);
-//    invertTurn = invertTurn / abs(invertTurn);
-//    qDebug();
 
     // apply the input
     if(drivePressed)
@@ -281,6 +310,7 @@ float CarModel::getCarScale(){
 
 void CarModel::loadCar()
 {
+    // load the car sprite along with the car specific variables
     image.load(":/sprites/Resources/car2.png");
     carScale = 100;
     maxSpeed = 0.8f;
@@ -293,6 +323,7 @@ void CarModel::loadCar()
 }
 void CarModel::loadTruck()
 {
+    // load the truck sprite along with the truck specific variables
     image.load(":/sprites/Resources/Truck.png");
     carScale = 150;
     maxSpeed = 0.7f;

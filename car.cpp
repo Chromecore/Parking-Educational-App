@@ -60,7 +60,7 @@ void Car::paintEvent(QPaintEvent *) {
 }
 
 void Car::drawGizmos(float x, float y, float scale){
-    // Draw a frame around the car that does not rotate
+    // draw a gizmo frame around the car that does not rotate
     QPainter painter(this);
     QImage imageFrame(":/sprites/Resources/Frame.png");
     float sqrt2 = sqrt(2);
@@ -70,7 +70,7 @@ void Car::drawGizmos(float x, float y, float scale){
     pixmapFrame.convertFromImage(imageFrame);
     painter.drawPixmap(QRect(x, y, scale, scale), pixmapFrame);
 
-    // Draw a frame around the car that does rotate
+    // draw a gizmo frame around the car that does rotate
     QPointF offset;
     float angle = Model::instance->carModel->getCarBody()->GetAngle();
     pixmapFrame = rotatePixmap(pixmapFrame, QPoint(5, 0), Model::degToRad(-angle + 180), offset);
