@@ -132,7 +132,7 @@ Button</string>
    <property name="geometry">
     <rect>
      <x>560</x>
-     <y>250</y>
+     <y>246</y>
      <width>115</width>
      <height>75</height>
     </rect>
@@ -164,6 +164,16 @@ Button</string>
    </property>
    <property name="text">
     <string>Instructions</string>
+   </property>
+  </widget>
+  <widget class="CarObstacle" name="widget_3" native="true">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>385</y>
+     <width>115</width>
+     <height>75</height>
+    </rect>
    </property>
   </widget>
  </widget>
