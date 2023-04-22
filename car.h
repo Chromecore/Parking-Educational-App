@@ -26,13 +26,13 @@ private:
     Ui::Car *ui;
     const bool shouldDrawGizmos = false;
 
-    // Rotates a pixmap around a pivot point based on an angle and returns the offset
+    // rotates a pixmap around a pivot point based on an angle and returns the offset
     QPixmap rotatePixmap(QPixmap pixmap, QPointF pivot, qreal angle, QPointF &offset);
-    // Displays gizmos relating to the car
+    // displays gizmos relating to the car
     void drawGizmos(float x, float y, float scale);
 
 private slots:
-    // Update the UI
+    // send a signal to update the UI
     void updateUI();
 
 protected:

@@ -49,12 +49,25 @@ public:
 
     // How much extra to scale the car at diagonal directions
     const float scalerAt45Deg = 0.38f;
-    // How much to scale the Box2D positions into the UI positions
+    // how much to scale the Box2D positions into the UI positions
     const float positionScaler = 80;
 
-    //Added for Collision Testing
+    // temp for collision testing
     ContactListener myContactListener;
     bool isParkedSuccessfully;
+
+    // sets the position of the car
+    void setCarPosition(b2Vec2 newPosition);
+    // sets the angle of the car in degrees
+    void setCarAngle(float newAngle);
+    // sets the cars velocity to 0
+    void zeroOutVelocity();
+    // returns the body used for the car physics
+    b2Body* getCarBody();
+    // returns the image used to display the car
+    QImage getCarImage();
+    // returns the scale of the car
+    float getCarScale();
 
 signals:
     void updateUI();
@@ -71,24 +84,25 @@ private:
     QImage image;
     QImage hitBoxImage;
 
-    // Fastest speed the car can go
+    // fastest speed the car can go
     float maxSpeed;
-    // The speed at which the car breaks
+    // the speed at which the car breaks
     float breakSpeed;
-    // The angular impulse used when turning
+    // the angular impulse used when turning
     float angularImpulse;
-    // The speed that the car accelerates at when driving
+    // the speed that the car accelerates at when driving
     float driveSpeed;
-    // The speed that the car accelerates at when reversing
+    // the speed that the car accelerates at when reversing
     float reverseSpeed;
-    // The amount of side velocity to keep (0 - none, 1 - all)
+    // the amount of side velocity to keep (0 - none, 1 - all)
     float sideVelocityMultiplyer;
-    // The relationship between the amount the car can turn vs the speed of the car
-    // 0 - Can turn with 0 velocity
-    // The higher the number the faster the car must be going for the car to turn
+    // the relationship between the amount the car can turn vs the speed of the car
+    // 0 - can turn with 0 velocity
+    // the higher the number the faster the car must be going for the car to turn
     float turnDriveRelationship;
 
     float carScale;
+    // the width of the area the car can drive in. Starts in the top left corner
     const float drivableAreaWidth = 600;
     const float screenWidth = 800;
 
@@ -99,7 +113,7 @@ private:
     const Qt::Key rightKey = Qt::Key_D;
     const Qt::Key breakKey = Qt::Key_Return;
 
-    // input variables
+    // keeps track of the input
     bool drivePressed;
     bool leftPressed;
     bool reversePressed;
@@ -111,12 +125,24 @@ private:
     //used to reference all fixture definitions.
     std::vector<b2FixtureDef> fixtureDefinitions;
 
+    // sets up the image, collider, and other components of the car
+    void setupCar();
+    // sets up the colliders
+    void setupColliders();
+    // clamps the car speed with a max speed
+    void clampCarSpeed();
+    // handles the win, lose, and obsticle collisions
+    void handleCollisions();
+    // determins how much side velocity to keep when turning
+    void handleDrifting();
+    // clamps the car to stop it from driving off the screen
+    void clampCarPosition();
     // take in key pressed events and record them to be applied later
     void keyPressed(QKeyEvent* event);
     // take in key released events and record them to be applied later
     void keyRelease(QKeyEvent *event);
     // applies the input given from the main window to the car
-    void appliesInput();
+    void applyInput();
     // loads the data related to the car
     void loadCar();
     // loads the data related to the truck
