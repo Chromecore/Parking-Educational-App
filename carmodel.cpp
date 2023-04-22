@@ -27,12 +27,17 @@ CarModel::CarModel(QObject *parent)
             this,
             &CarModel::keyRelease);
 
+    bodyDefinitions = std::vector<b2BodyDef>();
+    fixtureDefinitions = std::vector<b2FixtureDef>();
+
     setupCar();
-    setupColliders();
+    //setupColliders();
 
     // start the main update loop
     connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
     timer.start(10);
+
+
 }
 
 void CarModel::setupCar()
@@ -44,16 +49,81 @@ void CarModel::setupCar()
     image = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     hitBoxImage = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
-    //Create all body definitions
-    createAllHitboxBodyDefinitions();
+    // sets up all body definitions and fixtures for hitboxes. 0 is driveable car,
+    // 1 is the goal hitbox, 2 is the not intangible hitbox (think yellow lines)
+    // 3 is tangible hitboxes (think parked cars)
+
+    // Define the dynamic body. We set its position and call the body factory.
+    b2BodyDef driveableCarBodyDef;
+    b2BodyDef goalBodyDef;
+    b2BodyDef hazardBodyDef;
+    b2BodyDef parkedCarBodyDef;
+
+    driveableCarBodyDef.type = b2_dynamicBody;
+    goalBodyDef.type = b2_staticBody;
+    hazardBodyDef.type = b2_staticBody;
+    parkedCarBodyDef.type = b2_staticBody;
+
+    driveableCarBodyDef.position.Set(4, 4);
+    goalBodyDef.position.Set(1, 1);
+    hazardBodyDef.position.Set(2, 1);
+    parkedCarBodyDef.position.Set(3, 1);
+
+    // Push the body definitions into the vector.
+    bodyDefinitions.push_back(driveableCarBodyDef);
+    bodyDefinitions.push_back(goalBodyDef);
+    bodyDefinitions.push_back(hazardBodyDef);
+    bodyDefinitions.push_back(parkedCarBodyDef);
+
+    // Define another box shape for our dynamic body.
+    b2PolygonShape driveableCarBox;
+    driveableCarBox.SetAsBox(1.0f, 1.0f);
+    b2PolygonShape otherHitboxShape;
+    otherHitboxShape.SetAsBox(1.0f, 1.0f/5 * 3);
+        // Define another box shape for our dynamic body.
+
+
+    // Define the dynamic body fixture.
+    b2FixtureDef driveableCarFixtureDef;
+    driveableCarFixtureDef.shape = &driveableCarBox;
+    b2FixtureDef goalFixtureDef;
+    goalFixtureDef.shape = &otherHitboxShape;
+    b2FixtureDef hazardFixtureDef;
+    hazardFixtureDef.shape = &otherHitboxShape;
+    b2FixtureDef parkeDCarFixtureDef;
+    parkeDCarFixtureDef.shape = &otherHitboxShape;
+
+    //for goal and hazard fixtures, they need to be declared as sensors.
+    goalFixtureDef.isSensor = true;
+    hazardFixtureDef.isSensor = true;
+    // goalFixtureDef.filter.categoryBits = HAZARD_HITBOX;
+    // goalFixtureDef.filter.maskBits = DRIVEABLE_CAR_HITBOX;
+
+    // Set the box density to be non-zero, so it will be dynamic.
+    driveableCarFixtureDef.density = 1.0f;
+    goalFixtureDef.density = 1.0f;
+    hazardFixtureDef.density = 1.0f;
+    parkeDCarFixtureDef.density = 1.0f;
+
+    // Override the default friction.
+    driveableCarFixtureDef.friction = 1.0f;
+    goalFixtureDef.friction = 1.0f;
+    hazardFixtureDef.friction = 1.0f;
+    parkeDCarFixtureDef.friction = 1.0f;
+
+    // Push all fixture definitions into the vector.
+    fixtureDefinitions.push_back(driveableCarFixtureDef);
+    fixtureDefinitions.push_back(goalFixtureDef);
+    fixtureDefinitions.push_back(hazardFixtureDef);
+    fixtureDefinitions.push_back(parkeDCarFixtureDef);
 
     //assign car's body.
     body = world.CreateBody(&bodyDefinitions[0]);
 
+    // Add the shape to the body.
+    body->CreateFixture(&fixtureDefinitions[0]);
+
     setCarAngle(0);
-}
-
-
 
     // start the main update loop
     connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
@@ -65,9 +135,9 @@ void CarModel::setupCar()
     isParkedSuccessfully = false;
 
     //Creation of all the hitboxes hitboxes.
-    testHitbox = world.CreateBody(&bodyDefHazard);
+    testHitbox = world.CreateBody(&bodyDefinitions[2]);
     testHitbox->setHitboxType(2);
-    testHitbox->CreateFixture(&fixtureDefHitbox);
+    testHitbox->CreateFixture(&fixtureDefinitions[2]);
     //b2Body* testHitBoxHazard = world.CreateBody(&bodyDefHazard);
     //testHitBoxHazard->setHitboxType(2);
     //testHitBoxHazard->CreateFixture(&fixtureDefHitbox);
@@ -322,55 +392,3 @@ void CarModel::loadTruck()
     turnDriveRelationship = 2.5;
 }
 
-void CarModel::createAllHitboxBodyDefinitions()
-{
-    // Define the dynamic body. We set its position and call the body factory.
-    b2BodyDef driveableCarBodyDef;
-    b2BodyDef goalBodyDef;
-    b2BodyDef hazardBodyDef;
-    b2BodyDef parkedCarBodyDef;
-
-    driveableCarBodyDef.type = b2_dynamicBody;
-    goalBodyDef.type = b2_staticBody;
-    hazardBodyDef.type = b2_staticBody;
-    parkedCarBodyDef.type = b2_staticBody;
-
-    driveableCarBodyDef.position.Set(4, 4);
-    goalBodyDef.position.Set(1, 1);
-    hazardBodyDef.position.Set(2, 1);
-    parkedCarBodyDef.position.Set(3, 1);
-
-    // Define another box shape for our dynamic body.
-    b2PolygonShape driveableCarBox;
-    driveableCarBox.SetAsBox(1.0f, 1.0f);
-
-        // Define another box shape for our dynamic body.
-        b2PolygonShape hitboxShape;
-        hitboxShape.SetAsBox(1.0f, 1.0f/5 * 3);
-
-    // Define the dynamic body fixture.
-    b2FixtureDef driveableCarFixtureDef;
-    driveableCarFixtureDef.shape = &driveableCarBox;
-
-        // Define the dynamic body fixture.
-        b2FixtureDef fixtureDefHitbox;
-        fixtureDefHitbox.shape = &hitboxShape;
-        fixtureDefHitbox.isSensor = true;
-       // fixtureDefHitbox.filter.categoryBits = HAZARD_HITBOX;
-        //fixtureDefHitbox.filter.maskBits = DRIVEABLE_CAR_HITBOX;
-
-
-    // Set the box density to be non-zero, so it will be dynamic.
-    driveableCarFixtureDef.density = 1.0f;
-
-        // Set the box density to be non-zero, so it will be dynamic.
-        fixtureDefHitbox.density = 1.0f;
-
-    // Override the default friction.
-    driveableCarFixtureDef.friction = 1.0f;
-    // Add the shape to the body.
-    body->CreateFixture(&driveableCarFixtureDef);
-
-        // Override the default friction.
-        fixtureDefHitbox.friction = 1.0f;
-}

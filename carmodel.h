@@ -47,6 +47,11 @@ public:
       PARKED_CAR_HITBOX         =        0x0008,
     };
 
+    //used to reference all body definitions.
+    std::vector<b2BodyDef> bodyDefinitions;
+    //used to reference all fixture definitions.
+    std::vector<b2FixtureDef> fixtureDefinitions;
+
     // How much extra to scale the car at diagonal directions
     const float scalerAt45Deg = 0.38f;
     // how much to scale the Box2D positions into the UI positions
@@ -56,18 +61,7 @@ public:
     ContactListener myContactListener;
     bool isParkedSuccessfully;
 
-    // sets the position of the car
-    void setCarPosition(b2Vec2 newPosition);
-    // sets the angle of the car in degrees
-    void setCarAngle(float newAngle);
-    // sets the cars velocity to 0
-    void zeroOutVelocity();
-    // returns the body used for the car physics
-    b2Body* getCarBody();
-    // returns the image used to display the car
-    QImage getCarImage();
-    // returns the scale of the car
-    float getCarScale();
+
 
 signals:
     void updateUI();
@@ -120,10 +114,7 @@ private:
     bool rightPressed;
     bool breakPressed;
 
-    //used to reference all body definitions.
-    std::vector<b2BodyDef> bodyDefinitions;
-    //used to reference all fixture definitions.
-    std::vector<b2FixtureDef> fixtureDefinitions;
+
 
     // sets up the image, collider, and other components of the car
     void setupCar();
@@ -147,10 +138,7 @@ private:
     void loadCar();
     // loads the data related to the truck
     void loadTruck();
-    // sets up all body definitions for hitboxes. 0 is driveable car,
-    // 1 is the goal hitbox, 2 is the not intangible hitbox (think yellow lines)
-    // 3 is tangible hitboxes (think parked cars)
-    void createAllHitboxBodyDefinitions();
+
 
 };
 
