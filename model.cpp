@@ -47,6 +47,7 @@ void Model::runLevel1()
     carModel->setCarPosition(b2Vec2(4, 4));
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
+    carModel->getCarBody()->setFailedPark(false);
 
     canDrive = true;
     curLevel = 1;
@@ -58,6 +59,7 @@ void Model::runLevel2()
     carModel->setCarPosition(b2Vec2(4, 4));
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
+    carModel->getCarBody()->setFailedPark(false);
 
     canDrive = true;
     curLevel = 2;
@@ -69,6 +71,7 @@ void Model::runLevel3()
     carModel->setCarPosition(b2Vec2(4, 4));
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
+    carModel->getCarBody()->setFailedPark(false);
 
     canDrive = true;
     curLevel = 3;
@@ -80,6 +83,7 @@ void Model::runLevel4()
     carModel->setCarPosition(b2Vec2(4, 4));
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
+    carModel->getCarBody()->setFailedPark(false);
 
     canDrive = true;
     curLevel = 4;
@@ -91,6 +95,7 @@ void Model::runLevel5()
     carModel->setCarPosition(b2Vec2(4, 4));
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
+    carModel->getCarBody()->setFailedPark(false);
 
     canDrive = true;
     curLevel = 5;

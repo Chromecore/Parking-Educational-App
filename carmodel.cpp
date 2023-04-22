@@ -27,8 +27,6 @@ CarModel::CarModel(QObject *parent)
             this,
             &CarModel::keyRelease);
 
-    bodyDefinitions = std::vector<b2BodyDef>();
-    fixtureDefinitions = std::vector<b2FixtureDef>();
 
     setupCar();
     //setupColliders();
@@ -69,18 +67,11 @@ void CarModel::setupCar()
     hazardBodyDef.position.Set(2, 1);
     parkedCarBodyDef.position.Set(3, 1);
 
-    // Push the body definitions into the vector.
-    bodyDefinitions.push_back(driveableCarBodyDef);
-    bodyDefinitions.push_back(goalBodyDef);
-    bodyDefinitions.push_back(hazardBodyDef);
-    bodyDefinitions.push_back(parkedCarBodyDef);
-
     // Define another box shape for our dynamic body.
     b2PolygonShape driveableCarBox;
     driveableCarBox.SetAsBox(1.0f, 1.0f);
     b2PolygonShape otherHitboxShape;
-    otherHitboxShape.SetAsBox(1.0f, 1.0f/5 * 3);
-        // Define another box shape for our dynamic body.
+    otherHitboxShape.SetAsBox(1.0f, 1.0f * 9/20);
 
 
     // Define the dynamic body fixture.
@@ -90,8 +81,8 @@ void CarModel::setupCar()
     goalFixtureDef.shape = &otherHitboxShape;
     b2FixtureDef hazardFixtureDef;
     hazardFixtureDef.shape = &otherHitboxShape;
-    b2FixtureDef parkeDCarFixtureDef;
-    parkeDCarFixtureDef.shape = &otherHitboxShape;
+    b2FixtureDef parkedCarFixtureDef;
+    parkedCarFixtureDef.shape = &otherHitboxShape;
 
     //for goal and hazard fixtures, they need to be declared as sensors.
     goalFixtureDef.isSensor = true;
@@ -103,25 +94,21 @@ void CarModel::setupCar()
     driveableCarFixtureDef.density = 1.0f;
     goalFixtureDef.density = 1.0f;
     hazardFixtureDef.density = 1.0f;
-    parkeDCarFixtureDef.density = 1.0f;
+    parkedCarFixtureDef.density = 1.0f;
 
     // Override the default friction.
     driveableCarFixtureDef.friction = 1.0f;
     goalFixtureDef.friction = 1.0f;
     hazardFixtureDef.friction = 1.0f;
-    parkeDCarFixtureDef.friction = 1.0f;
+    parkedCarFixtureDef.friction = 1.0f;
 
-    // Push all fixture definitions into the vector.
-    fixtureDefinitions.push_back(driveableCarFixtureDef);
-    fixtureDefinitions.push_back(goalFixtureDef);
-    fixtureDefinitions.push_back(hazardFixtureDef);
-    fixtureDefinitions.push_back(parkeDCarFixtureDef);
 
     //assign car's body.
-    body = world.CreateBody(&bodyDefinitions[0]);
+    body = world.CreateBody(&driveableCarBodyDef);
+    body ->setFailedPark(false);
 
     // Add the shape to the body.
-    body->CreateFixture(&fixtureDefinitions[0]);
+    body->CreateFixture(&driveableCarFixtureDef);
 
     setCarAngle(0);
 
@@ -134,10 +121,44 @@ void CarModel::setupCar()
     world.SetContactListener(&myContactListener);
     isParkedSuccessfully = false;
 
-    //Creation of all the hitboxes hitboxes.
-    testHitbox = world.CreateBody(&bodyDefinitions[2]);
-    testHitbox->setHitboxType(2);
-    testHitbox->CreateFixture(&fixtureDefinitions[2]);
+    //Creation of all the hitboxes.
+
+    //Main center fail hitbox that fails the player if they haven't left center.
+    //Steps to creating a new hitbox.
+    otherHitboxShape.SetAsBox(1.0f * 1.45, 1.0f * 5);
+    hazardBodyDef.position.Set(3, 1);
+    hazardFixtureDef.shape = &otherHitboxShape;
+    b2Body* centerHazardHitbox = world.CreateBody(&hazardBodyDef);
+    centerHazardHitbox->setHitboxType(2);
+    centerHazardHitbox->CreateFixture(&hazardFixtureDef);
+
+
+    //Parked Car hitbox 1. //Good
+    otherHitboxShape.SetAsBox(1.0f * 2/3, 1.0f * 1/2);
+    parkedCarBodyDef.position.Set(6.4, 3.3);
+    parkedCarFixtureDef.shape = &otherHitboxShape;
+    b2Body* parkedCar1 = world.CreateBody(&parkedCarBodyDef);
+    parkedCar1->setHitboxType(3);
+    parkedCar1->CreateFixture(&parkedCarFixtureDef);
+
+
+    //Parked Car hitbox 2. //BUGGY
+    otherHitboxShape.SetAsBox(1.0f * 2/3, 1.0f * 1/3);
+    parkedCarBodyDef.position.Set(6.4, 5.72);
+    parkedCarFixtureDef.shape = &otherHitboxShape;
+    b2Body* parkedCar2 = world.CreateBody(&parkedCarBodyDef);
+    parkedCar2->setHitboxType(3);
+    parkedCar2->CreateFixture(&parkedCarFixtureDef);
+
+
+    //Goal Hitbox Right Side. //Good
+    otherHitboxShape.SetAsBox(1.0f, 1.0f * 10);
+    goalBodyDef.position.Set(7.9, 0);
+    goalFixtureDef.shape = &otherHitboxShape;
+    testHitbox = world.CreateBody(&goalBodyDef);
+    testHitbox->setHitboxType(1);
+    testHitbox->CreateFixture(& goalFixtureDef);
+
     //b2Body* testHitBoxHazard = world.CreateBody(&bodyDefHazard);
     //testHitBoxHazard->setHitboxType(2);
     //testHitBoxHazard->CreateFixture(&fixtureDefHitbox);
@@ -161,7 +182,7 @@ void CarModel::handleCollisions()
 {
     // win condition
     if (body->getHazardContactNum() > 0 ){
-        qDebug() << "LOSE";
+        //qDebug() << "LOSE";
         isParkedSuccessfully = false;
     }
     else if (body->getGoalContactNum() > 0){
@@ -170,8 +191,10 @@ void CarModel::handleCollisions()
     }
 
     // check if collided with obstacle that causes automatic fail
-    if (body->getFailedPark())
+    if (body->getFailedPark()){
         Model::instance->failedPark();
+    }
+
 }
 
 void CarModel::handleDrifting()

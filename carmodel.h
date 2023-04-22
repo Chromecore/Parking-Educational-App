@@ -47,10 +47,6 @@ public:
       PARKED_CAR_HITBOX         =        0x0008,
     };
 
-    //used to reference all body definitions.
-    std::vector<b2BodyDef> bodyDefinitions;
-    //used to reference all fixture definitions.
-    std::vector<b2FixtureDef> fixtureDefinitions;
 
     // How much extra to scale the car at diagonal directions
     const float scalerAt45Deg = 0.38f;

@@ -24,7 +24,7 @@ public:
 
 private:
     Ui::Car *ui;
-    const bool shouldDrawGizmos = false;
+    const bool shouldDrawGizmos = true;
 
     // rotates a pixmap around a pivot point based on an angle and returns the offset
     QPixmap rotatePixmap(QPixmap pixmap, QPointF pivot, qreal angle, QPointF &offset);
