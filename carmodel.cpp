@@ -155,13 +155,14 @@ void CarModel::setupCar()
     otherHitboxShape.SetAsBox(1.0f, 1.0f * 10);
     goalBodyDef.position.Set(7.9, 0);
     goalFixtureDef.shape = &otherHitboxShape;
-    testHitbox = world.CreateBody(&goalBodyDef);
-    testHitbox->setHitboxType(1);
-    testHitbox->CreateFixture(& goalFixtureDef);
+    b2Body* rightmostGoalHitbox = world.CreateBody(&goalBodyDef);
+    rightmostGoalHitbox->setHitboxType(1);
+    rightmostGoalHitbox->CreateFixture(& goalFixtureDef);
 
-    //b2Body* testHitBoxHazard = world.CreateBody(&bodyDefHazard);
-    //testHitBoxHazard->setHitboxType(2);
-    //testHitBoxHazard->CreateFixture(&fixtureDefHitbox);
+
+    //testHitbox = world.CreateBody(&bodyDefHazard);
+    //testHitbox->setHitboxType(2);
+    //testHitbox->CreateFixture(&fixtureDefHitbox);
 }
 
 void CarModel::updateWorld()
