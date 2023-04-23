@@ -45,7 +45,8 @@ void CarModel::setupCar()
     // setup the image
     float size = screenWidth / sqrt(2);
     image = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    hitBoxImage = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    //hitBoxImage.load(":/sprites/Resources/Frame.png");
+    //hitBoxImage = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     // sets up all body definitions and fixtures for hitboxes. 0 is driveable car,
     // 1 is the goal hitbox, 2 is the not intangible hitbox (think yellow lines)
@@ -178,7 +179,7 @@ void CarModel::setupCar()
 
 
     //Hazard hitbox left 2. // Needs work
-    otherHitboxShape.SetAsBox(1.0f, 0.001);
+    otherHitboxShape.SetAsBox(1.0f, 0.1f);
     hazardBodyDef.position.Set(0, 1.0f * 3.35);
     hazardFixtureDef.shape = &otherHitboxShape;
     testHitbox = world.CreateBody(&hazardBodyDef);
@@ -404,9 +405,9 @@ QImage CarModel::getCarImage(){
     return image;
 }
 
-QImage CarModel::getHitboxImage(){
-    return hitBoxImage;
-}
+//QImage CarModel::getHitboxImage(){
+//    return hitBoxImage;
+//}
 
 
 float CarModel::getCarScale(){
@@ -417,7 +418,6 @@ void CarModel::loadCar()
 {
     // load the car sprite along with the car specific variables
     image.load(":/sprites/Resources/car2.png");
-    hitBoxImage.load(":/sprites/Resources/Frame.png");
     carScale = 100;
     maxSpeed = 0.8f;
     breakSpeed = 0.04f;

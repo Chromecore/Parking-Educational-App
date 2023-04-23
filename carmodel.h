@@ -32,7 +32,7 @@ public:
     // Returns the image used to display the car
     QImage getCarImage();
     // Returns the image used to display the hitboxes
-    QImage getHitboxImage();
+    //QImage getHitboxImage();
     // Returns the scale of the car
     float getCarScale();
 
@@ -72,7 +72,7 @@ private:
     b2Body* body;
     QTimer timer;
     QImage image;
-    QImage hitBoxImage;
+    //QImage hitBoxImage;
 
     // fastest speed the car can go
     float maxSpeed;
