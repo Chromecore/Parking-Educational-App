@@ -124,19 +124,20 @@ void CarModel::setupCar()
 
     //Creation of all the hitboxes.
 
+
     //Main center fail hitbox that fails the player if they haven't left center.
     //Steps to creating a new hitbox.
     otherHitboxShape.SetAsBox(1.0f * 1.45, 1.0f * 5);
     hazardBodyDef.position.Set(3, 1);
     hazardFixtureDef.shape = &otherHitboxShape;
-    b2Body* centerHazardHitbox = world.CreateBody(&hazardBodyDef);
+    b2Body* centerHazardHitbox= world.CreateBody(&hazardBodyDef);
     centerHazardHitbox->setHitboxType(2);
     centerHazardHitbox->CreateFixture(&hazardFixtureDef);
 
 
     //Parked Car hitbox 1. //Good
     otherHitboxShape.SetAsBox(1.0f * 2/3, 1.0f * 1/2);
-    parkedCarBodyDef.position.Set(6.4, 3.3);
+    parkedCarBodyDef.position.Set(6.5, 3.3);
     parkedCarFixtureDef.shape = &otherHitboxShape;
     b2Body* parkedCar1 = world.CreateBody(&parkedCarBodyDef);
     parkedCar1->setHitboxType(3);
@@ -150,6 +151,7 @@ void CarModel::setupCar()
     b2Body* parkedCar2 = world.CreateBody(&parkedCarBodyDef);
     parkedCar2->setHitboxType(3);
     parkedCar2->CreateFixture(&parkedCarFixtureDef);
+    //b2Body* parkedCar2
 
 
     //Goal Hitbox Right Side. //Good
@@ -170,8 +172,8 @@ void CarModel::setupCar()
     leftmostGoalHitbox->CreateFixture(& goalFixtureDef);
 
     //Hazard hitbox left 1. // Needs work.
-    otherHitboxShape.SetAsBox(1.0f, 0.001);
-    hazardBodyDef.position.Set(0, 1.0f * 1.67);
+    otherHitboxShape.SetAsBox(1.0f, 0.1f);
+    hazardBodyDef.position.Set(0, 1.8f);
     hazardFixtureDef.shape = &otherHitboxShape;
     b2Body* leftHazard1Hitbox = world.CreateBody(&hazardBodyDef);
     leftHazard1Hitbox->setHitboxType(2);
@@ -180,11 +182,57 @@ void CarModel::setupCar()
 
     //Hazard hitbox left 2. // Needs work
     otherHitboxShape.SetAsBox(1.0f, 0.1f);
-    hazardBodyDef.position.Set(0, 1.0f * 3.35);
+    hazardBodyDef.position.Set(0, 1.0f * 3.6);
     hazardFixtureDef.shape = &otherHitboxShape;
-    testHitbox = world.CreateBody(&hazardBodyDef);
-    testHitbox->setHitboxType(2);
-    testHitbox->CreateFixture(&hazardFixtureDef);
+    b2Body* leftHazard2Hitbox = world.CreateBody(&hazardBodyDef);
+    leftHazard2Hitbox->setHitboxType(2);
+    leftHazard2Hitbox->CreateFixture(&hazardFixtureDef);
+
+
+    //Hazard hitbox left 3. // Needs extra testing
+    otherHitboxShape.SetAsBox(1.0f, 0.1f);
+    hazardBodyDef.position.Set(0, 1.0f * 5.35);
+    hazardFixtureDef.shape = &otherHitboxShape;
+    b2Body* leftHazard3Hitbox = world.CreateBody(&hazardBodyDef);
+    leftHazard3Hitbox->setHitboxType(2);
+    leftHazard3Hitbox->CreateFixture(&hazardFixtureDef);
+
+
+    //Hazard hitbox left 4. // Needs extra testing
+    otherHitboxShape.SetAsBox(1.0f, 0.1f);
+    hazardBodyDef.position.Set(0, 1.0f * 7.1);
+    hazardFixtureDef.shape = &otherHitboxShape;
+    b2Body* leftHazard4Hitbox = world.CreateBody(&hazardBodyDef);
+    leftHazard4Hitbox->setHitboxType(2);
+    leftHazard4Hitbox->CreateFixture(&hazardFixtureDef);
+
+
+
+    //Hazard hitbox right 1. // Needs extra testing
+    otherHitboxShape.SetAsBox(1.0f * 3, 0.1f);
+    hazardBodyDef.position.Set(5.8f, 0.84f);
+    hazardFixtureDef.shape = &otherHitboxShape;
+    b2Body* rightHazard1Hitbox = world.CreateBody(&hazardBodyDef);
+    rightHazard1Hitbox->setHitboxType(2);
+    rightHazard1Hitbox->CreateFixture(&hazardFixtureDef);
+
+
+    //Hazard hitbox right 2. // Needs extra testing
+    otherHitboxShape.SetAsBox(1.0f * 3, 0.1f);
+    hazardBodyDef.position.Set(5.8f, 0.84f * 2);
+    hazardFixtureDef.shape = &otherHitboxShape;
+    b2Body* rightHazard2Hitbox = world.CreateBody(&hazardBodyDef);
+    rightHazard2Hitbox->setHitboxType(2);
+    rightHazard2Hitbox->CreateFixture(&hazardFixtureDef);
+
+
+    //Hazard hitbox right 3. // Needs extra testing
+    otherHitboxShape.SetAsBox(1.0f * 3, 0.1f);
+    hazardBodyDef.position.Set(5.8f, 0.84f * 7.85);
+    hazardFixtureDef.shape = &otherHitboxShape;
+    b2Body* rightHazard3Hitbox = world.CreateBody(&hazardBodyDef);
+    rightHazard3Hitbox->setHitboxType(2);
+    rightHazard3Hitbox->CreateFixture(&hazardFixtureDef);
 
     //testHitbox = world.CreateBody(&bodyDefHazard);
     //testHitbox->setHitboxType(2);

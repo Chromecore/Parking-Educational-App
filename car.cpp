@@ -35,6 +35,7 @@ void Car::paintEvent(QPaintEvent *) {
     QPixmap pixmap;
     pixmap.convertFromImage(Model::instance->carModel->getCarImage());
 
+
     float angle = Model::instance->carModel->getCarBody()->GetAngle();
 
     // rotate the car around a pivot
@@ -61,7 +62,7 @@ void Car::paintEvent(QPaintEvent *) {
 
 
 
-
+    /*
     // Comment out when not drawing hitboxes.
     QPainter painterHitbox(this);
     QPixmap pixmapHitbox(100,100);
@@ -84,7 +85,7 @@ void Car::paintEvent(QPaintEvent *) {
     float scaleTotal = Model::instance->carModel->positionScaler * scalerHitbox;
 
     // draw the car
-    float hitboxWidth = 1.0f;
+    float hitboxWidth = 1.0f * 3;
     float hitboxHeight = 0.1f;
     //QPixmap hitboxPixmap(100,100);
     //hitboxPixmap.fill(Qt::blue);
@@ -92,6 +93,7 @@ void Car::paintEvent(QPaintEvent *) {
     painterHitbox.end();
 
     //if(shouldDrawGizmos) drawGizmos(xHitbox, yHitbox, scaleTotal);
+    */
 }
 
 void Car::drawGizmos(float x, float y, float scale){
