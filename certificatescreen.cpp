@@ -14,6 +14,11 @@ CertificateScreen::CertificateScreen(QWidget *parent) :
             &QPushButton::clicked,
             this,
             &CertificateScreen::homeButtonClicked);
+
+    connect(Model::instance,
+            &Model::showTutorialComplete,
+            this,
+            &CertificateScreen::showTutorialComplete);
 }
 
 CertificateScreen::~CertificateScreen()
@@ -24,4 +29,18 @@ CertificateScreen::~CertificateScreen()
 void CertificateScreen::homeButtonClicked()
 {
     Model::instance->goHome();
+}
+
+void CertificateScreen::showTutorialComplete(bool allLevelsComplete)
+{
+    if (allLevelsComplete)
+    {
+        ui->certificateLabel->show();
+        ui->redoLabel->hide();
+    }
+    else
+    {
+        ui->redoLabel->show();
+        ui->certificateLabel->hide();
+    }
 }

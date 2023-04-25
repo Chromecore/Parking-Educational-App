@@ -153,8 +153,6 @@ void MainWindow::showFailWidget()
 
 void MainWindow::showCertificateWidget(bool tutorialComplete)
 {
-
-
     hideAllWidgets();
     ui->certificateWidget->show();
 }

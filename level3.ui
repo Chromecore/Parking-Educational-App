@@ -207,12 +207,38 @@
     </rect>
    </property>
   </widget>
+  <widget class="CarObstacleVertical" name="widget_9" native="true">
+   <property name="geometry">
+    <rect>
+     <x>95</x>
+     <y>440</y>
+     <width>95</width>
+     <height>115</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="CarObstacleVertical" name="widget_10" native="true">
+   <property name="geometry">
+    <rect>
+     <x>95</x>
+     <y>5</y>
+     <width>95</width>
+     <height>115</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>
    <class>CarObstacle</class>
    <extends>QWidget</extends>
    <header>carobstacle.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CarObstacleVertical</class>
+   <extends>QWidget</extends>
+   <header>carobstaclevertical.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

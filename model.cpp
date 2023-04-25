@@ -38,6 +38,10 @@ void Model::runLevelSelect()
 
 void Model::goHome()
 {
+    for (int i = 0; i < numLevels; i++)
+    {
+        levelsCompleted[i] = false;
+    }
     canDrive = false;
     emit goingHome();
 }
@@ -105,22 +109,25 @@ void Model::runLevel5()
 void Model::successfulPark()
 {
     canDrive = false;
+    Model::instance->carModel->zeroOutVelocity();
+
     if (curLevel == numLevels)
     {
-        bool allLevelsComplete = true;
+        levelsCompleted[curLevel - 1] = true;
         for (int i = 0; i < numLevels; i++)
         {
             if (!levelsCompleted[i])
             {
-                allLevelsComplete = false;
-                break;
+                emit showTutorialComplete(false);
+                return;
             }
         }
 
-        emit showTutorialComplete(allLevelsComplete);
+        emit showTutorialComplete(true);
     }
     else
     {
+        levelsCompleted[curLevel - 1] = true;
         emit showLevelComplete();
     }
 }
@@ -128,6 +135,7 @@ void Model::successfulPark()
 void Model::failedPark()
 {
     canDrive = false;
+    Model::instance->carModel->zeroOutVelocity();
     emit showLevelFailure();
 }
 
