@@ -22,10 +22,12 @@ void CarObstacle::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     string route = ":/sprites/Resources/car" + std::to_string(ran) + ".png";
-    //float size = 800 / sqrt(2);
-    //qDebug() << route.data();
+    int width =115, height = 100;
     QPixmap pix(route.data());
-    painter.drawPixmap(QRect(0, 0, 115, 100), pix);
+
+
+
+    painter.drawPixmap(QRect(0, 0, width, height), pix);
     painter.end();
 }
 
