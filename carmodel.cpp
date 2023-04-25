@@ -380,6 +380,14 @@ void CarModel::applyInput()
 
     b2Vec2 velocity = body->GetLinearVelocity();
 
+    // handle the inverted turn when going backwards
+    QVector2D velVec(velocity.x, velocity.y);
+    QVector2D dirVec(direction.x, direction.y);
+    float invertTurn = velVec.dotProduct(velVec, dirVec);
+    invertTurn = invertTurn / abs(invertTurn);
+    // prevents from a nan variable
+    if(invertTurn) invertTurn = 1;
+
     // apply the input
     if(drivePressed)
     {
@@ -391,7 +399,7 @@ void CarModel::applyInput()
     if(leftPressed)
     {
         // turn left
-        body->ApplyAngularImpulse(-angularImpulse * angleEffector, true);
+        body->ApplyAngularImpulse(-angularImpulse * angleEffector * invertTurn, true);
     }
     if(reversePressed)
     {
@@ -403,7 +411,7 @@ void CarModel::applyInput()
     if(rightPressed)
     {
         // turn right
-        body->ApplyAngularImpulse(angularImpulse * angleEffector, true);
+        body->ApplyAngularImpulse(angularImpulse * angleEffector * invertTurn, true);
     }
     if(breakPressed)
     {
@@ -475,11 +483,11 @@ void CarModel::loadCar()
     carScale = 100;
     maxSpeed = 0.8f;
     breakSpeed = 0.04f;
-    angularImpulse = 300;
+    angularImpulse = 100;
     driveSpeed = 1;
     reverseSpeed = 1;
     sideVelocityMultiplyer = 0.2f;
-    turnDriveRelationship = 5;
+    turnDriveRelationship = 2;
 
     b2PolygonShape driveableCarBox;
     driveableCarBox.SetAsBox(0.5f, 0.25f);
@@ -487,7 +495,7 @@ void CarModel::loadCar()
     b2FixtureDef driveableCarFixtureDef;
     driveableCarFixtureDef.shape = &driveableCarBox;
     // Set the box density to be non-zero, so it will be dynamic.
-    driveableCarFixtureDef.density = 4.0f;
+    driveableCarFixtureDef.density = 10.0f;
     // Override the default friction.
     driveableCarFixtureDef.friction = 4.0f;
     if(body->GetFixtureList())
@@ -508,10 +516,10 @@ void CarModel::loadTruck()
     driveSpeed = 0.8;
     reverseSpeed = 0.8;
     sideVelocityMultiplyer = 0.1;
-    turnDriveRelationship = 2.5;
+    turnDriveRelationship = 3.5;
 
     b2PolygonShape driveableCarBox;
-    driveableCarBox.SetAsBox(1.0f, 0.5f);
+    driveableCarBox.SetAsBox(1.0f, 0.25f);
     // Define the dynamic body fixture.
     b2FixtureDef driveableCarFixtureDef;
     driveableCarFixtureDef.shape = &driveableCarBox;
