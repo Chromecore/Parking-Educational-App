@@ -45,14 +45,21 @@ void Car::paintEvent(QPaintEvent *) {
     // get the position to draw the car on the UI
     b2Vec2 position = Model::instance->carModel->getCarBody()->GetPosition();
     float positionScaler = Model::instance->carModel->positionScaler;
-    float x = (int)(position.x*positionScaler) + offset.x();
-    float y = (int)(position.y*positionScaler) + offset.y();
+    float x = position.x * positionScaler + offset.x();
+    float y = position.y * positionScaler + offset.y();
 
     // scale the car based on rotation to account for growing and shrinking
     // the sin function gives 1 at all diagonal directions and 0 at all cardinal directions
     float scaler = abs(sin(Model::degToRad(angle) * 2)) * Model::instance->carModel->scalerAt45Deg + 1;
     float carScale = Model::instance->carModel->getCarScale();
     float scale = carScale * scaler;
+
+    // move the car ui position to align with the car body position
+    b2Body* body = Model::instance->carModel->getCarBody();
+    float differenceX = x + scale / 2 - body->GetPosition().x * positionScaler;
+    float differenceY= y + scale / 2 - body->GetPosition().y * positionScaler;
+    x -= differenceX;
+    y -= differenceY;
 
     // draw the car
     painter.drawPixmap(QRect(x, y, scale, scale), pixmap);
@@ -112,6 +119,14 @@ void Car::drawGizmos(float x, float y, float scale){
     float angle = Model::instance->carModel->getCarBody()->GetAngle();
     pixmapFrame = rotatePixmap(pixmapFrame, QPoint(5, 0), Model::degToRad(-angle + 180), offset);
     painter.drawPixmap(QRect(x, y, scale, scale), pixmapFrame);
+
+    // draw car body center
+    QPixmap centerPixmap(10,10);
+    centerPixmap.fill(Qt::blue);
+    float bodyX = Model::instance->carModel->getCarBody()->GetPosition().x * Model::instance->carModel->positionScaler;
+    float bodyY = Model::instance->carModel->getCarBody()->GetPosition().y * Model::instance->carModel->positionScaler;
+    painter.drawPixmap(bodyX, bodyY, centerPixmap);
+    painter.end();
 }
 
 QPixmap Car::rotatePixmap(QPixmap pixmap, QPointF pivot, qreal angle, QPointF &offset)

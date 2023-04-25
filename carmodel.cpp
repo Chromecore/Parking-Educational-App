@@ -34,8 +34,6 @@ CarModel::CarModel(QObject *parent)
     // start the main update loop
     connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
     timer.start(10);
-
-
 }
 
 void CarModel::setupCar()
@@ -438,6 +436,11 @@ void CarModel::setCarAngle(float newAngle)
 void CarModel::zeroOutVelocity()
 {
     body->SetLinearVelocity(b2Vec2(0,0));
+    drivePressed = false;
+    leftPressed = false;
+    reversePressed = false;
+    rightPressed = false;
+    breakPressed = false;
 }
 
 b2Body* CarModel::getCarBody(){

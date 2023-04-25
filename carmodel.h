@@ -57,15 +57,12 @@ public:
     ContactListener myContactListener;
     bool isParkedSuccessfully;
 
-
-
 signals:
     void updateUI();
 
 private slots:
     // updates the world the car is in
     void updateWorld();
-
 
 private:
     b2World world;
@@ -110,8 +107,6 @@ private:
     bool rightPressed;
     bool breakPressed;
 
-
-
     // sets up the image, collider, and other components of the car
     void setupCar();
     // sets up the colliders
@@ -134,8 +129,6 @@ private:
     void loadCar();
     // loads the data related to the truck
     void loadTruck();
-
-
 };
 
 #endif // CARMODEL_H
