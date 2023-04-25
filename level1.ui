@@ -176,28 +176,12 @@ Button</string>
     </rect>
    </property>
   </widget>
-  <widget class="VerticleCarObstacle" name="widget_4" native="true">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>440</y>
-     <width>75</width>
-     <height>115</height>
-    </rect>
-   </property>
-  </widget>
  </widget>
  <customwidgets>
   <customwidget>
    <class>CarObstacle</class>
    <extends>QWidget</extends>
    <header>carobstacle.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>VerticleCarObstacle</class>
-   <extends>QWidget</extends>
-   <header>verticlecarobstacle.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
