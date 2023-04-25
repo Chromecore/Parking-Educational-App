@@ -68,7 +68,7 @@ void CarModel::setupCar()
 
     // Define another box shape for our dynamic body.
     b2PolygonShape driveableCarBox;
-    driveableCarBox.SetAsBox(1.0f, 1.0f);
+    driveableCarBox.SetAsBox(0.5f, 0.25f);
     b2PolygonShape otherHitboxShape;
     otherHitboxShape.SetAsBox(1.0f, 1.0f * 9/20);
 
