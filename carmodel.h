@@ -69,7 +69,6 @@ private:
     b2Body* body;
     QTimer timer;
     QImage image;
-    //QImage hitBoxImage;
 
     // fastest speed the car can go
     float maxSpeed;

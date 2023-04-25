@@ -29,7 +29,6 @@ CarModel::CarModel(QObject *parent)
 
 
     setupCar();
-    //setupColliders();
 
     // start the main update loop
     connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
@@ -62,14 +61,10 @@ void CarModel::setupCar()
     parkedCarBodyDef.position.Set(3, 1);
 
     // Define another box shape for our dynamic body.
-    //b2PolygonShape driveableCarBox;
-    //driveableCarBox.SetAsBox(0.5f, 0.25f);
     b2PolygonShape otherHitboxShape;
     otherHitboxShape.SetAsBox(1.0f, 1.0f * 9/20);
 
     // Define the dynamic body fixture.
-    //b2FixtureDef driveableCarFixtureDef;
-    //driveableCarFixtureDef.shape = &driveableCarBox;
     b2FixtureDef goalFixtureDef;
     goalFixtureDef.shape = &otherHitboxShape;
     b2FixtureDef hazardFixtureDef;
@@ -84,13 +79,11 @@ void CarModel::setupCar()
     // goalFixtureDef.filter.maskBits = DRIVEABLE_CAR_HITBOX;
 
     // Set the box density to be non-zero, so it will be dynamic.
-    //driveableCarFixtureDef.density = 4.0f;
     goalFixtureDef.density = 1.0f;
     hazardFixtureDef.density = 1.0f;
     parkedCarFixtureDef.density = 1.0f;
 
     // Override the default friction.
-    //driveableCarFixtureDef.friction = 4.0f;
     goalFixtureDef.friction = 1.0f;
     hazardFixtureDef.friction = 1.0f;
     parkedCarFixtureDef.friction = 1.0f;
@@ -99,9 +92,6 @@ void CarModel::setupCar()
     //assign car's body.
     body = world.CreateBody(&driveableCarBodyDef);
     body ->setFailedPark(false);
-
-    // Add the shape to the body.
-    //body->CreateFixture(&driveableCarFixtureDef);
 
     setCarAngle(0);
 
@@ -115,8 +105,6 @@ void CarModel::setupCar()
     isParkedSuccessfully = false;
 
     //Creation of all the hitboxes.
-
-
     //Main center fail hitbox that fails the player if they haven't left center.
     //Steps to creating a new hitbox.
     otherHitboxShape.SetAsBox(1.0f * 1.45, 1.0f * 5);
@@ -226,13 +214,8 @@ void CarModel::setupCar()
     rightHazard3Hitbox->setHitboxType(2);
     rightHazard3Hitbox->CreateFixture(&hazardFixtureDef);
 
-    //testHitbox = world.CreateBody(&bodyDefHazard);
-    //testHitbox->setHitboxType(2);
-    //testHitbox->CreateFixture(&fixtureDefHitbox);
-
+    // setup the car
     loadCar();
-
-    // setup the image
     float size = screenWidth / sqrt(2);
     image = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }
@@ -350,10 +333,6 @@ void CarModel::keyPressed(QKeyEvent* event)
     if(key == reverseKey) reversePressed = true;
     if(key == rightKey) rightPressed = true;
     if(key == breakKey) breakPressed = true;
-
-    // TODO : Temp Remove
-    if(key == Qt::Key_P) loadCar();
-    if(key == Qt::Key_O) loadTruck();
 }
 
 void CarModel::keyRelease(QKeyEvent* event)
@@ -463,11 +442,6 @@ QImage CarModel::getCarImage()
     return image;
 }
 
-//QImage CarModel::getHitboxImage()
-//{
-//    return hitBoxImage;
-//}
-
 float CarModel::getCarScale()
 {
     return carScale;
@@ -530,4 +504,3 @@ void CarModel::loadTruck()
     }
     body->CreateFixture(&driveableCarFixtureDef);
 }
-
