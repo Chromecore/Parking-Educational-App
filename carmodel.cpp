@@ -384,9 +384,6 @@ void CarModel::applyInput()
     QVector2D velVec(velocity.x, velocity.y);
     QVector2D dirVec(direction.x, direction.y);
     float invertTurn = velVec.dotProduct(velVec, dirVec);
-    invertTurn = invertTurn / abs(invertTurn);
-    // prevents from a nan variable
-    if(invertTurn) invertTurn = 1;
 
     // apply the input
     if(drivePressed)
@@ -519,7 +516,7 @@ void CarModel::loadTruck()
     turnDriveRelationship = 3.5;
 
     b2PolygonShape driveableCarBox;
-    driveableCarBox.SetAsBox(1.0f, 0.25f);
+    driveableCarBox.SetAsBox(1.f, 0.25f);
     // Define the dynamic body fixture.
     b2FixtureDef driveableCarFixtureDef;
     driveableCarFixtureDef.shape = &driveableCarBox;
