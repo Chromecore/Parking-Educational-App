@@ -127,7 +127,95 @@
     <string>Instructions</string>
    </property>
   </widget>
+  <widget class="CarObstacle" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>246</y>
+     <width>115</width>
+     <height>75</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="CarObstacle" name="widget_2" native="true">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>1</y>
+     <width>115</width>
+     <height>75</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="CarObstacle" name="widget_3" native="true">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>90</y>
+     <width>120</width>
+     <height>80</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="CarObstacle" name="widget_4" native="true">
+   <property name="geometry">
+    <rect>
+     <x>562</x>
+     <y>318</y>
+     <width>120</width>
+     <height>80</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="CarObstacle" name="widget_5" native="true">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>385</y>
+     <width>120</width>
+     <height>80</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="CarObstacle" name="widget_6" native="true">
+   <property name="geometry">
+    <rect>
+     <x>565</x>
+     <y>450</y>
+     <width>120</width>
+     <height>80</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="CarObstacle" name="widget_7" native="true">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>515</y>
+     <width>120</width>
+     <height>80</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="CarObstacle" name="widget_8" native="true">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>180</y>
+     <width>120</width>
+     <height>80</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CarObstacle</class>
+   <extends>QWidget</extends>
+   <header>carobstacle.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
