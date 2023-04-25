@@ -38,11 +38,6 @@ CarModel::CarModel(QObject *parent)
 
 void CarModel::setupCar()
 {
-    loadCar();
-
-    // setup the image
-    float size = screenWidth / sqrt(2);
-    image = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     //hitBoxImage.load(":/sprites/Resources/Frame.png");
     //hitBoxImage = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
@@ -67,14 +62,14 @@ void CarModel::setupCar()
     parkedCarBodyDef.position.Set(3, 1);
 
     // Define another box shape for our dynamic body.
-    b2PolygonShape driveableCarBox;
-    driveableCarBox.SetAsBox(0.5f, 0.25f);
+    //b2PolygonShape driveableCarBox;
+    //driveableCarBox.SetAsBox(0.5f, 0.25f);
     b2PolygonShape otherHitboxShape;
     otherHitboxShape.SetAsBox(1.0f, 1.0f * 9/20);
 
     // Define the dynamic body fixture.
-    b2FixtureDef driveableCarFixtureDef;
-    driveableCarFixtureDef.shape = &driveableCarBox;
+    //b2FixtureDef driveableCarFixtureDef;
+    //driveableCarFixtureDef.shape = &driveableCarBox;
     b2FixtureDef goalFixtureDef;
     goalFixtureDef.shape = &otherHitboxShape;
     b2FixtureDef hazardFixtureDef;
@@ -89,13 +84,13 @@ void CarModel::setupCar()
     // goalFixtureDef.filter.maskBits = DRIVEABLE_CAR_HITBOX;
 
     // Set the box density to be non-zero, so it will be dynamic.
-    driveableCarFixtureDef.density = 4.0f;
+    //driveableCarFixtureDef.density = 4.0f;
     goalFixtureDef.density = 1.0f;
     hazardFixtureDef.density = 1.0f;
     parkedCarFixtureDef.density = 1.0f;
 
     // Override the default friction.
-    driveableCarFixtureDef.friction = 4.0f;
+    //driveableCarFixtureDef.friction = 4.0f;
     goalFixtureDef.friction = 1.0f;
     hazardFixtureDef.friction = 1.0f;
     parkedCarFixtureDef.friction = 1.0f;
@@ -106,7 +101,7 @@ void CarModel::setupCar()
     body ->setFailedPark(false);
 
     // Add the shape to the body.
-    body->CreateFixture(&driveableCarFixtureDef);
+    //body->CreateFixture(&driveableCarFixtureDef);
 
     setCarAngle(0);
 
@@ -234,6 +229,12 @@ void CarModel::setupCar()
     //testHitbox = world.CreateBody(&bodyDefHazard);
     //testHitbox->setHitboxType(2);
     //testHitbox->CreateFixture(&fixtureDefHitbox);
+
+    loadCar();
+
+    // setup the image
+    float size = screenWidth / sqrt(2);
+    image = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }
 
 void CarModel::updateWorld()
@@ -480,17 +481,20 @@ void CarModel::loadCar()
     sideVelocityMultiplyer = 0.2f;
     turnDriveRelationship = 5;
 
-//    b2PolygonShape driveableCarBox;
-//    driveableCarBox.SetAsBox(0.5f, 0.25f);
-//    // Define the dynamic body fixture.
-//    b2FixtureDef driveableCarFixtureDef;
-//    driveableCarFixtureDef.shape = &driveableCarBox;
-//    // Set the box density to be non-zero, so it will be dynamic.
-//    driveableCarFixtureDef.density = 4.0f;
-//    // Override the default friction.
-//    driveableCarFixtureDef.friction = 4.0f;
-//    body->DestroyFixture(body->GetFixtureList());
-//    body->CreateFixture(&driveableCarFixtureDef);
+    b2PolygonShape driveableCarBox;
+    driveableCarBox.SetAsBox(0.5f, 0.25f);
+    // Define the dynamic body fixture.
+    b2FixtureDef driveableCarFixtureDef;
+    driveableCarFixtureDef.shape = &driveableCarBox;
+    // Set the box density to be non-zero, so it will be dynamic.
+    driveableCarFixtureDef.density = 4.0f;
+    // Override the default friction.
+    driveableCarFixtureDef.friction = 4.0f;
+    if(body->GetFixtureList())
+    {
+        body->DestroyFixture(body->GetFixtureList());
+    }
+    body->CreateFixture(&driveableCarFixtureDef);
 }
 
 void CarModel::loadTruck()
@@ -500,22 +504,25 @@ void CarModel::loadTruck()
     carScale = 150;
     maxSpeed = 0.7f;
     breakSpeed = 0.03f;
-    angularImpulse = 30;
+    angularImpulse = 250;
     driveSpeed = 0.8;
     reverseSpeed = 0.8;
     sideVelocityMultiplyer = 0.1;
     turnDriveRelationship = 2.5;
 
-//    b2PolygonShape driveableCarBox;
-//    driveableCarBox.SetAsBox(1.0f, 0.5f);
-//    // Define the dynamic body fixture.
-//    b2FixtureDef driveableCarFixtureDef;
-//    driveableCarFixtureDef.shape = &driveableCarBox;
-//    // Set the box density to be non-zero, so it will be dynamic.
-//    driveableCarFixtureDef.density = 4.0f;
-//    // Override the default friction.
-//    driveableCarFixtureDef.friction = 4.0f;
-//    body->DestroyFixture(body->GetFixtureList());
-//    body->CreateFixture(&driveableCarFixtureDef);
+    b2PolygonShape driveableCarBox;
+    driveableCarBox.SetAsBox(1.0f, 0.5f);
+    // Define the dynamic body fixture.
+    b2FixtureDef driveableCarFixtureDef;
+    driveableCarFixtureDef.shape = &driveableCarBox;
+    // Set the box density to be non-zero, so it will be dynamic.
+    driveableCarFixtureDef.density = 4.0f;
+    // Override the default friction.
+    driveableCarFixtureDef.friction = 4.0f;
+    if(body->GetFixtureList())
+    {
+        body->DestroyFixture(body->GetFixtureList());
+    }
+    body->CreateFixture(&driveableCarFixtureDef);
 }
 
