@@ -17,6 +17,7 @@ public:
 
 private slots:
     void homeButtonClicked();
+    void showTutorialComplete(bool allLevelsComplete);
 
 private:
     Ui::CertificateScreen *ui;
