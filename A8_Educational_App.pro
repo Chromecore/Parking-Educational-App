@@ -58,6 +58,7 @@ SOURCES += \
     car.cpp \
     carmodel.cpp \
     carobstacle.cpp \
+    carobstaclevertical.cpp \
     certificatescreen.cpp \
     contactlistener.cpp \
     failscreen.cpp \
@@ -125,6 +126,7 @@ HEADERS += \
     car.h \
     carmodel.h \
     carobstacle.h \
+    carobstaclevertical.h \
     certificatescreen.h \
     contactlistener.h \
     failscreen.h \
@@ -143,6 +145,7 @@ HEADERS += \
 FORMS += \
     car.ui \
     carobstacle.ui \
+    carobstaclevertical.ui \
     certificatescreen.ui \
     failscreen.ui \
     instructiondialog.ui \
