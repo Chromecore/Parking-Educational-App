@@ -72,7 +72,6 @@ void CarModel::setupCar()
     b2PolygonShape otherHitboxShape;
     otherHitboxShape.SetAsBox(1.0f, 1.0f * 9/20);
 
-
     // Define the dynamic body fixture.
     b2FixtureDef driveableCarFixtureDef;
     driveableCarFixtureDef.shape = &driveableCarBox;
@@ -90,13 +89,13 @@ void CarModel::setupCar()
     // goalFixtureDef.filter.maskBits = DRIVEABLE_CAR_HITBOX;
 
     // Set the box density to be non-zero, so it will be dynamic.
-    driveableCarFixtureDef.density = 1.0f;
+    driveableCarFixtureDef.density = 4.0f;
     goalFixtureDef.density = 1.0f;
     hazardFixtureDef.density = 1.0f;
     parkedCarFixtureDef.density = 1.0f;
 
     // Override the default friction.
-    driveableCarFixtureDef.friction = 1.0f;
+    driveableCarFixtureDef.friction = 4.0f;
     goalFixtureDef.friction = 1.0f;
     hazardFixtureDef.friction = 1.0f;
     parkedCarFixtureDef.friction = 1.0f;
@@ -443,25 +442,28 @@ void CarModel::zeroOutVelocity()
     breakPressed = false;
 }
 
-b2Body* CarModel::getCarBody(){
+b2Body* CarModel::getCarBody()
+{
     return body;
 }
 
-
-b2Body* CarModel::getTestHitbox(){
+b2Body* CarModel::getTestHitbox()
+{
     return testHitbox;
 }
 
-QImage CarModel::getCarImage(){
+QImage CarModel::getCarImage()
+{
     return image;
 }
 
-//QImage CarModel::getHitboxImage(){
+//QImage CarModel::getHitboxImage()
+//{
 //    return hitBoxImage;
 //}
 
-
-float CarModel::getCarScale(){
+float CarModel::getCarScale()
+{
     return carScale;
 }
 
@@ -475,9 +477,10 @@ void CarModel::loadCar()
     angularImpulse = 300;
     driveSpeed = 1;
     reverseSpeed = 1;
-    sideVelocityMultiplyer = 0.2;
+    sideVelocityMultiplyer = 0.2f;
     turnDriveRelationship = 2;
 }
+
 void CarModel::loadTruck()
 {
     // load the truck sprite along with the truck specific variables
@@ -485,7 +488,7 @@ void CarModel::loadTruck()
     carScale = 150;
     maxSpeed = 0.7f;
     breakSpeed = 0.03f;
-    angularImpulse = 250;
+    angularImpulse = 30;
     driveSpeed = 0.8;
     reverseSpeed = 0.8;
     sideVelocityMultiplyer = 0.1;

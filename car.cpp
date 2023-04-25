@@ -28,7 +28,8 @@ Car::~Car()
     delete ui;
 }
 
-void Car::paintEvent(QPaintEvent *) {
+void Car::paintEvent(QPaintEvent *)
+{
 
     // create a painter and get pixmap
     QPainter painter(this);
@@ -103,7 +104,8 @@ void Car::paintEvent(QPaintEvent *) {
     */
 }
 
-void Car::drawGizmos(float x, float y, float scale){
+void Car::drawGizmos(float x, float y, float scale)
+{
     // draw a gizmo frame around the car that does not rotate
     QPainter painter(this);
     QImage imageFrame(":/sprites/Resources/Frame.png");
@@ -147,6 +149,7 @@ QPixmap Car::rotatePixmap(QPixmap pixmap, QPointF pivot, qreal angle, QPointF &o
     return rotationImage;
 }
 
-void Car::updateUI(){
+void Car::updateUI()
+{
     update();
 }
