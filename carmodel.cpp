@@ -263,7 +263,7 @@ void CarModel::handleCollisions()
     }
 
     // check if collided with obstacle that causes automatic fail
-    if (body->getFailedPark()){
+    if (body->getFailedPark() && Model::instance->canDrive){
         Model::instance->failedPark();
     }
 
