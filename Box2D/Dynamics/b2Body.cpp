@@ -25,10 +25,11 @@
 b2Body::b2Body(const b2BodyDef* bd, b2World* world)
 {
     //Added for Collision Testing
-    NumGoalContacts   = 0;
-    NumHazardContacts = 0;
-    objHitboxType = driveableCar;
-    failedPark = false;
+    NumGoalContacts     = 0;
+    NumHazardContacts   = 0;
+    objHitboxType       = driveableCar;
+    failedPark          = false;
+    levelAssignment     = 0;
 
 	b2Assert(bd->position.IsValid());
 	b2Assert(bd->linearVelocity.IsValid());
@@ -611,4 +612,12 @@ void b2Body::setFailedPark(bool didPlayerFailPark)
 bool b2Body::getFailedPark()
 {
     return failedPark;
+}
+
+int b2Body::getLevel()
+{
+    return levelAssignment;
+}
+void b2Body::setLevel(int level){
+    levelAssignment = level;
 }

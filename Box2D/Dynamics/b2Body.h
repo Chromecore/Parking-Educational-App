@@ -139,6 +139,8 @@ public:
     int NumHazardContacts;
     int getHitboxType();
     void setHitboxType(int);
+    int getLevel();
+    void setLevel(int);
     hitboxType objHitboxType;
 
 	/// Creates a fixture and attach it to this body. Use this function if you need
@@ -408,6 +410,7 @@ public:
     bool failedPark;
     void setFailedPark(bool failedPark);
     bool getFailedPark();
+    int levelAssignment;
 
 
 private:

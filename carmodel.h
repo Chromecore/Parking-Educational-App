@@ -50,6 +50,20 @@ public:
       HAZARD_HITBOX             =        0x0004,
       PARKED_CAR_HITBOX         =        0x0008,
     };
+    int gameLevel;
+    int getGameLevel();
+    void setGameLevel(int);
+    void destroyPreviousLevelHitboxes();
+    void createLevel1ParkedCars();
+    void destroyLevel1ParkedCars();
+    void createLevel2ParkedCars();
+    void destroyLevel2ParkedCars();
+    void createLevel3ParkedCars();
+    void destroyLevel3ParkedCars();
+    void createLevel4ParkedCars();
+    void destroyLevel4ParkedCars();
+    void createLevel5ParkedCars();
+    void destroyLevel5ParkedCars();
 
 
     // How much extra to scale the car at diagonal directions
@@ -73,7 +87,6 @@ private:
     b2Body* body;
     QTimer timer;
     QImage image;
-    //QImage hitBoxImage;
 
     // fastest speed the car can go
     float maxSpeed;
