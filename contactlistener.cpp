@@ -20,7 +20,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
         //First determine which fixture is bigger. Since driveable car is always 0,
         // it will always be lower than the other fixture. Thus, based on what the
         // higher fixture's hitbox type is, we will give feedback to the lower fixture.
-        if (hitboxType1 > hitboxType2)
+        if (hitboxType1 > hitboxType2 && ObstacleHitboxIsRightLevel(static_cast<b2Body*>( bodyUserData1 )->getLevel()))
             //This assumes hitbox 2 is the driveable car.
         {
             //Determine what to do based on what type hitbox 1 is.
@@ -41,7 +41,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
            }
         }
         //This assumes hitbox 1 is the driveable car.
-        else
+        else if (ObstacleHitboxIsRightLevel(static_cast<b2Body*>( bodyUserData2 )->getLevel()))
         {
             //Determine what to do based on what type hitbox 2 is.
             switch (hitboxType2)
@@ -63,20 +63,6 @@ void ContactListener::BeginContact(b2Contact* contact) {
 
      }
   }
-
-    /*
-        //GRANDFATHER CODE THAT IS HERE FOR REFERENCE IN CASE CURRENT CODE DOESN'T WORK. DELETE LATER
-    //check if fixture A is a b2Body, thSen decide what to do based on what kind of hitbox it is.
-    void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
-    if ( bodyUserData )
-      static_cast<b2Body*>( bodyUserData )->startGoalContact();
-
-    //check if fixture B is a b2Body, then decide what to do based on what kind of hitbox it is.
-    bodyUserData = contact->GetFixtureB()->GetBody()->GetUserData();
-    if ( bodyUserData )
-      static_cast<b2Body*>( bodyUserData )->startGoalContact();
-    */
-
 }
 
 void ContactListener::EndContact(b2Contact* contact) {
@@ -95,7 +81,7 @@ void ContactListener::EndContact(b2Contact* contact) {
           //First determine which fixture is bigger. Since driveable car is always 0,
           // it will always be lower than the other fixture. Thus, based on what the
           // higher fixture's hitbox type is, we will give feedback to the lower fixture.
-          if (hitboxType1 > hitboxType2)
+          if (hitboxType1 > hitboxType2 && ObstacleHitboxIsRightLevel(static_cast<b2Body*>( bodyUserData1 )->getLevel()))
               //This assumes hitbox 2 is the driveable car.
           {
               //Determine what to do based on what type hitbox 1 is.
@@ -114,7 +100,7 @@ void ContactListener::EndContact(b2Contact* contact) {
              }
           }
           //This assumes hitbox 1 is the driveable car.
-          else
+          else if (ObstacleHitboxIsRightLevel(static_cast<b2Body*>( bodyUserData2 )->getLevel()))
           {
               //Determine what to do based on what type hitbox 2 is.
               switch (hitboxType2)
@@ -134,20 +120,6 @@ void ContactListener::EndContact(b2Contact* contact) {
 
        }
     }
-
-
-  /*
-     //GRANDFATHER CODE THAT IS HERE FOR REFERENCE IN CASE CURRENT CODE DOESN'T WORK. DELETE LATER
-  //check if fixture A is a b2Body, then decide what to do based on what kind of hitbox it is.
-  void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
-  if ( bodyUserData )
-    static_cast<b2Body*>( bodyUserData )->endGoalContact();
-
-  //check if fixture B is a b2Body, then decide what to do based on what kind of hitbox it is.
-  bodyUserData = contact->GetFixtureB()->GetBody()->GetUserData();
-  if ( bodyUserData )
-    static_cast<b2Body*>( bodyUserData )->endGoalContact();
-    */
 }
 
 bool ContactListener::IsValidCollision(int hitboxType1, int hitboxType2)
@@ -155,4 +127,9 @@ bool ContactListener::IsValidCollision(int hitboxType1, int hitboxType2)
     //Checks to see if one hit box from either fixture is a driveable car
     // and the other is anything BUT a driveable car.
     return ((hitboxType1==0 && hitboxType2 != 0) || (hitboxType1 != 0 && hitboxType2 == 0));
+}
+
+bool ObstacleHitboxIsRightLevel(int hitBoxLevel){
+
+    return true;
 }

@@ -11,6 +11,7 @@ public:
     void BeginContact(b2Contact* contact);
     void EndContact(b2Contact* contact);
     bool IsValidCollision(int hitboxType1, int hitboxType2);
+    bool ObstacleHitboxIsRightLevel(int hitBoxLevel);
 };
 
 #endif // CONTACTLISTENER_H

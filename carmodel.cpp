@@ -30,6 +30,7 @@ CarModel::CarModel(QObject *parent)
 
     setupCar();
 
+    gameLevel = 1;
     // start the main update loop
     connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
     timer.start(10);
@@ -75,8 +76,6 @@ void CarModel::setupCar()
     //for goal and hazard fixtures, they need to be declared as sensors.
     goalFixtureDef.isSensor = true;
     hazardFixtureDef.isSensor = true;
-    // goalFixtureDef.filter.categoryBits = HAZARD_HITBOX;
-    // goalFixtureDef.filter.maskBits = DRIVEABLE_CAR_HITBOX;
 
     // Set the box density to be non-zero, so it will be dynamic.
     goalFixtureDef.density = 1.0f;
@@ -104,39 +103,21 @@ void CarModel::setupCar()
     world.SetContactListener(&myContactListener);
     isParkedSuccessfully = false;
 
+
     //Creation of all the hitboxes.
     //Main center fail hitbox that fails the player if they haven't left center.
     //Steps to creating a new hitbox.
-    otherHitboxShape.SetAsBox(1.0f * 1.45, 1.0f * 5);
-    hazardBodyDef.position.Set(3, 1);
+    otherHitboxShape.SetAsBox(1.0f * 2.2, 1.0f * 8);
+    hazardBodyDef.position.Set(3.4, 0);
     hazardFixtureDef.shape = &otherHitboxShape;
     b2Body* centerHazardHitbox= world.CreateBody(&hazardBodyDef);
     centerHazardHitbox->setHitboxType(2);
     centerHazardHitbox->CreateFixture(&hazardFixtureDef);
 
 
-    //Parked Car hitbox 1. //Good
-    otherHitboxShape.SetAsBox(1.0f * 2/3, 1.0f * 1/2);
-    parkedCarBodyDef.position.Set(6.5, 3.3);
-    parkedCarFixtureDef.shape = &otherHitboxShape;
-    b2Body* parkedCar1 = world.CreateBody(&parkedCarBodyDef);
-    parkedCar1->setHitboxType(3);
-    parkedCar1->CreateFixture(&parkedCarFixtureDef);
-
-
-    //Parked Car hitbox 2. //BUGGY
-    otherHitboxShape.SetAsBox(1.0f * 2/3, 1.0f * 1/3);
-    parkedCarBodyDef.position.Set(6.4, 5.72);
-    parkedCarFixtureDef.shape = &otherHitboxShape;
-    b2Body* parkedCar2 = world.CreateBody(&parkedCarBodyDef);
-    parkedCar2->setHitboxType(3);
-    parkedCar2->CreateFixture(&parkedCarFixtureDef);
-    //b2Body* parkedCar2
-
-
-    //Goal Hitbox Right Side. //Good
+    //Goal Hitbox Right Side.
     otherHitboxShape.SetAsBox(1.0f, 1.0f * 10);
-    goalBodyDef.position.Set(7.9, 0);
+    goalBodyDef.position.Set(7, 0);
     goalFixtureDef.shape = &otherHitboxShape;
     b2Body* rightmostGoalHitbox = world.CreateBody(&goalBodyDef);
     rightmostGoalHitbox->setHitboxType(1);
@@ -144,32 +125,33 @@ void CarModel::setupCar()
 
 
     //Goal Hitbox Left Side. //Good
-    otherHitboxShape.SetAsBox(1.0f * 1/3, 1.0f * 10);
+    otherHitboxShape.SetAsBox(1.0f * 3, 1.0f * 10);
     goalBodyDef.position.Set(0, 0);
     goalFixtureDef.shape = &otherHitboxShape;
     b2Body* leftmostGoalHitbox = world.CreateBody(&goalBodyDef);
     leftmostGoalHitbox->setHitboxType(1);
     leftmostGoalHitbox->CreateFixture(& goalFixtureDef);
 
-    //Hazard hitbox left 1. // Needs work.
+
+    //Hazard hitbox left 1. //Good
     otherHitboxShape.SetAsBox(1.0f, 0.1f);
-    hazardBodyDef.position.Set(0, 1.8f);
+    hazardBodyDef.position.Set(0, 1.9f);
     hazardFixtureDef.shape = &otherHitboxShape;
     b2Body* leftHazard1Hitbox = world.CreateBody(&hazardBodyDef);
     leftHazard1Hitbox->setHitboxType(2);
     leftHazard1Hitbox->CreateFixture(&hazardFixtureDef);
 
 
-    //Hazard hitbox left 2. // Needs work
+    //Hazard hitbox left 2. //Good
     otherHitboxShape.SetAsBox(1.0f, 0.1f);
-    hazardBodyDef.position.Set(0, 1.0f * 3.6);
+    hazardBodyDef.position.Set(0, 1.0f * 3.65);
     hazardFixtureDef.shape = &otherHitboxShape;
     b2Body* leftHazard2Hitbox = world.CreateBody(&hazardBodyDef);
     leftHazard2Hitbox->setHitboxType(2);
     leftHazard2Hitbox->CreateFixture(&hazardFixtureDef);
 
 
-    //Hazard hitbox left 3. // Needs extra testing
+    //Hazard hitbox left 3. //Good
     otherHitboxShape.SetAsBox(1.0f, 0.1f);
     hazardBodyDef.position.Set(0, 1.0f * 5.35);
     hazardFixtureDef.shape = &otherHitboxShape;
@@ -178,7 +160,7 @@ void CarModel::setupCar()
     leftHazard3Hitbox->CreateFixture(&hazardFixtureDef);
 
 
-    //Hazard hitbox left 4. // Needs extra testing
+    //Hazard hitbox left 4. //Good
     otherHitboxShape.SetAsBox(1.0f, 0.1f);
     hazardBodyDef.position.Set(0, 1.0f * 7.1);
     hazardFixtureDef.shape = &otherHitboxShape;
@@ -187,18 +169,17 @@ void CarModel::setupCar()
     leftHazard4Hitbox->CreateFixture(&hazardFixtureDef);
 
 
-
-    //Hazard hitbox right 1. // Needs extra testing
-    otherHitboxShape.SetAsBox(1.0f * 3, 0.1f);
+    //Hazard hitbox right 1. //Good
+    otherHitboxShape.SetAsBox(1.0f * 3, 0.02f);
     hazardBodyDef.position.Set(5.8f, 0.84f);
     hazardFixtureDef.shape = &otherHitboxShape;
-    b2Body* rightHazard1Hitbox = world.CreateBody(&hazardBodyDef);
-    rightHazard1Hitbox->setHitboxType(2);
-    rightHazard1Hitbox->CreateFixture(&hazardFixtureDef);
+    testHitbox = world.CreateBody(&hazardBodyDef);
+    testHitbox->setHitboxType(2);
+    testHitbox->CreateFixture(&hazardFixtureDef);
+    //b2Body* rightHazard1Hitbox
 
-
-    //Hazard hitbox right 2. // Needs extra testing
-    otherHitboxShape.SetAsBox(1.0f * 3, 0.1f);
+    //Hazard hitbox right 2. //Good
+    otherHitboxShape.SetAsBox(1.0f * 3, 0.02f);
     hazardBodyDef.position.Set(5.8f, 0.84f * 2);
     hazardFixtureDef.shape = &otherHitboxShape;
     b2Body* rightHazard2Hitbox = world.CreateBody(&hazardBodyDef);
@@ -206,13 +187,37 @@ void CarModel::setupCar()
     rightHazard2Hitbox->CreateFixture(&hazardFixtureDef);
 
 
-    //Hazard hitbox right 3. // Needs extra testing
-    otherHitboxShape.SetAsBox(1.0f * 3, 0.1f);
-    hazardBodyDef.position.Set(5.8f, 0.84f * 7.85);
+    //Hazard hitbox right 3. //Good
+    otherHitboxShape.SetAsBox(1.0f * 3, 0.02f);
+    hazardBodyDef.position.Set(5.8f, 0.84f * 7.87);
     hazardFixtureDef.shape = &otherHitboxShape;
     b2Body* rightHazard3Hitbox = world.CreateBody(&hazardBodyDef);
     rightHazard3Hitbox->setHitboxType(2);
     rightHazard3Hitbox->CreateFixture(&hazardFixtureDef);
+
+
+    //Parked Cars
+
+    //Level 1
+    //Parked Car hitbox 1. //Good
+    otherHitboxShape.SetAsBox(1.0f * 2/3, 1.0f * 0.6);
+    parkedCarBodyDef.position.Set(6.5, 3.3);
+    parkedCarFixtureDef.shape = &otherHitboxShape;
+    b2Body* parkedCar1 = world.CreateBody(&parkedCarBodyDef);
+    parkedCar1->setHitboxType(3);
+    parkedCar1->setLevel(1);
+    parkedCar1->CreateFixture(&parkedCarFixtureDef);
+
+
+    //Parked Car hitbox 2. //Good
+    otherHitboxShape.SetAsBox(1.0f * 2/3, 0.5f * 1/3);
+    parkedCarBodyDef.position.Set(6.4, 5.35);
+    parkedCarFixtureDef.shape = &otherHitboxShape;
+    b2Body* parkedCar2 = world.CreateBody(&parkedCarBodyDef);
+    parkedCar2->setHitboxType(3);
+    parkedCar2->setLevel(1);
+    parkedCar2->CreateFixture(&parkedCarFixtureDef);
+
 
     // setup the car
     loadCar();
@@ -242,7 +247,7 @@ void CarModel::handleCollisions()
         isParkedSuccessfully = false;
     }
     else if (body->getGoalContactNum() > 0 && body->GetLinearVelocity().x == 0 && body->GetLinearVelocity().y == 0){
-        //qDebug() << "WIN";
+        qDebug() << "WIN";
         isParkedSuccessfully = true;
     }
 
@@ -503,4 +508,14 @@ void CarModel::loadTruck()
         body->DestroyFixture(body->GetFixtureList());
     }
     body->CreateFixture(&driveableCarFixtureDef);
+}
+
+int CarModel::getGameLevel()
+{
+    return gameLevel;
+}
+
+void CarModel::setGameLevel(int currLevel)
+{
+    gameLevel = currLevel;
 }

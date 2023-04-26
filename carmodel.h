@@ -46,6 +46,9 @@ public:
       HAZARD_HITBOX             =        0x0004,
       PARKED_CAR_HITBOX         =        0x0008,
     };
+    int gameLevel;
+    int getGameLevel();
+    void setGameLevel(int);
 
 
     // How much extra to scale the car at diagonal directions
