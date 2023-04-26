@@ -25,6 +25,7 @@ private slots:
     void failed();
     void instructionsClicked();
     void prepareToShow();
+    void checkPark();
 };
 
 #endif // LEVEL1_H

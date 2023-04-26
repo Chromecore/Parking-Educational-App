@@ -16,15 +16,14 @@ public:
     ~Level2();
 
 private slots:
+    // Lets the model know when the home button is clicked
     void homeButtonClicked();
-
-    void on_checkButton_clicked();
-
     void successfullyParked();
-
     void failed();
     void instructionsClicked();
     void prepareToShow();
+    void checkPark();
+
 private:
     Ui::Level2 *ui;
 };

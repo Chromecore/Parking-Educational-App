@@ -24,6 +24,11 @@ Level2::Level2(QWidget *parent) :
             this,
             &Level2::prepareToShow);
 
+    connect(ui->checkButton,
+            &QPushButton::clicked,
+            this,
+            &Level2::checkPark);
+
     // for temp button
     connect(ui->tempButton,
             &QPushButton::clicked,
@@ -47,12 +52,6 @@ void Level2::homeButtonClicked()
     Model::instance->goHome();
 }
 
-
-void Level2::on_checkButton_clicked()
-{
-
-}
-
 void Level2::successfullyParked()
 {
     ui->instructionsButton->hide();
@@ -73,4 +72,12 @@ void Level2::instructionsClicked()
 void Level2::prepareToShow()
 {
     ui->instructionsButton->show();
+}
+
+void Level2::checkPark()
+{
+    if (Model::instance->carModel->isParkedSuccessfully)
+        successfullyParked();
+    else
+        failed();
 }
