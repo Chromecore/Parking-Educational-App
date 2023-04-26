@@ -30,6 +30,8 @@ Car::~Car()
 
 void Car::paintEvent(QPaintEvent *)
 {
+
+    /*
     // Comment out when not drawing hitboxes.
     QPainter painterHitbox(this);
     QPixmap pixmapHitbox(100,100);
@@ -53,15 +55,15 @@ void Car::paintEvent(QPaintEvent *)
     float scaleTotal = Model::instance->carModel->positionScaler * scalerHitbox;
 
     // draw the car
-    float hitboxWidth = 1.0f * 2/3;
-    float hitboxHeight = 0.5f * 1/3;
+    float hitboxWidth = 1.0f;
+    float hitboxHeight = 1.5f;
     //QPixmap hitboxPixmap(100,100);
     //hitboxPixmap.fill(Qt::blue);
     painterHitbox.drawPixmap(QRect(xHitbox, yHitbox, scaleTotal * hitboxWidth, scaleTotal * hitboxHeight), pixmapHitbox);
     painterHitbox.end();
 
     //if(shouldDrawGizmos) drawGizmos(xHitbox, yHitbox, scaleTotal);
-
+    */
 
 
 
@@ -81,7 +83,7 @@ void Car::paintEvent(QPaintEvent *)
 
     // get the position to draw the car on the UI
     b2Vec2 position = Model::instance->carModel->getCarBody()->GetPosition();
-    //float positionScaler = Model::instance->carModel->positionScaler;
+    float positionScaler = Model::instance->carModel->positionScaler;
     float x = position.x * positionScaler + offset.x();
     float y = position.y * positionScaler + offset.y();
 

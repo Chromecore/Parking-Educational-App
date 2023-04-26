@@ -52,9 +52,11 @@ void Model::runLevel1()
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
     carModel->getCarBody()->setFailedPark(false);
+    carModel->destroyPreviousLevelHitboxes();
     carModel->setGameLevel(1);
     canDrive = true;
     curLevel = 1;
+    carModel->createLevel1ParkedCars();
     emit level1Started();
 }
 
@@ -64,9 +66,11 @@ void Model::runLevel2()
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
     carModel->getCarBody()->setFailedPark(false);
+    carModel->destroyPreviousLevelHitboxes();
     carModel->setGameLevel(2);
     canDrive = true;
     curLevel = 2;
+    carModel->createLevel2ParkedCars();
     emit level2Started();
 }
 
@@ -76,9 +80,11 @@ void Model::runLevel3()
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
     carModel->getCarBody()->setFailedPark(false);
+    carModel->destroyPreviousLevelHitboxes();
     carModel->setGameLevel(3);
     canDrive = true;
     curLevel = 3;
+    carModel->createLevel3ParkedCars();
     emit level3Started();
 }
 
@@ -88,9 +94,11 @@ void Model::runLevel4()
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
     carModel->getCarBody()->setFailedPark(false);
+    carModel->destroyPreviousLevelHitboxes();
     carModel->setGameLevel(4);
     canDrive = true;
     curLevel = 4;
+    carModel->createLevel4ParkedCars();
     emit level4Started();
 }
 
@@ -100,9 +108,11 @@ void Model::runLevel5()
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
     carModel->getCarBody()->setFailedPark(false);
+    carModel->destroyPreviousLevelHitboxes();
     carModel->setGameLevel(5);
     canDrive = true;
     curLevel = 5;
+    carModel->createLevel5ParkedCars();
     emit level5Started();
 }
 
