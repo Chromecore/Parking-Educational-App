@@ -613,3 +613,11 @@ bool b2Body::getFailedPark()
 {
     return failedPark;
 }
+
+int b2Body::getLevel()
+{
+    return levelAssignment;
+}
+void b2Body::setLevel(int level){
+    levelAssignment = level;
+}

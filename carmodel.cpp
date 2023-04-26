@@ -9,7 +9,6 @@ A8: Educational App
 #include <QDebug>
 #include <QKeyEvent>
 #include <vector>
-#include "model.h"
 
 CarModel::CarModel(QObject *parent)
     : QObject{parent},
@@ -203,20 +202,20 @@ void CarModel::setupCar()
     otherHitboxShape.SetAsBox(1.0f * 2/3, 1.0f * 0.6);
     parkedCarBodyDef.position.Set(6.5, 3.3);
     parkedCarFixtureDef.shape = &otherHitboxShape;
-    b2Body* parkedCar1 = world.CreateBody(&parkedCarBodyDef);
-    parkedCar1->setHitboxType(3);
-    parkedCar1->setLevel(1);
-    parkedCar1->CreateFixture(&parkedCarFixtureDef);
+    b2Body* parkedCar1Level1 = world.CreateBody(&parkedCarBodyDef);
+    parkedCar1Level1->setHitboxType(3);
+    parkedCar1Level1->setLevel(1);
+    parkedCar1Level1->CreateFixture(&parkedCarFixtureDef);
 
 
     //Parked Car hitbox 2. //Good
     otherHitboxShape.SetAsBox(1.0f * 2/3, 0.5f * 1/3);
     parkedCarBodyDef.position.Set(6.4, 5.35);
     parkedCarFixtureDef.shape = &otherHitboxShape;
-    b2Body* parkedCar2 = world.CreateBody(&parkedCarBodyDef);
-    parkedCar2->setHitboxType(3);
-    parkedCar2->setLevel(1);
-    parkedCar2->CreateFixture(&parkedCarFixtureDef);
+    b2Body* parkedCar2Level1 = world.CreateBody(&parkedCarBodyDef);
+    parkedCar2Level1->setHitboxType(3);
+    parkedCar2Level1->setLevel(1);
+    parkedCar2Level1->CreateFixture(&parkedCarFixtureDef);
 
 
     // setup the car
@@ -518,4 +517,5 @@ int CarModel::getGameLevel()
 void CarModel::setGameLevel(int currLevel)
 {
     gameLevel = currLevel;
+    myContactListener.setCurrLevel(currLevel);
 }

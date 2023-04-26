@@ -2,8 +2,6 @@
 #include <Box2D/Box2D.h>
 #include <QDebug>
 
-
-
 void ContactListener::BeginContact(b2Contact* contact) {
 
   //check if fixture A & fixture B are b2Body, then decide what to do based on what kind of hitbox it is.
@@ -129,7 +127,18 @@ bool ContactListener::IsValidCollision(int hitboxType1, int hitboxType2)
     return ((hitboxType1==0 && hitboxType2 != 0) || (hitboxType1 != 0 && hitboxType2 == 0));
 }
 
-bool ObstacleHitboxIsRightLevel(int hitBoxLevel){
+bool ContactListener::ObstacleHitboxIsRightLevel(int hitBoxLevel)
+{
+    return (hitBoxLevel == 0 || (hitBoxLevel == gameCurrLevel));
+    //return true;
+}
 
-    return true;
+int ContactListener::getCurrLevel()
+{
+    return gameCurrLevel;
+}
+
+void ContactListener::setCurrLevel(int currLevel)
+{
+    gameCurrLevel = currLevel;
 }
