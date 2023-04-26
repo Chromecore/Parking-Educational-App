@@ -216,7 +216,7 @@ void CarModel::handleCollisions()
         isParkedSuccessfully = false;
     }
     else if (body->getGoalContactNum() > 0 && body->GetLinearVelocity().x == 0 && body->GetLinearVelocity().y == 0){
-        qDebug() << "WIN";
+        //qDebug() << "WIN";
         isParkedSuccessfully = true;
     }
 
