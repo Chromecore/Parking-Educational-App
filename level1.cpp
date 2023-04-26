@@ -31,6 +31,11 @@ Level1::Level1(QWidget *parent) :
             this,
             &Level1::checkPark);
 
+    connect(Model::instance,
+            &Model::showLevelFailure,
+            this,
+            &Level1::hideInstructionButton);
+
     // for temp button
     connect(ui->tempButton,
             &QPushButton::clicked,
@@ -74,6 +79,11 @@ void Level1::instructionsClicked()
 void Level1::prepareToShow()
 {
     ui->instructionsButton->show();
+}
+
+void Level1::hideInstructionButton()
+{
+    ui->instructionsButton->hide();
 }
 
 void Level1::checkPark()
