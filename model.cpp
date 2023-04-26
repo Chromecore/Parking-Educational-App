@@ -48,6 +48,7 @@ void Model::goHome()
 
 void Model::runLevel1()
 {
+    carModel->loadCar();
     carModel->setCarPosition(b2Vec2(4, 4));
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
@@ -60,6 +61,7 @@ void Model::runLevel1()
 
 void Model::runLevel2()
 {
+    carModel->loadCar();
     carModel->setCarPosition(b2Vec2(4, 4));
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
@@ -72,6 +74,7 @@ void Model::runLevel2()
 
 void Model::runLevel3()
 {
+    carModel->loadCar();
     carModel->setCarPosition(b2Vec2(4, 4));
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
@@ -84,6 +87,7 @@ void Model::runLevel3()
 
 void Model::runLevel4()
 {
+    carModel->loadTruck();
     carModel->setCarPosition(b2Vec2(4, 4));
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
@@ -96,6 +100,7 @@ void Model::runLevel4()
 
 void Model::runLevel5()
 {
+    carModel->loadTruck();
     carModel->setCarPosition(b2Vec2(4, 4));
     carModel->setCarAngle(0);
     carModel->zeroOutVelocity();
@@ -186,7 +191,7 @@ void Model::runNextLevel()
 
 void Model::showInstructions(QWidget *parent)
 {
-    InstructionDialog instructions(parent);
+    InstructionDialog instructions(parent, curLevel);
 }
 
 float Model::degToRad(float degree)

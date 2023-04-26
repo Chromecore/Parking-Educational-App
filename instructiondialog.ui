@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="closeButton">
    <property name="geometry">
     <rect>
      <x>310</x>
@@ -26,7 +26,7 @@
     <string>Close</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="nextButton">
    <property name="geometry">
     <rect>
      <x>220</x>
@@ -39,7 +39,7 @@
     <string>Next</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="prevButton">
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -79,7 +79,7 @@
      <x>10</x>
      <y>70</y>
      <width>380</width>
-     <height>190</height>
+     <height>50</height>
     </rect>
    </property>
    <property name="font">
@@ -92,6 +92,19 @@
    </property>
    <property name="alignment">
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="movieLabel">
+   <property name="geometry">
+    <rect>
+     <x>75</x>
+     <y>130</y>
+     <width>250</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

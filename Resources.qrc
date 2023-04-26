@@ -12,6 +12,9 @@
         <file>Resources/failed.png</file>
         <file>Resources/Truck.png</file>
         <file>Resources/welldone.png</file>
+        <file>Resources/parallelPark.gif</file>
+        <file>Resources/backingPark.gif</file>
+        <file>Resources/perpendicularPark.gif</file>
     </qresource>
     <qresource prefix="/Dialogue">
         <file>Resources/Dialogue.txt</file>

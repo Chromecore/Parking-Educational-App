@@ -35,6 +35,10 @@ public:
     //QImage getHitboxImage();
     // Returns the scale of the car
     float getCarScale();
+    // loads the data related to the car
+    void loadCar();
+    // loads the data related to the truck
+    void loadTruck();
 
     //To Delete
     b2Body* testHitbox;
@@ -125,10 +129,7 @@ private:
     void keyRelease(QKeyEvent *event);
     // applies the input given from the main window to the car
     void applyInput();
-    // loads the data related to the car
-    void loadCar();
-    // loads the data related to the truck
-    void loadTruck();
+
 };
 
 #endif // CARMODEL_H

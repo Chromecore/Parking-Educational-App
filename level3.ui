@@ -93,7 +93,9 @@
     </rect>
    </property>
    <property name="text">
-    <string>show sucess</string>
+    <string>Temp Show
+Success
+Button</string>
    </property>
   </widget>
   <widget class="QPushButton" name="tempButton_2">
@@ -106,7 +108,9 @@
     </rect>
    </property>
    <property name="text">
-    <string>show fail</string>
+    <string>Temp Show
+Failure
+Button</string>
    </property>
   </widget>
   <widget class="QPushButton" name="instructionsButton">
