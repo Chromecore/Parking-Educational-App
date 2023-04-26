@@ -7,19 +7,19 @@ CarObstacleVertical::CarObstacleVertical(QWidget *parent) :
     ui(new Ui::CarObstacleVertical)
 {
     ui->setupUi(this);
+    //create a directory for a random car image in resources
     std::random_device dev;
     std::mt19937 rng(dev());
     std::uniform_int_distribution<std::mt19937::result_type> dist6(1,6);
     ran = dist6(rng);
+    route = ":/sprites/Resources/car" + std::to_string(ran) + ".png";
 }
 
 void CarObstacleVertical::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    std::string route = ":/sprites/Resources/car" + std::to_string(ran) + ".png";
-    int width =100, height = 115;
     QPixmap pix(route.data());
-
+    //turn the original picture 90 degrees
     QTransform tr;
     if(ran % 2)
         tr.rotate(90);
@@ -27,7 +27,7 @@ void CarObstacleVertical::paintEvent(QPaintEvent *)
         tr.rotate(270);
     pix = pix.transformed(tr);
 
-    painter.drawPixmap(QRect(0, 0, width, height), pix);
+    painter.drawPixmap(QRect(0, 0, 100, 115), pix);
     painter.end();
 }
 CarObstacleVertical::~CarObstacleVertical()

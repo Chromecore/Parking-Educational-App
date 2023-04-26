@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::CarObstacleVertical *ui;
+    std::string route;
     int ran;
 protected:
     void paintEvent(QPaintEvent *);
