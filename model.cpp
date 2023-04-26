@@ -232,4 +232,30 @@ void Model::loadDialogueToArray()
     foreach (const QString & s, dialogue)
         qDebug() << s;
     */
+
+
+    vector<QString> perpendicularSteps;
+    perpendicularSteps.push_back("Step 1: Signal intention and position the vehicle 5-6\nfeet away from the space.");
+    perpendicularSteps.push_back("Step 2: Move forward until the side view mirror is\naligned with the first pavement line.");
+    perpendicularSteps.push_back("Step 3: While driving slowly, turn the wheel sharply\nto align the vehicle parallel within the lines.");
+    perpendicularSteps.push_back("Step 4: Steer towards the target in center of space\nand straighten the wheels.");
+    perpendicularSteps.push_back("Step 5: Position the front bumper 3-6 inches from the\ncurb or end of the space.");
+    dialog.push_back(perpendicularSteps);
+
+    vector<QString> backingSteps;
+    backingSteps.push_back("Step 1: Drive forward past the intended space while\nturning the wheel away from it.");
+    backingSteps.push_back("Step 2: With the space at an angle behind your\nvehicle, begin to reverse straight toward it.");
+    backingSteps.push_back("Step 3: When the back of the vehicle has started to\nenter the space, turn the wheel to align the front of\nthe vehicle in the lines.");
+    backingSteps.push_back("Step 4: Use both side view mirrors to ensure the\nsides of the vehicle are within the lines.");
+    backingSteps.push_back("Step 5: Carefully reverse the vehicle straight back\ninto the space and stop when the back bumper is\nabout 6 inches from the curb.");
+    dialog.push_back(backingSteps);
+
+    vector<QString> parallelSteps;
+    parallelSteps.push_back("Step 1: Signal intention and drive forward past the\nintended space and stop parallel to the vehicle in\nfront about 2 feet away.");
+    parallelSteps.push_back("Step 2: Stop when the back of your vehicle is aligned\nwith the back of the vehicle in front.");
+    parallelSteps.push_back("Step 3: Start reversing and steer the front of your\nvehicle away from the vehicle in front until your\nvehicle is at a 35-40 degree angle.");
+    parallelSteps.push_back("Step 4: Stop and straighten the wheels when your\nside view mirror is in line with the rear bumper of the\nvehicle in front of the space.");
+    parallelSteps.push_back("Step 5: Continue backing slowly and turning the\nwheels in the opposite direction to swing the front of\nthe vehicle toward the curb.");
+    parallelSteps.push_back("Step 6: Stop when your vehicle when it is parallel\nto the curb and center it within the space. It should\nbe 6-18 inches from the curb.");
+    dialog.push_back(parallelSteps);
 }

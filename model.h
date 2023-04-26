@@ -12,6 +12,9 @@ A8: Educational App
 #include "carmodel.h"
 #include "mainwindow.h"
 #include "welcomescreen.h"
+#include <vector>
+
+using std::vector;
 
 class Model : public QObject
 {
@@ -31,7 +34,9 @@ public:
     static float degToRad(float deg);
 
     //Dialogue array to be used for pop up text boxes.
-    QVector<QString> dialogue;
+    QVector<QString> dialogue; 
+
+    vector<vector<QString>> dialog;
 
     static float PI;
 

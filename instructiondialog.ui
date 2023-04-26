@@ -13,23 +13,23 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="closeButton">
+  <widget class="QPushButton" name="controlsButton">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>130</x>
      <y>270</y>
      <width>80</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Close</string>
+    <string>Controls</string>
    </property>
   </widget>
   <widget class="QPushButton" name="nextButton">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>310</x>
      <y>270</y>
      <width>80</width>
      <height>20</height>
@@ -42,7 +42,7 @@
   <widget class="QPushButton" name="prevButton">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>220</x>
      <y>270</y>
      <width>80</width>
      <height>20</height>
@@ -58,12 +58,12 @@
      <x>10</x>
      <y>10</y>
      <width>380</width>
-     <height>50</height>
+     <height>35</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>24</pointsize>
+     <pointsize>22</pointsize>
     </font>
    </property>
    <property name="text">
@@ -73,13 +73,13 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="stepLabel">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>70</y>
+     <y>55</y>
      <width>380</width>
-     <height>50</height>
+     <height>65</height>
     </rect>
    </property>
    <property name="font">
@@ -107,6 +107,53 @@
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="controlsLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>380</width>
+     <height>250</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>18</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Controls
+W:  drive forward
+A:  turn left
+S:  drive backward
+D:  turn right
+Enter/Return:  brake</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="backButton">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>270</y>
+     <width>80</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Back</string>
+   </property>
+  </widget>
+  <zorder>backButton</zorder>
+  <zorder>controlsButton</zorder>
+  <zorder>nextButton</zorder>
+  <zorder>prevButton</zorder>
+  <zorder>titleLabel</zorder>
+  <zorder>stepLabel</zorder>
+  <zorder>movieLabel</zorder>
+  <zorder>controlsLabel</zorder>
  </widget>
  <resources/>
  <connections/>

@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QMovie>
+#include <vector>
 
 namespace Ui {
 class InstructionDialog;
@@ -19,10 +20,19 @@ public:
 private:
     Ui::InstructionDialog *ui;
     QMovie* movie;
+    std::vector<QString> instructions;
+    int stepIndex;
 
-    void showParallelParkGif();
-    void showBackingParkGif();
-    void showPerpendicularParkGif();
+    void showParallelTips();
+    void showBackingTips();
+    void showPerpendicularTips();
+
+private slots:
+    void showControls();
+    void hideControls();
+    void previousStep();
+    void nextStep();
+
 };
 
 #endif // INSTRUCTIONDIALOG_H
