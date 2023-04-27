@@ -22,8 +22,11 @@ public:
     ~SuccessScreen();
 
 private slots:
+    //displays home screen
     void homeButtonClicked();
+    //restarts level
     void retryClicked();
+    //starts next level
     void nextLevelClicked();
 
 private:
