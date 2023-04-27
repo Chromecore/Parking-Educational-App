@@ -16,6 +16,7 @@ InstructionDialog::InstructionDialog(QWidget *parent, int levelNum) :
     ui->setupUi(this);
     hideControls();
     ui->prevButton->setDisabled(true);
+    this->setWindowTitle("Instructions");
 
     connect(ui->controlsButton,
             &QPushButton::clicked,
