@@ -432,7 +432,7 @@ void CarModel::loadCar()
     driveSpeed = 1;
     reverseSpeed = 1;
     sideVelocityMultiplyer = 0.2f;
-    turnDriveRelationship = 2;
+    turnDriveRelationship = 1.5;
 
     b2PolygonShape driveableCarBox;
     driveableCarBox.SetAsBox(0.5f, 0.25f);
