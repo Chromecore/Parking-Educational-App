@@ -55,8 +55,8 @@ void Car::paintEvent(QPaintEvent *)
     float scaleTotal = Model::instance->carModel->positionScaler * scalerHitbox;
 
     // draw the car
-    float hitboxWidth = 1.0f;
-    float hitboxHeight = 1.5f;
+    float hitboxWidth = 1.0f * 3;
+    float hitboxHeight = 0.02f;
     //QPixmap hitboxPixmap(100,100);
     //hitboxPixmap.fill(Qt::blue);
     painterHitbox.drawPixmap(QRect(xHitbox, yHitbox, scaleTotal * hitboxWidth, scaleTotal * hitboxHeight), pixmapHitbox);
