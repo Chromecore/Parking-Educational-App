@@ -21,6 +21,7 @@ private slots:
 
 private:
     Ui::WelcomeScreen *ui;
+    QMovie* movie;
 };
 
 #endif // WELCOMESCREEN_H
