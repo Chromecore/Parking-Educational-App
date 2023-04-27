@@ -209,7 +209,7 @@ float Model::degToRad(float degree)
     return PI * (180 - degree) / 180;
 }
 
-void Model::LoadDialogToArray()
+void Model::loadDialogToArray()
 {
     vector<QString> perpendicularSteps;
     perpendicularSteps.push_back("Step 1: Signal intention and position the vehicle 5-6\nfeet away from the space.");

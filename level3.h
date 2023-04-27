@@ -19,7 +19,9 @@ class Level3 : public QWidget
     Q_OBJECT
 
 public:
+    // Constructs Level3 widget
     explicit Level3(QWidget *parent = nullptr);
+    // Destructs Level3 widget
     ~Level3();
 
 private slots:

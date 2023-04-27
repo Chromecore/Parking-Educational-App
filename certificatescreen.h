@@ -25,9 +25,9 @@ public:
     ~CertificateScreen();
 
 private slots:
-    //displays homescreen
+    // Notifies model to go to welcome screen
     void homeButtonClicked();
-    //if all levels are complete shows final certifcate
+    // If all levels are complete shows final certifcate
     void showTutorialComplete(bool allLevelsComplete);
 
 private:

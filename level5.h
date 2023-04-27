@@ -19,7 +19,9 @@ class Level5 : public QWidget
     Q_OBJECT
 
 public:
+    // Constructs Level5 widget
     explicit Level5(QWidget *parent = nullptr);
+    // Destructs Level5 widget
     ~Level5();
 
 private:

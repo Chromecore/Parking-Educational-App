@@ -36,7 +36,7 @@ public:
     // converts degrees to radians
     static float degToRad(float deg);
     // Loads dialog to the matrix
-    void LoadDialogToArray();
+    void loadDialogToArray();
 
     // Dialog matrix to be used for pop up text boxes.
     vector<vector<QString>> dialog;
