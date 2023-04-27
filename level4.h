@@ -13,6 +13,7 @@ namespace Ui {
 class Level4;
 }
 
+// Level widget for level four, perpendicular parking a truck
 class Level4 : public QWidget
 {
     Q_OBJECT
@@ -25,19 +26,19 @@ private:
     Ui::Level4 *ui;
 
 private slots:
-    // Lets the model know when the home button is clicked
+    // Lets the model know when the home button is clicked to display home screen
     void homeButtonClicked();
-    //shows successful park overlay
+    // Tells model that the user parked successfully
     void successfullyParked();
-    //shows failed parked overlay
+    // Tells model the user failed to park
     void failed();
-    //shows instructions
+    // Tells model to show parking instructions
     void instructionsClicked();
-    //displays instructions button
+    // Shows instructions button
     void prepareToShow();
-    //shows failed of sucess screen based on whether or no parked correctly
+    // Checks whether the user parked correctly and notifies the model
     void checkPark();
-    //hides instruction button
+    // Hides instruction button
     void hideInstructionButton();
 };
 

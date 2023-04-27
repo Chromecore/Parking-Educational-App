@@ -13,12 +13,15 @@ namespace Ui {
 class Level1;
 }
 
+// Level widget for level one, perpendicular parking car
 class Level1 : public QWidget
 {
     Q_OBJECT
 
 public:
+    // Constructs Level1 widget
     explicit Level1(QWidget *parent = nullptr);
+    // Destructs Level1 widget
     ~Level1();
 
 private:
@@ -27,17 +30,17 @@ private:
 private slots:
     // Lets the model know when the home button is clicked to display home screen
     void homeButtonClicked();
-    //shows successful park overlay
+    // Tells model that the user parked successfully
     void successfullyParked();
-    //shows failed parked overlay
+    // Tells model the user failed to park
     void failed();
-    //shows instructions
+    // Tells model to show parking instructions
     void instructionsClicked();
-    //displays instructions button
+    // Shows instructions button
     void prepareToShow();
-    //shows failed of sucess screen based on whether or no parked correctly
+    // Checks whether the user parked correctly and notifies the model
     void checkPark();
-    //hides instruction button
+    // Hides instruction button
     void hideInstructionButton();
 };
 

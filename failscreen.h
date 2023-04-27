@@ -13,18 +13,21 @@ namespace Ui {
 class FailScreen;
 }
 
+// Widget that shows you failed the level
 class FailScreen : public QWidget
 {
     Q_OBJECT
 
 public:
+    // Constructs fail screen widget
     explicit FailScreen(QWidget *parent = nullptr);
+    // Destructs fail screen widget
     ~FailScreen();
 
 private slots:
-    //displays home screen
+    // Notifies model to go to welcome screen
     void homeButtonClicked();
-    //restarts level
+    // Notifies model to restart level
     void retryClicked();
 
 private:

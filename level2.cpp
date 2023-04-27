@@ -39,18 +39,6 @@ Level2::Level2(QWidget *parent) :
             &Model::showLevelFailure,
             this,
             &Level2::hideInstructionButton);
-
-    // for temp button
-    connect(ui->tempButton,
-            &QPushButton::clicked,
-            this,
-            &Level2::successfullyParked);
-
-    // for temp button
-    connect(ui->tempButton_2,
-            &QPushButton::clicked,
-            this,
-            &Level2::failed);
 }
 
 Level2::~Level2()

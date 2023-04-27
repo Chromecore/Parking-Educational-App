@@ -13,20 +13,23 @@ namespace Ui {
 class SuccessScreen;
 }
 
+// Widget showing the user passed a level
 class SuccessScreen : public QWidget
 {
     Q_OBJECT
 
 public:
+    // Constructs success screen widget
     explicit SuccessScreen(QWidget *parent = nullptr);
+    // Destructs success screen widget
     ~SuccessScreen();
 
 private slots:
-    //displays home screen
+    // Notifies model to go to welcomes screen
     void homeButtonClicked();
-    //restarts level
+    // Notifies model to restart the level
     void retryClicked();
-    //starts next level
+    // Notifies model to move to next level
     void nextLevelClicked();
 
 private:

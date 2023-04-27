@@ -13,16 +13,21 @@ namespace Ui {
 class WelcomeScreen;
 }
 
+// Home screen widget for the app
 class WelcomeScreen : public QWidget
 {
     Q_OBJECT
 
 public:
+    // Constructs the welcome screen widget
     explicit WelcomeScreen(QWidget *parent = nullptr);
+    // Destructs teh welcome screen widget
     ~WelcomeScreen();
 
 private slots:
+    // Notifies the model to start the tutorial
     void onStartButtonClicked();
+    // Notifies the model to show level select screen
     void onLevelSelectClicked();
 
 private:

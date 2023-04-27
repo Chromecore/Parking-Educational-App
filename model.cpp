@@ -18,7 +18,7 @@ float Model::PI = acos(-1.0);
 Model::Model(QObject *parent)
     : QObject{parent}
 {
-    loadDialogueToArray();
+    loadDialogToArray();
 
     curLevel = 0;
     numLevels = 5;
@@ -209,31 +209,8 @@ float Model::degToRad(float degree)
     return PI * (180 - degree) / 180;
 }
 
-void Model::loadDialogueToArray()
+void Model::LoadDialogToArray()
 {
-    //Do not change from directory. Dialogue can be added into the file, deleted, etc. so long as the file maintains its structure.
-    QString filepath = ":/Dialogue/Resources/Dialogue.txt";
-    QFile fileObj(filepath);
-    fileObj.open(QIODevice::ReadOnly | QIODevice::Text);
-    QByteArray jsonData = fileObj.readAll();
-    fileObj.close();
-
-    QJsonDocument document = QJsonDocument::fromJson(jsonData);
-    QJsonObject object = document.object();
-
-    QJsonValue value = object.value("Dialogue");
-    QJsonArray array = value.toArray();
-    foreach (const QJsonValue & v, array)
-    {
-        QString line = v.toString();
-        dialogue.append(line);
-    }
-    /*
-    foreach (const QString & s, dialogue)
-        qDebug() << s;
-    */
-
-
     vector<QString> perpendicularSteps;
     perpendicularSteps.push_back("Step 1: Signal intention and position the vehicle 5-6\nfeet away from the space.");
     perpendicularSteps.push_back("Step 2: Move forward until the side view mirror is\naligned with the first pavement line.");
