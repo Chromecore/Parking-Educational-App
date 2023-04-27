@@ -26,8 +26,8 @@ CarModel::CarModel(QObject *parent)
             this,
             &CarModel::keyRelease);
 
-
     setupCar();
+    setupColliders();
 
     gameLevel = 0;
     // start the main update loop
@@ -37,23 +37,41 @@ CarModel::CarModel(QObject *parent)
 
 void CarModel::setupCar()
 {
-    //hitBoxImage.load(":/sprites/Resources/Frame.png");
-    //hitBoxImage = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    // Define the dynamic body. We set its position and call the body factory.
+    b2BodyDef driveableCarBodyDef;
+    driveableCarBodyDef.type = b2_dynamicBody;
+    driveableCarBodyDef.position.Set(4, 4);
 
+    // assign car's body.
+    body = world.CreateBody(&driveableCarBodyDef);
+    body ->setFailedPark(false);
+
+    setCarAngle(0);
+
+    // start the main update loop
+    connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
+    timer.start(10);
+
+
+    // setup the car
+    loadCar();
+    float size = screenWidth / sqrt(2);
+    image = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+}
+
+void CarModel::setupColliders()
+{
     // sets up all body definitions and fixtures for hitboxes. 0 is driveable car,
     // 1 is the goal hitbox, 2 is the not intangible hitbox (think yellow lines)
     // 3 is tangible hitboxes (think parked cars)
 
     // Define the dynamic body. We set its position and call the body factory.
-    b2BodyDef driveableCarBodyDef;
     b2BodyDef goalBodyDef;
     b2BodyDef hazardBodyDef;
 
-    driveableCarBodyDef.type = b2_dynamicBody;
     goalBodyDef.type = b2_staticBody;
     hazardBodyDef.type = b2_staticBody;
 
-    driveableCarBodyDef.position.Set(4, 4);
     goalBodyDef.position.Set(1, 1);
     hazardBodyDef.position.Set(2, 1);
 
@@ -79,22 +97,10 @@ void CarModel::setupCar()
     goalFixtureDef.friction = 1.0f;
     hazardFixtureDef.friction = 1.0f;
 
-
-    //assign car's body.
-    body = world.CreateBody(&driveableCarBodyDef);
-    body ->setFailedPark(false);
-
-    setCarAngle(0);
-
-    // start the main update loop
-    connect(&timer, &QTimer::timeout, this, &CarModel::updateWorld);
-    timer.start(10);
-
     // set up Collision Testing
     body->SetUserData( body );
     world.SetContactListener(&myContactListener);
     isParkedSuccessfully = false;
-
 
     //Creation of all the hitboxes.
     //Main center fail hitbox that fails the player if they haven't left center.
@@ -106,7 +112,6 @@ void CarModel::setupCar()
     centerHazardHitbox->setHitboxType(2);
     centerHazardHitbox->CreateFixture(&hazardFixtureDef);
 
-
     //Goal Hitbox Right Side.
     otherHitboxShape.SetAsBox(1.0f, 1.0f * 10);
     goalBodyDef.position.Set(7, 0);
@@ -115,8 +120,7 @@ void CarModel::setupCar()
     rightmostGoalHitbox->setHitboxType(1);
     rightmostGoalHitbox->CreateFixture(& goalFixtureDef);
 
-
-    //Hazard hitbox right 1. //Good
+    //Hazard hitbox right 1.
     otherHitboxShape.SetAsBox(1.0f * 3, 0.02f);
     hazardBodyDef.position.Set(5.8f, 0.84f);
     hazardFixtureDef.shape = &otherHitboxShape;
@@ -124,8 +128,7 @@ void CarModel::setupCar()
     rightHazard1Hitbox->setHitboxType(2);
     rightHazard1Hitbox->CreateFixture(&hazardFixtureDef);
 
-
-    //Hazard hitbox right 2. //Good
+    //Hazard hitbox right 2.
     otherHitboxShape.SetAsBox(1.0f * 3, 0.02f);
     hazardBodyDef.position.Set(5.8f, 0.75f * 2);
     hazardFixtureDef.shape = &otherHitboxShape;
@@ -133,20 +136,13 @@ void CarModel::setupCar()
     rightHazard2Hitbox->setHitboxType(2);
     rightHazard2Hitbox->CreateFixture(&hazardFixtureDef);
 
-
-    //Hazard hitbox right 3. //Good
+    //Hazard hitbox right 3.
     otherHitboxShape.SetAsBox(1.0f * 3, 0.02f);
     hazardBodyDef.position.Set(5.8f, 0.84f * 7.8f);
     hazardFixtureDef.shape = &otherHitboxShape;
     b2Body* rightHazard3Hitbox = world.CreateBody(&hazardBodyDef);
     rightHazard3Hitbox->setHitboxType(2);
     rightHazard3Hitbox->CreateFixture(&hazardFixtureDef);
-
-
-    // setup the car
-    loadCar();
-    float size = screenWidth / sqrt(2);
-    image = image.scaled(size, size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }
 
 void CarModel::updateWorld()
@@ -179,7 +175,6 @@ void CarModel::handleCollisions()
     if (body->getFailedPark() && Model::instance->canDrive){
         Model::instance->failedPark();
     }
-
 }
 
 void CarModel::handleDrifting()
@@ -361,11 +356,6 @@ b2Body* CarModel::getCarBody()
     return body;
 }
 
-b2Body* CarModel::getTestHitbox()
-{
-    return testHitbox;
-}
-
 QImage CarModel::getCarImage()
 {
     return image;
@@ -455,8 +445,6 @@ void CarModel::createLevel1ParkedCars()
     parkedCarFixtureDef.shape = &otherHitboxShape;
     parkedCarFixtureDef.density = 1.0f;
     parkedCarFixtureDef.friction = 1.0f;
-
-
 
 
     //Parked Car hitbox 1. //Good
@@ -676,6 +664,7 @@ void CarModel::destroyLevel3ParkedCars()
        numOfCarHitboxesToDelete--;
     }
 }
+
 void CarModel::createLevel4ParkedCars()
 {
     b2BodyDef parkedCarBodyDef;
@@ -697,6 +686,7 @@ void CarModel::createLevel4ParkedCars()
     parkedCar1Level4->setLevel(4);
     parkedCar1Level4->CreateFixture(&parkedCarFixtureDef);
 }
+
 void CarModel::destroyLevel4ParkedCars()
 {
     int numOfCarHitboxesToDelete = 1;
@@ -707,6 +697,7 @@ void CarModel::destroyLevel4ParkedCars()
        numOfCarHitboxesToDelete--;
     }
 }
+
 void CarModel::createLevel5ParkedCars()
 {
     b2BodyDef parkedCarBodyDef;
@@ -785,11 +776,12 @@ void CarModel::destroyPreviousLevelHitboxes()
 {
     switch (gameLevel)
     {
-    case 0: break;
-    case 1: destroyLevel1ParkedCars(); break;
-    case 2: destroyLevel2ParkedCars(); break;
-    case 3: destroyLevel3ParkedCars(); break;
-    case 4: destroyLevel4ParkedCars(); break;
-    case 5: destroyLevel5ParkedCars(); break;
+        case 0: break;
+        case 1: destroyLevel1ParkedCars(); break;
+        case 2: destroyLevel2ParkedCars(); break;
+        case 3: destroyLevel3ParkedCars(); break;
+        case 4: destroyLevel4ParkedCars(); break;
+        case 5: destroyLevel5ParkedCars(); break;
+        default: break;
     }
 }

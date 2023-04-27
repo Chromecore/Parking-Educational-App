@@ -40,10 +40,7 @@ public:
     // loads the data related to the truck
     void loadTruck();
 
-    //To Delete
-    b2Body* testHitbox;
-
-    //Added for Collision
+    // added for Collision
     enum _entityCategory {
       DRIVEABLE_CAR_HITBOX      =        0x0001,
       GOAL_HITBOX               =        0x0002,
@@ -66,7 +63,7 @@ public:
     void destroyLevel5ParkedCars();
 
 
-    // How much extra to scale the car at diagonal directions
+    // how much extra to scale the car at diagonal directions
     const float scalerAt45Deg = 0.38f;
     // how much to scale the Box2D positions into the UI positions
     const float positionScaler = 80;
@@ -142,7 +139,6 @@ private:
     void keyRelease(QKeyEvent *event);
     // applies the input given from the main window to the car
     void applyInput();
-
 };
 
 #endif // CARMODEL_H
