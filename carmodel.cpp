@@ -99,7 +99,7 @@ void CarModel::setupCar()
     //Creation of all the hitboxes.
     //Main center fail hitbox that fails the player if they haven't left center.
     //Steps to creating a new hitbox.
-    otherHitboxShape.SetAsBox(1.0f * 2.2, 1.0f * 8);
+    otherHitboxShape.SetAsBox(1.0f * 1.7, 1.0f * 8);
     hazardBodyDef.position.Set(3.4, 0);
     hazardFixtureDef.shape = &otherHitboxShape;
     b2Body* centerHazardHitbox= world.CreateBody(&hazardBodyDef);
@@ -136,7 +136,7 @@ void CarModel::setupCar()
 
     //Hazard hitbox right 3. //Good
     otherHitboxShape.SetAsBox(1.0f * 3, 0.02f);
-    hazardBodyDef.position.Set(5.8f, 0.84f * 7.87);
+    hazardBodyDef.position.Set(5.8f, 0.84f * 7.8f);
     hazardFixtureDef.shape = &otherHitboxShape;
     b2Body* rightHazard3Hitbox = world.CreateBody(&hazardBodyDef);
     rightHazard3Hitbox->setHitboxType(2);
@@ -689,8 +689,8 @@ void CarModel::createLevel4ParkedCars()
 
 
     //Parked Car hitbox 1. //Good
-    otherHitboxShape.SetAsBox(1.0f, 1.0f * 6.5);
-    parkedCarBodyDef.position.Set(6.0f, 0);
+    otherHitboxShape.SetAsBox(1.0f, 1.0f * 5.5f);
+    parkedCarBodyDef.position.Set(7.0f, 0);
     parkedCarFixtureDef.shape = &otherHitboxShape;
     b2Body* parkedCar1Level4 = world.CreateBody(&parkedCarBodyDef);
     parkedCar1Level4->setHitboxType(3);
@@ -739,8 +739,8 @@ void CarModel::createLevel5ParkedCars()
 
 
     //Parked Car hitbox 2. //Good
-    otherHitboxShape.SetAsBox(1.0f, 1.5f);
-    parkedCarBodyDef.position.Set(-0.05, 0);
+    otherHitboxShape.SetAsBox(0.20f, 1.5f);
+    parkedCarBodyDef.position.Set(0, 0);
     parkedCarFixtureDef.shape = &otherHitboxShape;
     b2Body* parkedCar2Level5 = world.CreateBody(&parkedCarBodyDef);
     parkedCar2Level5->setHitboxType(3);
@@ -750,8 +750,8 @@ void CarModel::createLevel5ParkedCars()
 
 
     //Parked Car hitbox 3. //Good
-    otherHitboxShape.SetAsBox(1.0f, 0.75f);
-    parkedCarBodyDef.position.Set(-0.05, 3.3);
+    otherHitboxShape.SetAsBox(0.20f, 0.75f);
+    parkedCarBodyDef.position.Set(0, 3.3);
     parkedCarFixtureDef.shape = &otherHitboxShape;
     b2Body* parkedCar3Level5 = world.CreateBody(&parkedCarBodyDef);
     parkedCar3Level5->setHitboxType(3);
