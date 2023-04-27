@@ -1,3 +1,9 @@
+/*
+Coleman Cook, Jack Koster, Jonathan Mercado, Tayin Wallace
+CS 3505
+A8: Educational App
+*/
+
 #include "certificatescreen.h"
 #include "ui_certificatescreen.h"
 #include "model.h"

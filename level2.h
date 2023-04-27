@@ -1,3 +1,9 @@
+/*
+Coleman Cook, Jack Koster, Jonathan Mercado, Tayin Wallace
+CS 3505
+A8: Educational App
+*/
+
 #ifndef LEVEL2_H
 #define LEVEL2_H
 

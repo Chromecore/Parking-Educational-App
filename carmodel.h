@@ -31,13 +31,11 @@ public:
     b2Body* getTestHitbox();
     // Returns the image used to display the car
     QImage getCarImage();
-    // Returns the image used to display the hitboxes
-    //QImage getHitboxImage();
     // Returns the scale of the car
     float getCarScale();
-    // loads the data related to the car
+    // Loads the data related to the car
     void loadCar();
-    // loads the data related to the truck
+    // Loads the data related to the truck
     void loadTruck();
 
     // added for Collision
@@ -48,20 +46,32 @@ public:
       PARKED_CAR_HITBOX         =        0x0008,
     };
     int gameLevel;
+    // Gets the current level of the game
     int getGameLevel();
+    // Sets the current game level to the passed in int
     void setGameLevel(int);
+    // Destroyes the hitboxes from the previous level
     void destroyPreviousLevelHitboxes();
+    // Creates the level 1 hitboxes
     void createLevel1ParkedCars();
+    // Destroyes the level 1 hitboxes
     void destroyLevel1ParkedCars();
+    // Creates the level 2 hitboxes
     void createLevel2ParkedCars();
+    // Destroyes the level 2 hitboxes
     void destroyLevel2ParkedCars();
+    // Creates the level 3 hitboxes
     void createLevel3ParkedCars();
+    // Destroyes the level 3 hitboxes
     void destroyLevel3ParkedCars();
+    // Creates the level 4 hitboxes
     void createLevel4ParkedCars();
+    // Destroyes the level 4 hitboxes
     void destroyLevel4ParkedCars();
+    // Creates the level 5 hitboxes
     void createLevel5ParkedCars();
+    // Destroyes the level 5 hitboxes
     void destroyLevel5ParkedCars();
-
 
     // how much extra to scale the car at diagonal directions
     const float scalerAt45Deg = 0.38f;
