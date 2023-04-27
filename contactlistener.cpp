@@ -6,15 +6,12 @@ A8: Educational App
 
 #include "contactlistener.h"
 #include <Box2D/Box2D.h>
-#include <QDebug>
 
 void ContactListener::BeginContact(b2Contact* contact) {
 
   //check if fixture A & fixture B are b2Body, then decide what to do based on what kind of hitbox it is.
   void* bodyUserData1 = contact->GetFixtureA()->GetBody();
   void* bodyUserData2 = contact->GetFixtureB()->GetBody();
-  //if ( bodyUserData1) qDebug()<< "Found Fixture One";
-  //if ( bodyUserData2) qDebug()<< "Found Fixture Two";
   if ( bodyUserData1 && bodyUserData2 )
   {
      int hitboxType1 = static_cast<b2Body*>( bodyUserData1 )->getHitboxType();
@@ -74,8 +71,6 @@ void ContactListener::EndContact(b2Contact* contact) {
     //check if fixture A & fixture B are b2Body, then decide what to do based on what kind of hitbox it is.
     void* bodyUserData1 = contact->GetFixtureA()->GetBody();
     void* bodyUserData2 = contact->GetFixtureB()->GetBody();
-    //if ( bodyUserData1) qDebug()<< "Left Fixture One";
-    //if ( bodyUserData2) qDebug()<< "Left Fixture Two";
     if ( bodyUserData1 && bodyUserData2 )
     {
        int hitboxType1 = static_cast<b2Body*>( bodyUserData1 )->getHitboxType();
@@ -136,7 +131,6 @@ bool ContactListener::IsValidCollision(int hitboxType1, int hitboxType2)
 bool ContactListener::ObstacleHitboxIsRightLevel(int hitBoxLevel)
 {
     return (hitBoxLevel == 0 || (hitBoxLevel == gameCurrLevel));
-    //return true;
 }
 
 int ContactListener::getCurrLevel()

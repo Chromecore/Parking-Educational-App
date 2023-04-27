@@ -13,10 +13,12 @@ A8: Educational App
 #include <QWidget>
 #include "contactlistener.h"
 
+// Model class for the car
 class CarModel : public QObject
 {
     Q_OBJECT
 public:
+    // Constructs a car model
     explicit CarModel(QObject *parent = nullptr);
 
     // Sets the position of the car

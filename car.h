@@ -14,12 +14,16 @@ A8: Educational App
 namespace Ui {
 class Car;
 }
+
+// View class for the car
 class Car : public QWidget
 {
     Q_OBJECT
 
 public:
+    // Constructs car widget
     explicit Car(QWidget *parent = nullptr);
+    // Destructs car widget
     ~Car();
 
 private:

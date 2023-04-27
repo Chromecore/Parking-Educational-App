@@ -6,7 +6,6 @@ A8: Educational App
 
 #include "carmodel.h"
 #include "model.h"
-#include <QDebug>
 #include <QKeyEvent>
 #include <vector>
 
@@ -14,7 +13,7 @@ CarModel::CarModel(QObject *parent)
     : QObject{parent},
       world(b2Vec2(0.0f, 0.0f)),
       timer(this),
-      image("")
+      image(":/sprites/Resources/car2.png")
 {
     connect(Model::instance,
             &Model::keyPressed,
@@ -163,11 +162,9 @@ void CarModel::handleCollisions()
 {
     // win condition
     if (body->getHazardContactNum() > 0 ){
-        //qDebug() << "LOSE";
         isParkedSuccessfully = false;
     }
     else if (body->getGoalContactNum() > 0 && body->GetLinearVelocity().x == 0 && body->GetLinearVelocity().y == 0){
-        //qDebug() << "WIN";
         isParkedSuccessfully = true;
     }
 

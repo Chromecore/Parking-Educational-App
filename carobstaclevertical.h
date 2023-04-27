@@ -13,12 +13,15 @@ namespace Ui {
 class CarObstacleVertical;
 }
 
+// Widget for static vertical car obstacle
 class CarObstacleVertical : public QWidget
 {
     Q_OBJECT
 
 public:
+    // Constructs a vertical car obstacle
     explicit CarObstacleVertical(QWidget *parent = nullptr);
+    // Destructs the vertical car obstacle
     ~CarObstacleVertical();
 
 private:
