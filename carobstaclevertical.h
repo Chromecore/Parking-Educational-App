@@ -26,6 +26,7 @@ private:
     std::string route;
     int ran;
 protected:
+    //paints car
     void paintEvent(QPaintEvent *);
 };
 

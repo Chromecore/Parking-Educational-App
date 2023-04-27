@@ -22,7 +22,9 @@ public:
     ~FailScreen();
 
 private slots:
+    //displays home screen
     void homeButtonClicked();
+    //restarts level
     void retryClicked();
 
 private:

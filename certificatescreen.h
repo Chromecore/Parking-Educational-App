@@ -22,7 +22,9 @@ public:
     ~CertificateScreen();
 
 private slots:
+    //displays homescreen
     void homeButtonClicked();
+    //if all levels are complete shows final certifcate
     void showTutorialComplete(bool allLevelsComplete);
 
 private:

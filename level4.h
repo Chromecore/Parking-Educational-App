@@ -27,11 +27,17 @@ private:
 private slots:
     // Lets the model know when the home button is clicked
     void homeButtonClicked();
+    //shows successful park overlay
     void successfullyParked();
+    //shows failed parked overlay
     void failed();
+    //shows instructions
     void instructionsClicked();
+    //displays instructions button
     void prepareToShow();
+    //shows failed of sucess screen based on whether or no parked correctly
     void checkPark();
+    //hides instruction button
     void hideInstructionButton();
 };
 

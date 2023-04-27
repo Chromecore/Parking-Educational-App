@@ -25,13 +25,19 @@ private:
     Ui::Level1 *ui;
 
 private slots:
-    // Lets the model know when the home button is clicked
+    // Lets the model know when the home button is clicked to display home screen
     void homeButtonClicked();
+    //shows successful park overlay
     void successfullyParked();
+    //shows failed parked overlay
     void failed();
+    //shows instructions
     void instructionsClicked();
+    //displays instructions button
     void prepareToShow();
+    //shows failed of sucess screen based on whether or no parked correctly
     void checkPark();
+    //hides instruction button
     void hideInstructionButton();
 };
 

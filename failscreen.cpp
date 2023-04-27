@@ -13,6 +13,7 @@ FailScreen::FailScreen(QWidget *parent) :
     ui(new Ui::FailScreen)
 {
     ui->setupUi(this);
+    //draw fail picture
     QPixmap pixmap(":/sprites/Resources/failed.png");
     ui->label->setPixmap(pixmap.scaled(400, 400));
 

@@ -26,6 +26,7 @@ private:
     Ui::CarObstacle *ui;
     std::string route;
 protected:
+    //paints the car obstacle
     void paintEvent(QPaintEvent *);
 };
 
