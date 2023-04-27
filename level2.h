@@ -23,6 +23,7 @@ private slots:
     void instructionsClicked();
     void prepareToShow();
     void checkPark();
+    void hideInstructionButton();
 
 private:
     Ui::Level2 *ui;

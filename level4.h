@@ -26,6 +26,7 @@ private slots:
     void instructionsClicked();
     void prepareToShow();
     void checkPark();
+    void hideInstructionButton();
 };
 
 #endif // LEVEL4_H
