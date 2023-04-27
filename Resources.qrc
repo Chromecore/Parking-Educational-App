@@ -15,6 +15,7 @@
         <file>Resources/parallelPark.gif</file>
         <file>Resources/backingPark.gif</file>
         <file>Resources/perpendicularPark.gif</file>
+        <file>Resources/badParking.gif</file>
     </qresource>
     <qresource prefix="/Dialogue">
         <file>Resources/Dialogue.txt</file>

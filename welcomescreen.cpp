@@ -1,12 +1,18 @@
 #include "welcomescreen.h"
 #include "ui_welcomescreen.h"
 #include "model.h"
+#include <QMovie>
 
 WelcomeScreen::WelcomeScreen(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WelcomeScreen)
 {
     ui->setupUi(this);
+
+    movie = new QMovie(":/sprites/Resources/badParking.gif");
+    movie->setScaledSize(ui->movieLabel->size());
+    ui->movieLabel->setMovie(movie);
+    movie->start();
 
     connect(ui->startButton,
             &QPushButton::clicked,
@@ -22,6 +28,7 @@ WelcomeScreen::WelcomeScreen(QWidget *parent) :
 WelcomeScreen::~WelcomeScreen()
 {
     delete ui;
+    delete movie;
 }
 
 void WelcomeScreen::onStartButtonClicked()
